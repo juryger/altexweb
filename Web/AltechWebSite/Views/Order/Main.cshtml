@@ -1,0 +1,204 @@
+﻿@model IEnumerable<OrderDetail>
+@using Altech.Core.Models;
+@using Altech.WebSite.Models;
+@using System.Globalization;
+
+
+@{
+    ViewBag.Title = "Заказ";
+}
+
+<script type="text/javascript">
+    window.onresize = OnWindowResized;
+    window.onload = OnWindowLoaded;
+
+    function OnWindowLoaded() {
+        OnWindowResized();
+
+        if ('@ViewBag.SearchText' != '')
+            $('#search-field').val('@ViewBag.SearchText');
+
+        if ('@ViewBag.OrderId' == '0' || '@ViewBag.Sum' == '0') 
+            $('#order-info').attr('style', 'display: none');
+
+        // Проверка доступности cookie в настройках браузера
+        var cookieEnabled = (navigator.cookieEnabled) ? true : false
+
+        //if not IE4+ nor NS6+
+        if (typeof navigator.cookieEnabled == "undefined" && !cookieEnabled) {
+            document.cookie = "testcookie"
+            cookieEnabled = (document.cookie.indexOf("testcookie") != -1) ? true : false
+        }
+
+        if (!cookieEnabled)
+            alert('Ваш браузер не поддерживает файлы Cookie. Для корркетной работы сайта включите Cookie.');
+
+        var orderNotEmpty = getCookie('IsOrderNotEmpty');
+        if (orderNotEmpty != undefined && orderNotEmpty == 'true') {
+            $('#order-asterisk').attr('class', 'visible');
+        }
+    }
+
+    function OnWindowResized() {
+        var functionReturn = 0;
+
+        if ((document.documentElement) && (document.documentElement.clientHeight))
+            functionReturn = document.documentElement.clientHeight;
+        else if ((document.body) && (document.body.clientHeight))
+            functionReturn = document.body.clientHeight;
+        else if ((document.body) && (document.body.offsetHeight))
+            functionReturn = document.body.offsetHeight;
+        else if (window.innerHeight)
+            functionReturn = window.innerHeight - 18;
+
+        functionReturn = parseInt(functionReturn);
+        if ((isNaN(functionReturn) == true) || (functionReturn < 0))
+            functionReturn = 0;
+
+        functionReturn = functionReturn - 250;
+        if (functionReturn <= 0)
+            functionReturn = 500;
+
+        var clientHeight = document.getElementById("client-height");
+        if (clientHeight != null) {
+            if (clientHeight.value != functionReturn.toString()) {
+                var divContent = document.getElementById("order-content");
+                if (divContent != null) {
+                    divContent.setAttribute("style", "min-height:" + functionReturn.toString() + "px");
+                    divContent.style.height = functionReturn.toString() + 'px';
+                }
+            }
+            clientHeight.value = functionReturn.toString();
+        }
+    }
+
+    function validateSearchForm(form) {
+        if (form.searchText.value == '')
+            return false;
+
+        return true;
+    }
+</script>
+
+<!--Значение высоты окна браузера-->
+<input type="hidden" id="client-height" name="clientHeight" />
+
+<div id="search">
+    <form action="/Order/Search" id="search-form" method="post" onsubmit="return validateSearchForm(this)">
+        @Html.AntiForgeryToken()
+        Поиск&nbsp;<input type="text" name="searchText" id="search-field">&nbsp;<input type="image" src="~/Images/magnifier.png" alt="search" title="Поиск">
+    </form>
+</div>
+
+<h2>Заказ</h2>
+
+<div id="order-info">
+    <h3>Заказ №@ViewBag.OrderId</h3>
+    <div>
+        <strong>
+            Сумма:&nbsp;
+            @if (@ViewBag.Sum != @ViewBag.SumDiscount && @ViewBag.SumDiscount > 0)
+            { 
+                <span id="order-info-sum"><strike><del>@ViewBag.Sum</del></strike>&nbsp;</span>
+                <span id="order-info-sum2">@ViewBag.SumDiscount</span>
+            }
+            else
+            {
+                <span id="order-info-sum">@ViewBag.Sum</span>
+                <span id="order-info-sum2"></span>
+            }
+            &nbsp;<span class="rouble">e</span>
+        </strong>
+    </div>
+    <div id="order-command">
+        <input type="button" id="order-register" name="orderRegister" value="Перейти к оформлению" onclick="javascript: ContinueOrderRegistration();" />
+    </div>
+    <div id="order-command">
+        <input type="button" id="order-cancel" name="orderCancel" value="Отказаться" onclick="javascript: CancelOrderRegistration();" />
+    </div>
+</div>
+
+<div id="order-content">
+    <div id="order-site-map">
+        @foreach (var item in ViewBag.Breadcrumbs)
+        {
+        <span>
+            <img src="~/Images/breadcrumb.png" alt="breadcrumb" />
+            <a href="@item.Url">@item.Title</a>
+        </span>
+        }
+    </div>
+    <div id="order-content-list">
+        @{
+            IEnumerable<Merchandise> merchandises = ViewBag.Merchandises;
+            if (Model == null || Model.Count() == 0 || merchandises == null || merchandises.Count() == 0)
+            {
+                if (!String.IsNullOrWhiteSpace(ViewBag.SearchText))
+                {
+                    <p><em>Не удалось найти указанный товар в заказе.</em></p>
+                }
+                else
+                { 
+                    <p><em>На текущей момент заказ не содержит никаких товаров. Перейдите в Каталог и добавьте необходимые товары в корзину.</em></p>
+                }
+            }
+            else
+            {
+                Html.RenderPartial("Discounts",
+                    new ViewDataDictionary {
+                        { "Discounts", ViewBag.Discounts }});
+                
+                var merchandiseOrder =
+                    Model.Join(merchandises, od => od.GoodsID, m => m.ID, (od, m) => new
+                    {
+                        MerchandiseId = m.ID,
+                        Title = m.Title,
+                        Pack = m.Pack,
+                        UnitMeasure = m.UnitMeasure,
+                        CostWhs1 = m.CostWhs1,
+                        CostWhs2 = m.CostWhs2,
+                        CostWhs3 = m.CostWhs3,
+                        OrderQuantity = od.Quantity,
+                        OrderComment = od.Comment
+                    });
+
+                foreach (var item in merchandiseOrder)
+                {
+                    var costWhs1 = item.CostWhs1.ToString("C", CultureInfo.CreateSpecificCulture("ru-RU"));
+                    var costWhs2 = item.CostWhs2.ToString("C", CultureInfo.CreateSpecificCulture("ru-RU"));
+                    var costWhs3 = item.CostWhs3.ToString("C", CultureInfo.CreateSpecificCulture("ru-RU"));
+                    
+                    Html.RenderPartial("MerchandiseItem",
+                        new ViewDataDictionary {
+                            { "IsCatalog", false },
+                            { "MerchandiseId", item.MerchandiseId },
+                            { "Title", item.Title },
+                            { "Pack", item.Pack },
+                            { "UnitMeasure", item.UnitMeasure },
+                            { "CostWhs1", costWhs1.Substring(0, costWhs1.Length - 1) },
+                            { "CostWhs2", costWhs2.Substring(0, costWhs2.Length - 1) },
+                            { "CostWhs3", costWhs3.Substring(0, costWhs3.Length - 1) },
+                            { "OrderQuantity", item.OrderQuantity },
+                            { "OrderComment", item.OrderComment }
+                        });
+                }
+            }
+        }
+    </div>
+</div>
+
+<script type="text/javascript">
+    function ContinueOrderRegistration() {
+        var sum = parseFloat('@ViewBag.Sum');
+        if (isNaN(sum) == false && sum > 0) {
+            window.location.href = '/Order/CustomerConfirmation';
+            return;
+        }
+    }
+
+    function CancelOrderRegistration() {
+        if (confirm('Вы действительно хотите отменить заказ?')) {
+            window.location.href = '/Order/Cancel';
+        }
+    }
+</script>

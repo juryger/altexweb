@@ -1,0 +1,205 @@
+﻿@model Customer
+@using Altech.Core.Models;
+
+@{    
+    ViewBag.Title = "Данные о клиенте";
+}
+
+<script type="text/javascript">
+    window.onresize = OnWindowResized;
+    window.onload = OnWindowLoaded;
+
+    function OnWindowLoaded() {
+        OnWindowResized();
+
+        var orderNotEmpty = getCookie('IsOrderNotEmpty');
+        if (orderNotEmpty != undefined && orderNotEmpty == 'true') {
+            $('#order-asterisk').attr('class', 'visible');
+        }
+    }
+
+    function OnWindowResized() {
+        var functionReturn = 0;
+
+        if ((document.documentElement) && (document.documentElement.clientHeight))
+            functionReturn = document.documentElement.clientHeight;
+        else if ((document.body) && (document.body.clientHeight))
+            functionReturn = document.body.clientHeight;
+        else if ((document.body) && (document.body.offsetHeight))
+            functionReturn = document.body.offsetHeight;
+        else if (window.innerHeight)
+            functionReturn = window.innerHeight - 18;
+
+        functionReturn = parseInt(functionReturn);
+        if ((isNaN(functionReturn) == true) || (functionReturn < 0))
+            functionReturn = 0;
+
+        functionReturn = functionReturn - 240;
+        if (functionReturn <= 0)
+            functionReturn = 500;
+
+        var clientHeight = document.getElementById("client-height");
+        if (clientHeight != null) {
+            if (clientHeight.value != functionReturn.toString()) {
+                var divContent = document.getElementById("customer-confirmation");
+                if (divContent != null) {
+                    divContent.setAttribute("style", "min-height:" + functionReturn.toString() + "px");
+                    divContent.style.height = functionReturn.toString() + 'px';
+                }
+            }
+            clientHeight.value = functionReturn.toString();
+        }
+    }
+</script>
+
+<h2>Данны о клиенте</h2>
+
+<!--Значение высоты окна браузера-->
+<input type="hidden" id="client-height" name="clientHeight" />
+
+<div id="notification-area" class="notification">
+    <img id="notification-icon" src="~/Images/bell.png">
+    <div id="notification-message" class=""></div>
+</div>
+
+<div id="customer-confirmation">
+    <form method="post" action="/Order/OrderConfirmation" id="customer-info-form" onsubmit="return CheckFormValidation()">
+        @Html.AntiForgeryToken()
+        @if (String.IsNullOrEmpty(ViewBag.ErrorMessage))
+        {
+            @Html.LabelFor(m => m.Company)
+            <br />
+            <input type="text" id="company" name="company" value="@Model.Company" />
+            <br />
+            @Html.LabelFor(m => m.ContactName)
+            <br />
+            <input type="text" id="contact-name" name="contactName" value="@Model.ContactName" />
+            @Html.LabelFor(m => m.PhoneNumber)
+            <br />
+            <input type="text" id="phone-number" name="phoneNumber" value="@Model.PhoneNumber" />
+            @Html.LabelFor(m => m.EmailAddress)
+            <br />
+            <input type="text" id="email" name="email" value="@Model.EmailAddress" />
+            @Html.LabelFor(m => m.Address)
+            <br />
+            <input type="text" id="address" name="address" value="@Model.Address" />
+            <br />
+            @Html.LabelFor(m => m.INN)
+            <br />
+            <input type="text" id="inn" name="inn" value="@Model.INN" />
+            <br />
+            <div id="customer-command">
+                <input type="button" id="customer-register" name="customerRegister" value="Завершить" onclick="javascript: CompleteOrderRegistration();" />&nbsp;
+                <input type="button" id="customer-cancel" name="customerCancel" value="Отменить" onclick="javascript: CancelOrderRegistration();" />
+            </div>
+        }
+        else
+        {
+            <em>@ViewBag.ErrorMessage</em>
+        }
+    </form>
+</div>
+
+<script type="text/javascript">    
+    function CompleteOrderRegistration() {
+        if (CheckFormValidation() == true) {
+            var form = document.getElementById('customer-info-form');
+            form.submit();
+        }
+    }
+
+    function CancelOrderRegistration() {
+        if (confirm('Вы действительно хотите отменить заказ?')) {
+            window.location.href = '/Order/Cancel';
+        }
+    }
+
+    function CheckFormValidation() {
+        var form = document.getElementById('customer-info-form');
+        if (CheckRequiredField(form) == false)
+            return false;
+
+        if (CheckFieldFormat(form) == false)
+            return false;
+
+        return true;
+    }
+
+    function CheckRequiredField(form) {
+        if (form.company.value == '') {
+            NotifyError('Не указано значение поля "Компания".');
+            form.company.focus();
+            return false;
+        }
+
+        if (form.phoneNumber.value == '') {
+            NotifyError('Не указано значение поля "Контактный телефон".');
+            form.phoneNumber.focus();
+            return false;
+        }
+
+        if (form.email.value == '') {
+            NotifyError('Не указано значение поля "Электронная почта".');
+            form.email.focus();
+            return false;
+        }
+
+        return true;
+    }
+
+    function CheckFieldFormat(form) {
+        // email check
+        var re = /^(([^<>()[\]\\.,;:\s@@\"]+(\.[^<>()[\]\\.,;:\s@@\"]+)*)|(\".+\"))@@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        if (re.test(form.email.value) == false) {
+            NotifyError('Неправильный формат поля "Электронная почта".');
+            form.email.focus();
+            return false;
+        }
+
+        // inn number check
+        if (form.inn.value != '') {
+            var re = /^[0-9]+$/;
+            if (re.test(form.inn.value) == false) {
+                NotifyError('Значение поля "ИНН" должно состоять только из чисел.');
+                form.inn.focus();
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    function htmlEncode(value) {
+        if (value) {
+            return $('<div />').text(value).html();
+        } else {
+            return '';
+        }
+    }
+
+    function htmlDecode(value) {
+        if (value) {
+            return $('<div />').html(value).text();
+        } else {
+            return '';
+        }
+    }
+
+    function NotifyError(msg) {
+        var notification = document.getElementById('notification-area');
+        notification.style.display = 'block';
+
+        var notificationMessage = document.getElementById('notification-message');
+        notificationMessage.innerHTML = htmlDecode(msg);
+        notificationMessage.className = 'error-message';
+    }
+
+    function NotifyInfo(msg) {
+        var notification = document.getElementById('notification-area');
+        notification.style.display = 'block';
+
+        var notificationMessage = document.getElementById('notification-message');
+        notificationMessage.innerHTML = htmlDecode(msg);
+        notificationMessage.className = 'info-message';
+    }
+</script>

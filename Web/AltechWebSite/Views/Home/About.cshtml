@@ -1,0 +1,75 @@
+﻿@{
+    ViewBag.Title = "О нас";
+}
+
+<script type="text/javascript">
+    window.onresize = OnWindowResized;
+    window.onload = OnWindowLoaded;
+
+    function OnWindowLoaded() {
+        OnWindowResized();
+
+        var orderNotEmpty = getCookie('IsOrderNotEmpty');
+        if (orderNotEmpty != undefined && orderNotEmpty == 'true') {
+            $('#order-asterisk').attr('class', 'visible');
+        }
+    }
+
+    function OnWindowResized() {
+        var functionReturn = 0;
+
+        if ((document.documentElement) && (document.documentElement.clientHeight))
+            functionReturn = document.documentElement.clientHeight;
+        else if ((document.body) && (document.body.clientHeight))
+            functionReturn = document.body.clientHeight;
+        else if ((document.body) && (document.body.offsetHeight))
+            functionReturn = document.body.offsetHeight;
+        else if (window.innerHeight)
+            functionReturn = window.innerHeight - 18;
+
+        functionReturn = parseInt(functionReturn);
+        if ((isNaN(functionReturn) == true) || (functionReturn < 0))
+            functionReturn = 0;
+
+        functionReturn = functionReturn - 240;
+        if (functionReturn <= 0)
+            functionReturn = 500;
+
+        var clientHeight = document.getElementById("client-height");
+        if (clientHeight != null) {
+            if (clientHeight.value != functionReturn.toString()) {
+                var divContent = document.getElementById("about-container");
+                if (divContent != null) {
+                    divContent.setAttribute("style", "min-height:" + functionReturn.toString() + "px");
+                    divContent.style.height = functionReturn.toString() + 'px';
+                }
+            }
+            clientHeight.value = functionReturn.toString();
+        }
+    }
+</script>
+
+<!--Значение высоты окна браузера-->
+<input type="hidden" id="client-height" name="clientHeight" />
+
+<h2>@ViewBag.Title</h2>
+
+<div id="about-container">
+    <p>Наша компания занимается продажами хозтоваров, инструментов, замков, скобяных изделий, мебельной, дверной и оконной фурнитуры по оптовым и розничным ценам. Мы рады предложить вам товары от различных производителей (Россия, Беларусь, Польша, Китай).</p>
+
+    <p>
+        Для просмотра каталога товаров перейдите в раздел
+        <br />
+        <a class="btn btn-default" href="/Catalog/Main">Каталог &raquo;</a>
+    </p>
+    <p>
+        Для оформления заказа добавьте интересуемый товар из Каталога в корзину и перейдите в раздел
+        <br />
+        <a class="btn btn-default" href="/Order/Main">Заказ &raquo;</a>
+    </p>
+    <p>
+        Для просмотра схемы проезда перейдите в раздел
+        <br />
+        <a class="btn btn-default" href="/Home/Contacts">Контакты &raquo;</a>
+    </p>
+</div>

@@ -1,0 +1,140 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Altech.WebSite", "AltechWebSite\Altech.WebSite.csproj", "{1985B55D-4B42-492D-B2A8-F3183361621D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AltechWebSite.Tests", "AltechWebSite.Tests\AltechWebSite.Tests.csproj", "{3A4DF63F-7639-4954-B127-0D09A24BD48E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CloudUploader", "Tools\CloudUploader\CloudUploader.csproj", "{F94A6BA7-BC79-4FCF-B95B-F7B45BDD98D1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Altech.DAL", "Tools\Altech.Data.Tools\Altech.DAL.csproj", "{9FEE92D6-D755-4F8E-88DC-9F39ADFC66C5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebJobs", "WebJobs", "{9E0A6282-2EC8-43C3-9F35-B81A818D0F52}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{E410644B-EC08-4F56-B8F2-E98D7DC73EEA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Altech.WebJobs.DataUploader", "WebJobs\Altech.WebJobs.DataUploader\Altech.WebJobs.DataUploader.csproj", "{ABB59003-FABF-4DE0-896C-B3F508F99E2C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Altech.WebJobs.ImageResizer", "WebJobs\Altech.WebJobs.ImageResizer\Altech.WebJobs.ImageResizer.csproj", "{7234E0DF-26E6-4F8B-971E-1C643FC6D39E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UI", "UI", "{E728AFE7-F39A-4CAF-A154-04BB5F2EAC62}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Altech.WebJobs.OrderProcessing", "WebJobs\Altech.WebJobs.OrderProcessing\Altech.WebJobs.OrderProcessing.csproj", "{3609CD5A-89D4-4ECE-9AFB-8E4BD8DD7B85}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{A34DF840-9C43-4E04-BF15-4D8D72E8A0D8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{421F5B69-1BA1-4542-AC6A-0240B856E92F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Altech.Core", "Altech.Core\Altech.Core.csproj", "{DD12DA61-8C56-42A0-95ED-D901277DA0FC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{F35E7CAE-5CE2-4B4E-B265-16332A13558B}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SendGridTest", "SendGridTest\SendGridTest.csproj", "{D4EDEB6A-F835-4EF3-8580-E7BA0059166D}"
+EndProject
+Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 10
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://juryger.visualstudio.com/defaultcollection
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = AltechWebSite.Tests\\AltechWebSite.Tests.csproj
+		SccProjectTopLevelParentUniqueName1 = AltechWebSite.sln
+		SccProjectName1 = AltechWebSite.Tests
+		SccLocalPath1 = AltechWebSite.Tests
+		SccProjectUniqueName2 = Tools\\CloudUploader\\CloudUploader.csproj
+		SccProjectTopLevelParentUniqueName2 = AltechWebSite.sln
+		SccProjectName2 = Tools/CloudUploader
+		SccLocalPath2 = Tools\\CloudUploader
+		SccProjectUniqueName3 = WebJobs\\Altech.WebJobs.DataUploader\\Altech.WebJobs.DataUploader.csproj
+		SccProjectTopLevelParentUniqueName3 = AltechWebSite.sln
+		SccProjectName3 = WebJobs/Altech.WebJobs.DataUploader
+		SccLocalPath3 = WebJobs\\Altech.WebJobs.DataUploader
+		SccProjectUniqueName4 = WebJobs\\Altech.WebJobs.ImageResizer\\Altech.WebJobs.ImageResizer.csproj
+		SccProjectTopLevelParentUniqueName4 = AltechWebSite.sln
+		SccProjectName4 = WebJobs/Altech.WebJobs.ImageResizer
+		SccLocalPath4 = WebJobs\\Altech.WebJobs.ImageResizer
+		SccProjectUniqueName5 = WebJobs\\Altech.WebJobs.OrderProcessing\\Altech.WebJobs.OrderProcessing.csproj
+		SccProjectTopLevelParentUniqueName5 = AltechWebSite.sln
+		SccProjectName5 = WebJobs/Altech.WebJobs.OrderProcessing
+		SccLocalPath5 = WebJobs\\Altech.WebJobs.OrderProcessing
+		SccProjectUniqueName6 = Tools\\Altech.Data.Tools\\Altech.DAL.csproj
+		SccProjectTopLevelParentUniqueName6 = AltechWebSite.sln
+		SccProjectName6 = Tools/Altech.Data.Tools
+		SccLocalPath6 = Tools\\Altech.Data.Tools
+		SccProjectUniqueName7 = Altech.Core\\Altech.Core.csproj
+		SccProjectTopLevelParentUniqueName7 = AltechWebSite.sln
+		SccProjectName7 = Altech.Core
+		SccLocalPath7 = Altech.Core
+		SccProjectUniqueName8 = AltechWebSite\\Altech.WebSite.csproj
+		SccProjectTopLevelParentUniqueName8 = AltechWebSite.sln
+		SccProjectName8 = AltechWebSite
+		SccLocalPath8 = AltechWebSite
+		SccProjectUniqueName9 = SendGridTest\\SendGridTest.csproj
+		SccProjectTopLevelParentUniqueName9 = AltechWebSite.sln
+		SccProjectName9 = SendGridTest
+		SccLocalPath9 = SendGridTest
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1985B55D-4B42-492D-B2A8-F3183361621D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1985B55D-4B42-492D-B2A8-F3183361621D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1985B55D-4B42-492D-B2A8-F3183361621D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1985B55D-4B42-492D-B2A8-F3183361621D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3A4DF63F-7639-4954-B127-0D09A24BD48E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A4DF63F-7639-4954-B127-0D09A24BD48E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A4DF63F-7639-4954-B127-0D09A24BD48E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A4DF63F-7639-4954-B127-0D09A24BD48E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F94A6BA7-BC79-4FCF-B95B-F7B45BDD98D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F94A6BA7-BC79-4FCF-B95B-F7B45BDD98D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F94A6BA7-BC79-4FCF-B95B-F7B45BDD98D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F94A6BA7-BC79-4FCF-B95B-F7B45BDD98D1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9FEE92D6-D755-4F8E-88DC-9F39ADFC66C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9FEE92D6-D755-4F8E-88DC-9F39ADFC66C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9FEE92D6-D755-4F8E-88DC-9F39ADFC66C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9FEE92D6-D755-4F8E-88DC-9F39ADFC66C5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ABB59003-FABF-4DE0-896C-B3F508F99E2C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ABB59003-FABF-4DE0-896C-B3F508F99E2C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ABB59003-FABF-4DE0-896C-B3F508F99E2C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ABB59003-FABF-4DE0-896C-B3F508F99E2C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7234E0DF-26E6-4F8B-971E-1C643FC6D39E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7234E0DF-26E6-4F8B-971E-1C643FC6D39E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7234E0DF-26E6-4F8B-971E-1C643FC6D39E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7234E0DF-26E6-4F8B-971E-1C643FC6D39E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3609CD5A-89D4-4ECE-9AFB-8E4BD8DD7B85}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3609CD5A-89D4-4ECE-9AFB-8E4BD8DD7B85}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3609CD5A-89D4-4ECE-9AFB-8E4BD8DD7B85}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3609CD5A-89D4-4ECE-9AFB-8E4BD8DD7B85}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DD12DA61-8C56-42A0-95ED-D901277DA0FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DD12DA61-8C56-42A0-95ED-D901277DA0FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DD12DA61-8C56-42A0-95ED-D901277DA0FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DD12DA61-8C56-42A0-95ED-D901277DA0FC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D4EDEB6A-F835-4EF3-8580-E7BA0059166D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D4EDEB6A-F835-4EF3-8580-E7BA0059166D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D4EDEB6A-F835-4EF3-8580-E7BA0059166D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D4EDEB6A-F835-4EF3-8580-E7BA0059166D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{1985B55D-4B42-492D-B2A8-F3183361621D} = {E728AFE7-F39A-4CAF-A154-04BB5F2EAC62}
+		{3A4DF63F-7639-4954-B127-0D09A24BD48E} = {A34DF840-9C43-4E04-BF15-4D8D72E8A0D8}
+		{F94A6BA7-BC79-4FCF-B95B-F7B45BDD98D1} = {E410644B-EC08-4F56-B8F2-E98D7DC73EEA}
+		{9FEE92D6-D755-4F8E-88DC-9F39ADFC66C5} = {E410644B-EC08-4F56-B8F2-E98D7DC73EEA}
+		{ABB59003-FABF-4DE0-896C-B3F508F99E2C} = {9E0A6282-2EC8-43C3-9F35-B81A818D0F52}
+		{7234E0DF-26E6-4F8B-971E-1C643FC6D39E} = {9E0A6282-2EC8-43C3-9F35-B81A818D0F52}
+		{3609CD5A-89D4-4ECE-9AFB-8E4BD8DD7B85} = {9E0A6282-2EC8-43C3-9F35-B81A818D0F52}
+		{DD12DA61-8C56-42A0-95ED-D901277DA0FC} = {421F5B69-1BA1-4542-AC6A-0240B856E92F}
+		{D4EDEB6A-F835-4EF3-8580-E7BA0059166D} = {A34DF840-9C43-4E04-BF15-4D8D72E8A0D8}
+	EndGlobalSection
+EndGlobal

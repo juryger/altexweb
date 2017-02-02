@@ -1,0 +1,35 @@
+#VS Unit test temporary files
+$tf*/
+#Delphi temporary files
+*.~*
+#Security sensitive config files
+app.confi?
+web.confi?
+[Pp]ublish[Pp]rofile*/
+yandex_*
+#Unit tests results
+[Tt]est[Rr]esults*/
+#VS packages
+.nuget*/
+[Pp]ackages*/
+#ignore thumbnails created by windows
+Thumbs.db
+#Ignore files build by Visual Studio
+*.user
+*.aps
+*.pch
+*.vspscc
+*_i.c
+*_p.c
+*.ncb
+*.suo
+*.bak
+*.cache
+*.ilk
+*.log
+[Bb]in
+[Dd]ebug*/
+*.sbr
+obj/
+[Rr]elease*/
+_ReSharper*/

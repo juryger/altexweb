@@ -1,0 +1,118 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+	<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+	<link rel="stylesheet" href="style.css" />
+<title>Untitled 1</title>
+</head>
+
+<body>
+
+
+	<script type="text/javascript">
+	    window.onresize = OnWindowResized;
+	    window.onload = OnWindowResized;
+	
+	    function OnWindowResized() {
+	        var functionReturn = 0;
+	
+	        if ((document.documentElement) && (document.documentElement.clientHeight))
+	            functionReturn = document.documentElement.clientHeight;
+	        else if ((document.body) && (document.body.clientHeight))
+	            functionReturn = document.body.clientHeight;
+	        else if ((document.body) && (document.body.offsetHeight))
+	            functionReturn = document.body.offsetHeight;
+	        else if (window.innerHeight)
+	            functionReturn = window.innerHeight - 18;
+	
+	        functionReturn = parseInt(functionReturn);
+	        if ((isNaN(functionReturn) == true) || (functionReturn < 0))
+	            functionReturn = 0;
+	
+	        var clientHeight = document.getElementById("client-height");
+	        if (clientHeight != null) {
+	            if (clientHeight.value != functionReturn.toString())
+		        {
+	            	// Change the height of required controls 
+	            	//var divNavigation = document.getElementById("navigation"); 
+	            	//if (divNavigation != null) 
+	            	//{
+	            	//	divNavigation.setAttribute("style","height:" + (functionReturn - 60).toString() + "px");
+					//	divNavigation.style.height = (functionReturn - 60).toString() + 'px';
+	            	//}
+
+	            	var divContainer = document.getElementById("container"); 
+	            	if (divContainer != null) 
+	            	{
+	            		divContainer.setAttribute("style","min-height:" + (functionReturn - 60).toString() + "px");
+						divContainer.style.height = (functionReturn - 60).toString() + 'px';
+	            	}
+	        	}
+	            clientHeight.value = functionReturn.toString();
+	        }                	    
+	    };
+	</script>
+	
+	<!--Используется для определения значения высоты окна на клиенте-->
+	<input type="hidden" id="client-height" name="ClientHeight" />
+	
+	<div id="container">
+		<div id="navigation">
+			<ul>
+				<li><a href="">Home</a></li>
+				<li><a href="">About</a></li>
+				<li><a href="">Contact Us</a></li>
+				<li><a href="">Site map</a></li>
+				<li><a href="">Site map1</a></li>
+				<li><a href="">Site map2</a></li>
+				<li><a href="">Site map3</a></li>
+				<li><a href="">Site map4</a></li>
+				<li><a href="">Site map5</a></li>
+				<li><a href="">Site map6</a></li>
+				<li><a href="">Site map7</a></li>
+				<li><a href="">Site map8</a></li>
+				<li><a href="">Site map9</a></li>
+				<li><a href="">Site map10</a></li>
+				<li><a href="">Site map11</a></li>
+				<li><a href="">Site map12</a></li>
+				<li><a href="">Site map13</a></li>
+				<li><a href="">Site map14</a></li>
+				<li><a href="">Site map15</a></li>
+			</ul>	
+		</div>
+		<div id="splitter">
+			<img src="navigation-hide.png" alt="hide" title="спрятать" />
+		</div>
+		<div id="content">
+			<div id="content-search">
+				<form action="/Order/Main" id="search-form">
+					Поиск товара <input name="searchText" id="search-text"><input type="submit" value="">
+				</form>
+			</div>
+			<div id="content-settings">
+		            Сортировка:
+		            <a href="@ViewBag.SortPageUrl?sortOrder=@ViewBag.SortOrder&searchText=@ViewBag.SearchText&page=1&sortField=id">Артикул</a>
+		            &nbsp;
+		            <a href="@ViewBag.SortPageUrl?sortOrder=@ViewBag.SortOrder&searchText=@ViewBag.SearchText&page=1&sortField=title">Наименование</a>
+		            |
+		            Количество позиций на странице:
+		            <select name="SelectRowsNumber" id="select-row-number">
+		                <option>10</option>
+		                <option selected>20</option>
+		                <option>30</option>
+		                <option>50</option>
+		                <option>100</option>
+		            </select>
+			</div>
+			<div id="content-list">
+				Список товаров
+			</div>
+			<div id="content-paging">
+				&lt;&lt; 1 - 2 - 3 &gt;&gt;
+			</div>
+		</div>
+	</div>    
+</body>
+
+</html>

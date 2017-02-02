@@ -1,0 +1,84 @@
+﻿body {
+	font: 80% arial, helvetica, sans-serif;
+	background: #ccc url('lizards2.gif');
+	margin: 0;
+}
+
+.accessaid, h1 {
+	position: absolute;
+	height: 0;
+	overflow: hidden;
+}
+
+#header {
+	background: #036 url('charlesdarwin.gif');
+	height: 60px;
+}
+
+#navigation {
+	position: absolute;
+	top: 60px;
+	margin-top: 0.5em;
+	left: 0;
+	width: 134px;
+}
+
+#navigation ul {
+	margin: 0 0 1em 0;
+	padding: 0;
+	list-style: none;
+}
+
+#navigation ul a {
+	color: white;
+	text-decoration: none;
+	display: block;
+	background: #17a;
+	border-left: 3px solid #28b;
+	padding: 0 0.5em;
+	margin: 0 1em 3px 1em;
+}
+
+#navigation a:visited {
+	color: #ccc;
+}
+
+#navigation a:hover {
+	background: #39c;
+	border-color: white;
+}
+
+#content {
+	xbackground: white url('lizards.gif') 134px 0 repeat-y;
+	xpadding: 1px 1em 2em 1em;
+	border-left: 134px solid #069;
+	background: white url(lizards.gif) repeat-y;
+	padding: 1px 20px 1em 40px;
+}
+h2 {
+	font-size: 1.5em;
+	color: #036;
+}
+
+h3 {
+	font-size: 1.25em;
+	color: #036;
+}
+
+#content img {
+	width: 100px;
+	height: 150px;
+	padding: 1px;
+	border: 1px solid #333;
+	float: right;
+	margin: 0 0 1em 1em;
+}
+
+#container {
+	position: relative;
+	width: 586px; /* width + border for IE 5.x */
+	w\idth: 580px; /* real width */
+	border: solid #036;
+	border-width: 0 3px;
+	margin: auto;
+}

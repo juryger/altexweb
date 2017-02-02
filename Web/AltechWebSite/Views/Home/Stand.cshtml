@@ -1,0 +1,83 @@
+﻿@{
+    ViewBag.Title = "Стенды";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<script type="text/javascript">
+    window.onresize = OnWindowResized;
+    window.onload = OnWindowLoaded;
+
+    function OnWindowLoaded() {
+        OnWindowResized();
+
+        var orderNotEmpty = getCookie('IsOrderNotEmpty');
+        if (orderNotEmpty != undefined && orderNotEmpty == 'true') {
+            $('#order-asterisk').attr('class', 'visible');
+        }
+    }
+
+    function OnWindowResized() {
+        var functionReturn = 0;
+
+        if ((document.documentElement) && (document.documentElement.clientHeight))
+            functionReturn = document.documentElement.clientHeight;
+        else if ((document.body) && (document.body.clientHeight))
+            functionReturn = document.body.clientHeight;
+        else if ((document.body) && (document.body.offsetHeight))
+            functionReturn = document.body.offsetHeight;
+        else if (window.innerHeight)
+            functionReturn = window.innerHeight - 18;
+
+        functionReturn = parseInt(functionReturn);
+        if ((isNaN(functionReturn) == true) || (functionReturn < 0))
+            functionReturn = 0;
+
+        functionReturn = functionReturn - 240;
+        if (functionReturn <= 0)
+            functionReturn = 500;
+
+        var clientHeight = document.getElementById("client-height");
+        if (clientHeight != null) {
+            if (clientHeight.value != functionReturn.toString()) {
+                var divContent = document.getElementById("stand-container");
+                if (divContent != null) {
+                    divContent.setAttribute("style", "min-height:" + functionReturn.toString() + "px");
+                    divContent.style.height = functionReturn.toString() + 'px';
+                }
+            }
+            clientHeight.value = functionReturn.toString();
+        }
+    }
+</script>
+
+<!--Значение высоты окна браузера-->
+<input type="hidden" id="client-height" name="clientHeight" />
+
+
+<div id="stand-container">
+    <p>
+        Также рады предложить Вам демонстрационные стенды с нашими товарами для размещения в шоу-румах магазинов.
+    </p>
+    <p>
+        Это удобный и наглядный способ демонстрации товаров конечным покупателям. Стенд занимает мало места за счет вертикального размещения товаров на нем, а также благодаря возможности вращения лицевых панелей стенда вокруг его оси.
+    </p> 
+    <p>
+        <a href="~/Images/Stand/DSCN1246.JPG" data-lighter>
+            <img src="~/Images/Stand/thumbnails/DSCN1246.JPG" alt="@ViewBag.Title" />
+        </a>
+        <a href="~/Images/Stand/DSCN1248.JPG" data-lighter>
+            <img src="~/Images/Stand/thumbnails/DSCN1248.JPG" alt="@ViewBag.Title" />
+        </a>
+        <a href="~/Images/Stand/DSCN1249.JPG" data-lighter>
+            <img src="~/Images/Stand/thumbnails/DSCN1249.JPG" alt="@ViewBag.Title" />
+        </a>
+        <a href="~/Images/Stand/DSCN1250.JPG" data-lighter>
+            <img src="~/Images/Stand/thumbnails/DSCN1250.JPG" alt="@ViewBag.Title" />
+        </a>
+    </p>
+    <p>
+        Сроки поставки и условия предоставления стендов оговариваются индивидуально, звонитие <address><abbr title="Телефон">&#9742</abbr>&nbsp;+7&nbsp;926&nbsp;729-34-99&nbsp;,&nbsp;+7&nbsp;910&nbsp;911-38-77</address>
+    </p>
+
+</div>

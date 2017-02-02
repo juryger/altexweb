@@ -1,0 +1,66 @@
+﻿@{
+    ViewBag.Title = "Подтверждение заказа";
+}
+
+<script type="text/javascript">
+    window.onresize = OnWindowResized;
+    window.onload = OnWindowLoaded;
+
+    function OnWindowLoaded() {
+        OnWindowResized();
+
+        var orderNotEmpty = getCookie('IsOrderNotEmpty');
+        if (orderNotEmpty != undefined && orderNotEmpty == 'true') {
+            $('#order-asterisk').attr('class', 'visible');
+        }
+    }
+
+    function OnWindowResized() {
+        var functionReturn = 0;
+
+        if ((document.documentElement) && (document.documentElement.clientHeight))
+            functionReturn = document.documentElement.clientHeight;
+        else if ((document.body) && (document.body.clientHeight))
+            functionReturn = document.body.clientHeight;
+        else if ((document.body) && (document.body.offsetHeight))
+            functionReturn = document.body.offsetHeight;
+        else if (window.innerHeight)
+            functionReturn = window.innerHeight - 18;
+
+        functionReturn = parseInt(functionReturn);
+        if ((isNaN(functionReturn) == true) || (functionReturn < 0))
+            functionReturn = 0;
+
+        functionReturn = functionReturn - 240;
+        if (functionReturn <= 0)
+            functionReturn = 500;
+
+        var clientHeight = document.getElementById("client-height");
+        if (clientHeight != null) {
+            if (clientHeight.value != functionReturn.toString()) {
+                var divContent = document.getElementById("order-confirmation");
+                if (divContent != null) {
+                    divContent.setAttribute("style", "min-height:" + functionReturn.toString() + "px");
+                    divContent.style.height = functionReturn.toString() + 'px';
+                }
+            }
+            clientHeight.value = functionReturn.toString();
+        }
+    }
+</script>
+
+<h2>Подтверждение заказа</h2>
+
+<!--Значение высоты окна браузера-->
+<input type="hidden" id="client-height" name="clientHeight" />
+
+<div id="order-confirmation">
+    @if (String.IsNullOrEmpty(ViewBag.ErrorMessage))
+    {
+        <p class="info-message">Ваш заказ под номером <strong>'@ViewBag.OrderId'</strong> передеан в обработку, в ближайшее время мы свяжемся с Вами по указанным контактным данным.</p>
+    }
+    else
+    {
+        <p class="error-message">@ViewBag.ErrorMessage</p>
+    }
+</div>

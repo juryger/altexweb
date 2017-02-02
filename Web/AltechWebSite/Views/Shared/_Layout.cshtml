@@ -1,0 +1,64 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Хозтовары инструмент замки петли мебельная дверная оконная фурнитура производства Россия Беларусь Польша Китай" />
+    <meta name="keywords" content="хозтовары,мебельная фурнитура,дверная фурнитура,оконная фурнитура,замки,личинки,ручной инструмент,хомуты,шпингалеты,петли" />
+    <meta name="author" content="АЛТЕХ Хозтовары" />
+    <title>@ViewBag.Title - АЛТЕХ Хозтовары</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    @Scripts.Render("~/bundles/yandex")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jstree")
+    @Scripts.Render("~/bundles/altech")
+    @Scripts.Render("~/bundles/lightbox")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+
+    <div class="navigation-container navbar-inverse">
+        <div class="navbar-logo">
+            @Html.ActionLink("АЛТЕХ Хозтовары", "Main", "Catalog", null, null)
+        </div>
+        <div class="navbar-contacts">
+            <abbr title="Телефон">&#9743</abbr>&nbsp;+7&nbsp;926&nbsp;729-34-99&nbsp;,&nbsp;+7&nbsp;910&nbsp;911-38-77
+            <br />
+            <abbr title="Эл. почта">@@</abbr>&nbsp;AlexTechnologies@gmail.com
+        </div>
+        <div class="navbar-links">
+            <span><a href="/Catalog/Main">Каталог</a> </span>
+            &nbsp;|&nbsp;
+            <span>@Html.ActionLink("Стенды", "Stand", "Home")</span>
+            &nbsp;|&nbsp;
+            <span>
+                <a href="/Order/Main">Заказ</a>
+                <img id="order-asterisk" class="invisible" src="~/Images/asterisk.png" title="В заказе имееются товары" />
+            </span>
+            &nbsp;|&nbsp;
+            <span>@Html.ActionLink("Контакты", "Contacts", "Home")</span>
+            &nbsp;|&nbsp;
+            <span>@Html.ActionLink("О нас", "About", "Home")</span>
+        </div>
+    </div>
+    
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - АЛТЕХ Хозтовары</p>
+        </footer>
+    </div>
+    
+    <!-- Yandex.Metrika counter -->
+    <noscript>
+        <div>
+            <img src="//mc.yandex.ru/watch/26121453" style="position:absolute; left:-9999px;" alt="" />
+        </div>
+    </noscript>
+    <!-- /Yandex.Metrika counter -->
+</body>
+
+</html>

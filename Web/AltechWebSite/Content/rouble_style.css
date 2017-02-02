@@ -1,0 +1,16 @@
+
+@font-face {
+    font-family: 'rouble';
+    src: url('/fonts/rouble-webfont.eot');
+    src: url('/fonts/rouble-webfont.eot?#iefix') format('embedded-opentype'),
+         url('/fonts/rouble-webfont.woff') format('woff'),
+         url('/fonts/rouble-webfont.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+.rouble
+{
+	font-family:'rouble';
+	font-weight: normal;
+    font-style: normal;
+}

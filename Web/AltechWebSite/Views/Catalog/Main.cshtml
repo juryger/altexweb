@@ -1,0 +1,355 @@
+﻿@model IEnumerable<Group>
+@using Altech.Core.Models;
+@using Altech.WebSite.Models;
+@using PagedList;
+@using PagedList.Mvc;
+@using System.Globalization;
+
+@*@{
+    ViewBag.Title = "Каталог";
+}*@
+
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+<script type="text/javascript">
+    window.onresize = OnWindowResized;
+    window.onload = OnWindowLoaded;
+
+    function OnWindowLoaded() {
+        OnWindowResized();
+
+        // Проверка доступности cookie в настройках браузера
+        var cookieEnabled = (navigator.cookieEnabled) ? true : false
+
+        //if not IE4+ nor NS6+
+        if (typeof navigator.cookieEnabled == "undefined" && !cookieEnabled) {
+            document.cookie = "testcookie";
+            cookieEnabled = (document.cookie.indexOf("testcookie") != -1) ? true : false;
+        }
+
+        if (!cookieEnabled)
+            alert('Ваш браузер не поддерживает файлы Cookie. Для корркетной работы сайта включите Cookie.');
+
+        // Проичитать необходимые cookie
+        var recordsOnPage = getCookie('@ViewBag.RecordsOnPageCookieName');
+        if (recordsOnPage != undefined) {
+            // выставить значение в UI
+            $('#select-row-number').val(recordsOnPage);
+        }
+
+        if ('@ViewBag.SearchText' != '')
+            $('#search-field').val('@ViewBag.SearchText');
+
+        var orderNotEmpty = getCookie('IsOrderNotEmpty');
+        if (orderNotEmpty != undefined && orderNotEmpty == 'true') {
+            $('#order-asterisk').attr('class', 'visible');
+        }
+    }
+
+    function OnWindowResized() {
+        // сохранение новой высоты окна браузера
+        var functionReturn = 0;
+        if ((document.documentElement) && (document.documentElement.clientHeight))
+            functionReturn = document.documentElement.clientHeight;
+        else if ((document.body) && (document.body.clientHeight))
+            functionReturn = document.body.clientHeight;
+        else if ((document.body) && (document.body.offsetHeight))
+            functionReturn = document.body.offsetHeight;
+        else if (window.innerHeight)
+            functionReturn = window.innerHeight - 18;
+
+        functionReturn = parseInt(functionReturn);
+        if ((isNaN(functionReturn) == true) || (functionReturn < 0))
+            functionReturn = 0;
+
+        functionReturn = functionReturn - 250;
+        if (functionReturn <= 0)
+            functionReturn = 500;
+
+        var clientHeight = document.getElementById("client-height");
+        if (clientHeight != null) {
+            if (clientHeight.value != functionReturn.toString()) {
+                var divContent = document.getElementById("ctlg-content");
+                if (divContent != null) {
+                    divContent.setAttribute("style", "min-height:" + functionReturn.toString() + "px");
+                }
+            }
+            clientHeight.value = functionReturn.toString();
+        }
+
+        // показ окна навигации и содержимого в зависимости от значения опции "Показ окна навигации"
+        var showNavigation = getCookie('@ViewBag.ShowNavigationCookieName');
+        if (showNavigation == undefined)
+            showNavigation = 1;
+
+        if (showNavigation == 0) {
+            $('#ctlg-navigation').attr('class', 'invisible');
+            $('#hide-navigation')[0].style.display = 'none';
+            $('#show-navigation')[0].style.display = 'inline-block';
+            $('#ctlg-content')[0].style.marginLeft = '0';
+            $('#navigation-splitter')[0].style.marginLeft = '-5px';
+        }
+        else {
+            $('#ctlg-navigation').attr('class', 'visible');
+
+            // create an instance when the DOM is ready
+            $('#ctlg-navigation').jstree({
+                'core': { 'multiple': false }
+            });
+
+            $('#hide-navigation')[0].style.display = 'inline-block';
+            $('#show-navigation')[0].style.display = 'none';
+            $('#ctlg-content')[0].style.marginLeft = '295px';
+            $('#navigation-splitter')[0].style.marginLeft = '290px';
+        }
+
+        $('#ctlg-content').attr('class', 'visible');
+        $('#navigation-splitter').attr('class', 'visible');
+    }
+
+    function validateSearchForm(form) {
+        if (form.searchText.value == '')
+            return false;
+
+        return true;
+    }
+    
+</script>
+
+<script>
+    $(function () {
+        // triggered after all nodes are finished loading
+        $('#ctlg-navigation').on('ready.jstree', function (e, data) {
+            // Определение идентификатора выбранного узла
+            var groupId = '@ViewBag.GroupId';
+            var subGroupId = '@ViewBag.SubgroupId';
+            var selectedNodeId = '';
+            if (groupId != '0')
+                selectedNodeId = 'G-' + groupId;
+            if (subGroupId != '0')
+                selectedNodeId = 'S-' + subGroupId;
+
+            if (selectedNodeId != '') {
+                data.instance.select_node(selectedNodeId);
+
+                var id = selectedNodeId;
+                var parentId = '';
+                while ((parentId = data.instance.get_parent(data.instance.get_node(id))) != "#") {
+                    id = parentId;
+                }
+
+                data.instance.open_all(id);
+            }
+        });
+
+        $('#ctlg-navigation').on('select_node.jstree', function (e, data) {
+            data.instance.close_all(null, 0);
+            data.instance.select_node(data.node.id);
+
+            var id = data.node.id;
+            var parentId = '';
+            while ((parentId = data.instance.get_parent(data.instance.get_node(id))) != "#") {
+                id = parentId;
+            }
+            data.instance.open_all(id);
+        });
+
+        $('#ctlg-navigation').on('after_open.jstree', function (e, data) {
+            var clientHeight = parseInt($('#client-height')[0].value);
+            var navigationTreeHeight = parseInt($('#ctlg-navigation')[0].clientHeight);
+
+            if ((isNaN(clientHeight) == false) && (isNaN(navigationTreeHeight) == false) && (clientHeight < navigationTreeHeight))
+                $('#ctlg-content')[0].style.minHeight = $('#ctlg-navigation')[0].clientHeight + 'px';
+            else
+                $('#ctlg-content')[0].style.minHeight = $('#client-height')[0].value + 'px';
+        });
+
+        $('#ctlg-navigation').on('activate_node.jstree', function (e, data) {
+            if (data.node.a_attr.href != '')
+                window.location.href = data.node.a_attr.href;
+        });
+
+        $('#select-row-number').change(function () {
+            // save selected value to cookie
+            var date = new Date;
+            date.setDate(date.getDate() + 360); // +1year from now
+            setCookie('@ViewBag.RecordsOnPageCookieName', $('#select-row-number').val(), { expires: date, path: '/' }); //$('#select-row-number :selected').text();
+
+            // reload page
+            window.location.href = '@ViewBag.ContextCatalogPageUrl?sortField=@ViewBag.SortField&sortOrder=@ViewBag.SortOrder&searchText=@ViewBag.SearchText&page=1';
+        });
+    });
+
+    function ShowNavigationTree() {
+        $('#hide-navigation')[0].style.display = 'inline-block';
+        $('#show-navigation')[0].style.display = 'none';
+        $('#ctlg-navigation').attr('class', 'visible');
+        $('#ctlg-navigation').jstree({
+            'core': { 'multiple': false }
+        });
+        $('#ctlg-content')[0].style.marginLeft = '295px';
+        $('#navigation-splitter')[0].style.marginLeft = '290px';
+
+        // save selected value to cookie
+        var date = new Date;
+        date.setDate(date.getDate() + 360); // +1year from now
+        setCookie('@ViewBag.ShowNavigationCookieName', '1', { expires: date, path: '/' });
+    }
+
+    function HideNavigationTree() {
+        $('#hide-navigation')[0].style.display = 'none';
+        $('#show-navigation')[0].style.display = 'inline-block';
+        $('#ctlg-navigation').attr('class', 'invisible');
+        $('#ctlg-content')[0].style.marginLeft = '0';
+        $('#navigation-splitter')[0].style.marginLeft = '-5px';
+
+        // save selected value to cookie
+        var date = new Date;
+        date.setDate(date.getDate() + 360); // +1year from now
+        setCookie('@ViewBag.ShowNavigationCookieName', '0', { expires: date, path: '/' });
+    }
+</script>
+
+<!--Значение высоты окна браузера-->
+<input type="hidden" id="client-height" name="clientHeight" />
+
+<div id="search">
+    <form action="@ViewBag.ContextCatalogPageUrl" id="search-form" method="post" onsubmit="return validateSearchForm(this)">
+        @Html.AntiForgeryToken()
+        Поиск&nbsp;<input type="text" name="searchText" id="search-field">&nbsp;<input type="image" src="~/Images/magnifier.png" alt="search" title="Поиск">
+        <input type="hidden" name="sortField" value="@ViewBag.SortField" />
+        <input type="hidden" name="sortOrder" value="@ViewBag.SortOrder" />
+    </form>
+</div>
+
+<h2>@ViewBag.Title</h2>
+
+<div id="ctlg-navigation" class="invisible">
+    <ul>
+        @foreach (var item in Model.OrderBy(g => g.Title))
+        {
+            <li data-jstree='{ "icon":"jstree-folder" }' id="G-@item.ID" class="group">
+                @item.Title
+                @if (item.Subgroups != null && item.Subgroups.Count > 0)
+                {
+                    <ul>
+                        @foreach (var sgItem in item.Subgroups.OrderBy(s => s.Title))
+                        {
+                            <li data-jstree='{ "icon":"jstree-file" }' id="S-@sgItem.ID" class="subgroup">
+                                <a href="@ViewBag.CatalogPageUrl/@item.ID/@sgItem.ID?sortField=@ViewBag.SortField&sortOrder=@ViewBag.SortOrder&page=1">@sgItem.Title</a>
+                            </li>
+                        }
+                    </ul>
+                }
+            </li>
+        }
+    </ul>
+</div>
+
+<div id="navigation-splitter" class="invisible">
+    <input type="button" id="hide-navigation" onclick="javascript: HideNavigationTree();" title="Скрыть область навигации" alt="hide navigation" />
+    <input type="button" id="show-navigation" onclick="javascript: ShowNavigationTree();" title="Показать область навигации" alt="show navigation" />
+</div>
+
+<div id="ctlg-content" class="invisible">
+    <div id="ctlg-site-map">
+        @foreach (var item in ViewBag.Breadcrumbs)
+        {
+            <span>
+                <img src="~/Images/breadcrumb.png" alt="breadcrumb" />
+                <a href="@item.Url">@item.Title</a>
+            </span>
+        }
+    </div>
+    <div id="ctlg-content-settings">
+        Сортировка:&nbsp;
+        @if (ViewBag.SortOrder == "asc")
+        {
+            if (ViewBag.SortField == "id")
+            {
+                <a href="@ViewBag.ContextCatalogPageUrl?sortField=id&sortOrder=desc&searchText=@ViewBag.SearchText&page=1">Артикул</a>
+                <img src="~/Images/sort-asc.png" alt="sort" title="Сортировка по возрастанию" />
+            }
+            <span>&nbsp;</span>
+            if (ViewBag.SortField == "title")
+            {
+                <a href="@ViewBag.ContextCatalogPageUrl?sortField=title&sortOrder=desc&searchText=@ViewBag.SearchText&page=1">Наименование</a>
+                <img src="~/Images/sort-asc.png" alt="sort" title="Сортировка в алфавитном порядке" />
+            }
+        }
+        else
+        {
+            if (ViewBag.SortField == "id")
+            {
+                <a href="@ViewBag.ContextCatalogPageUrl?sortField=id&sortOrder=asc&searchText=@ViewBag.SearchText&page=1">Артикул</a>
+                <img src="~/Images/sort-desc.png" alt="sort" title="Сортировка по убыванию" />
+            }
+            <span>&nbsp;</span>
+            if (ViewBag.SortField == "title")
+            {
+                <a href="@ViewBag.ContextCatalogPageUrl?sortField=title&sortOrder=asc&searchText=@ViewBag.SearchText&page=1">Наименование</a>
+                <img src="~/Images/sort-desc.png" alt="sort" title="Сортировка в обратном алфавитном пордяке" />
+            }
+        }
+        &nbsp;|&nbsp;
+        Количество позиций на странице:&nbsp;
+        <select name="SelectRowsNumber" id="select-row-number">
+            <option>10</option>
+            <option selected>20</option>
+            <option>30</option>
+            <option>50</option>
+            <option>100</option>
+        </select>
+    </div>
+    <div id="ctlg-content-list">
+        @{
+            IEnumerable<Merchandise> merchandises = ViewBag.Merchandises;
+            if (merchandises == null || merchandises.Count() == 0)
+            {
+                if (!String.IsNullOrWhiteSpace(ViewBag.SearchText))
+                {
+                    <p><em>Не удалось найти указанный товар в каталоге.</em></p>
+                }
+                else
+                {
+                    <p><em>Выберите Категорию слева для просмотра товаров входящих в ее состав.</em></p>
+                }
+            }
+            else
+            {
+                Html.RenderPartial("Discounts",
+                    new ViewDataDictionary {
+                        { "Discounts", ViewBag.Discounts }});
+
+                foreach (var item in merchandises)
+                {
+                    var costWhs1 = item.CostWhs1.ToString("C", CultureInfo.CreateSpecificCulture("ru-RU"));
+                    var costWhs2 = item.CostWhs2.ToString("C", CultureInfo.CreateSpecificCulture("ru-RU"));
+                    var costWhs3 = item.CostWhs3.ToString("C", CultureInfo.CreateSpecificCulture("ru-RU"));
+                    
+                    Html.RenderPartial("MerchandiseItem",
+                        new ViewDataDictionary {
+                            { "IsCatalog", true },
+                            { "MerchandiseId", item.ID },
+                            { "Title", item.Title },
+                            { "Pack", item.Pack },
+                            { "UnitMeasure", item.UnitMeasure },
+                            { "CostWhs1", costWhs1.Substring(0, costWhs1.Length - 1) },
+                            { "CostWhs2", costWhs2.Substring(0, costWhs2.Length - 1) },
+                            { "CostWhs3", costWhs3.Substring(0, costWhs3.Length - 1) },
+                            { "OrderQuantity", "" },
+                            { "OrderComment", "" },
+                            { "Url", String.Format("{0}/{1}/{2}/{3}?page=1", ViewBag.CatalogPageUrl, ViewBag.GroupId, ViewBag.SubgroupId , item.ID) }
+                        });
+                }
+            }
+        }
+    </div>
+    <div id="ctlg-content-paging">
+        Страница @(ViewBag.PageCount < ViewBag.Page ? 0 : ViewBag.Page) из @ViewBag.PageCount
+        @Html.PagedListPager((IPagedList)ViewBag.Merchandises,
+            page => String.Format("{0}?sortField={1}&sortOrder={2}&searchText={3}&page={4}", ViewBag.contextCatalogPageUrl, ViewBag.SortField, ViewBag.SortOrder, ViewBag.SearchText, page))
+        @*@Html.PagedListPager((IPagedList)ViewBag.Merchandises,
+            page => Url.Action("/" + @ViewBag.contextCatalogPageUrl, new { page = page, sortField = ViewBag.SortField, sortOrder = ViewBag.SortOrder, searchText = ViewBag.SearchText }))*@
+    </div>
+</div>

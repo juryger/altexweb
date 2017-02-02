@@ -1,0 +1,229 @@
+﻿
+@{
+    Layout = null;
+}
+
+<div class="merchandise">
+    <div id="merchandise-image">
+        <a href="https://altechstorage.blob.core.windows.net/images/@(ViewBag.MerchandiseId).jpg" data-lighter>
+            <img src="https://altechstorage.blob.core.windows.net/thumbnail-images/@(ViewBag.MerchandiseId).jpg" alt="@ViewBag.Title" />
+        </a>
+    </div>
+    <div id="merchandise-details">
+        <form method="post" action="" id="merchandise-form-@ViewBag.MerchandiseId">
+            @Html.AntiForgeryToken()
+            <a href="@ViewBag.Url">@ViewBag.Title</a>
+            <br />
+            Артикул:&nbsp;<strong>@ViewBag.MerchandiseId</strong>
+            <br />
+            Упаковка:&nbsp;@ViewBag.Pack&nbsp;@ViewBag.UnitMeasure
+            <br />
+            <u>Опт1:</u>&nbsp;@ViewBag.CostWhs1<span class="rouble">e</span>&nbsp;|&nbsp;<u>Отп2:</u>&nbsp;@ViewBag.CostWhs2<span class="rouble">e</span>&nbsp;|&nbsp;<u>Отп3:</u>&nbsp;@ViewBag.CostWhs3<span class="rouble">e</span>
+            <br />
+            <input type="hidden" id="merchandise-id" name="merchandiseId" value="@ViewBag.MerchandiseId" />
+            Количество&nbsp;<input type="text" id="order-amount" name="orderAmount" value="@ViewBag.OrderQuantity" />
+            Комментарий&nbsp;<input type="text" id="order-comment" name="orderComment" value="@ViewBag.OrderComment" />
+            @if (ViewBag.IsCatalog == true)
+            {
+                <input type="button" id="add-cart" onclick="javascript: AddToCart(@ViewBag.MerchandiseId);" title="Добавить товар в заказ" alt="add" />
+            }
+            else
+            {
+                <input type="button" id="update-cart" onclick="javascript: UpdateInCart(@ViewBag.MerchandiseId);" title="Сохранить изменения" alt="update" />
+                <input type="button" id="remove-cart" onclick="javascript: RemoveFromCart(@ViewBag.MerchandiseId);" title="Удалить товар" alt="delete" />
+            }
+            <img src="~/Images/progress.gif" id="progress" />
+        </form>
+    </div>
+    <div id="notification-@ViewBag.MerchandiseId" class="notification">
+        <a id="notification-close" href="javascript:CloseNotification(@ViewBag.MerchandiseId)"><img src="~/Images/close.png" title="Скрыть"></a>
+        <div id="notification-message-@ViewBag.MerchandiseId" class=""></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    function MakeAjaxRequest(id, navigationUrl, command) {
+        var form = $('#merchandise-form-' + id);
+        var f = document.getElementById(form.attr('id'));
+
+        // Make form Validation
+        if (CheckFormValidation(id, f) == false)
+            return;
+
+        f.progress.style.display = 'inline-block';
+
+        // Make Ajax-request
+        $.ajax({
+            type: form.attr('method'),
+            url: navigationUrl,
+            data: form.serialize(),
+            success: function (msg) {
+                var innerMessage = msg.toString();
+                innerMessage = innerMessage.slice(innerMessage.indexOf('<body>') + 6, innerMessage.indexOf('</body>'));
+
+                var index = innerMessage.indexOf('<!-- Visual Studio Browser Link -->');
+                if (index != -1)
+                    innerMessage = innerMessage.slice(0, index);
+
+                var errorIndex = innerMessage.indexOf('error:');
+                if (errorIndex == -1) {
+                    NotifyInfo(id, innerMessage);
+
+                    // Сбросить параметры запроса (только если команда добаления)
+                    if (command == 'add') {
+                        f.orderAmount.value = '';
+                        f.orderComment.value = '';
+
+                        // Подсветить наличие в заказе товаров
+                        var date = new Date;
+                        date.setDate(date.getDate() + 1); // +1 day from now
+                        setCookie('IsOrderNotEmpty', 'true', { expires: date, path: '/' }); 
+                        $('#order-asterisk').attr('class', 'visible');
+                    }
+                    else if (command == 'update') {
+                        UpdateOrderSum(id, innerMessage);
+                    }
+                    
+                    // перезагрузить страницу чтобы обновить список товаров в заказе
+                    else if (command == "delete") {
+                        UpdateOrderSum(id, innerMessage);
+                        window.location.href = '/Order/Main';
+                    }
+                }
+                else
+                    NotifyError(id, innerMessage.slice(errorIndex + 7));
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                NotifyError(id, errorThrown);
+            },
+            complete: function(msg) {
+                f.progress.style.display = 'none';
+            }
+
+        });
+    }
+
+    function AddToCart(id) {
+        MakeAjaxRequest(id, '/Order/Add', 'add');
+    }
+
+    function UpdateInCart(id) {
+        MakeAjaxRequest(id, '/Order/Update', 'update');
+    }
+
+    function RemoveFromCart(id) {
+        if (confirm('Вы действительно хотите удалить товар из заказа?')) {
+            MakeAjaxRequest(id, '/Order/Delete', 'delete');
+        }
+    }
+
+    function htmlEncode(value) {
+        if (value) {
+            return $('<div />').text(value).html();
+        } else {
+            return '';
+        }
+    }
+
+    function htmlDecode(value) {
+        if (value) {
+            return $('<div />').html(value).text();
+        } else {
+            return '';
+        }
+    }
+
+    function CheckFormValidation(id, form) {
+        if (CheckRequiredField(id, form) == false)
+            return false;
+
+        if (CheckFieldFormat(id, form) == false)
+            return false;
+
+        return true;
+    }
+
+    function CheckRequiredField(id, form) {
+        if (form.orderAmount.value == '') {
+            NotifyError(id, 'Не указано значение поля "Количество".');
+            form.orderAmount.focus();
+            return false;
+        }
+
+        if (form.orderAmount.value == '0') {
+            NotifyError(id, 'Значение поля "Количество" должно быть больше 0.');
+            form.orderAmount.focus();
+            return false;
+        }
+
+        return true;
+    }
+
+    function CheckFieldFormat(id, form) {
+        var amount = parseInt(form.orderAmount.value, 10);
+        if (isNaN(amount) == true) {
+            NotifyError(id, 'Поле "Количество" должно содержать целочисленное значение.');
+            form.orderAmount.focus();
+            return false;
+        }
+
+        if (amount <= 0) {
+            NotifyError(id, 'Значение поля "Количество" должно быть положительным.');
+            form.orderAmount.focus();
+            return false;
+        }
+
+        return true;
+    }
+
+    function NotifyError(id, msg) {
+        var notification = document.getElementById('notification-' + id);
+        notification.style.display = 'block';
+
+        var notificationMessage = document.getElementById('notification-message-' + id);
+        notificationMessage.className = 'error-message';
+        notificationMessage.innerHTML = htmlDecode(msg);
+    }
+
+    function NotifyInfo(id, msg) {
+        var notification = document.getElementById('notification-' + id);
+        notification.style.display = 'block';
+
+        var notificationMessage = document.getElementById('notification-message-' + id);
+        notificationMessage.className = 'info-message';
+        notificationMessage.innerHTML = htmlDecode(msg);
+    }
+
+    function UpdateOrderSum(id, text) {
+        var msg = '';
+        var sum = '';
+        var sumIndex = text.indexOf('sum=');
+        if (sumIndex > 0) {
+            msg = text.slice(0, sumIndex - 1);
+            sum = text.slice(sumIndex + 4);
+
+            NotifyInfo(id, msg);
+
+            var arr = sum.split(';');
+            var sum = parseFloat(arr[0]);
+            var sumDiscount = parseFloat(arr[1]);
+
+            var orderInfoSum = document.getElementById('order-info-sum');
+            var orderInfoSum2 = document.getElementById('order-info-sum2');
+
+            if (isNaN(sum) == false && isNaN(sumDiscount) == false && sum != sumDiscount && sumDiscount > 0) {
+                orderInfoSum.innerHTML = '<strike><del>' + htmlDecode(arr[0]) + '</del></strike>&nbsp;';
+                orderInfoSum2.innerHTML = htmlDecode(arr[1]);
+            }
+            else {
+                orderInfoSum.innerHTML = htmlDecode(sum);
+                orderInfoSum2.innerHTML = '';
+            }
+        }
+    }
+
+    function CloseNotification(id) {
+        var notification = document.getElementById('notification-' + id);
+        notification.style.display = 'none';
+    }
+</script>

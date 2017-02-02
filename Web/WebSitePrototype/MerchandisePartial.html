@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+	<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+	<title>Untitled 1</title>
+	<link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+	<div id="merchandise-image">
+			<img src="1122.jpg" alt="MerchandiseID"/>
+		<a href="http://google.com">
+		</a>
+	</div>
+	<div id="merchandise-details">
+		<form action="/Order/Update" id="merchandise-form-1">
+			Наименование: Title
+			<br />
+			Артикул: <strong>ID</strong>
+			<br />
+			Упаковка: Pack
+			<br />
+			Цена: Cost
+			<br />
+			<!--Используется для хранения идентификатора заказа-->
+			<input type="hidden" id="order-id" name="OrderId" />
+			Количество 
+				<input type="text" id="amount" />
+			&nbsp;
+			Коментарий <input type="text" id="comment" />
+			<input type="image" src="add-cart.png" id="add-cart" /> 
+			<input type="image" src="update-cart.png" id="update-cart" /> 
+			<input type="button" id="remove-cart" /> 
+		</form>
+	</div>
+</body>
+
+</html>

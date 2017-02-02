@@ -1,0 +1,51 @@
+﻿@{
+    ViewBag.Title = "Контакты";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<script type="text/javascript">
+    window.onload = OnWindowLoaded;
+
+    function OnWindowLoaded() {
+        var orderNotEmpty = getCookie('IsOrderNotEmpty');
+        if (orderNotEmpty != undefined && orderNotEmpty == 'true') {
+            $('#order-asterisk').attr('class', 'visible');
+        }
+    }
+</script>
+
+<div id="contacts-address2">
+    <img id="attention-icon" src="~/Images/attention.png">
+    <address>
+        <strong>Калуга и Калужская область</strong>
+        <br />
+        <br />
+        С нами также можно связаться в этом регионе, детали по телефону:
+        <br />
+        <abbr title="Телефон">&#9742</abbr>&nbsp;+7&nbsp;910&nbsp;911-38-77
+    </address>
+</div>
+
+<div id="contacts-address">
+    <address>
+        <strong>Оптово-строительный рынок в Митино</strong>
+        <br />
+        Москва,&nbsp;ул. Дубравная 50
+        <br />
+        <abbr title="Телефон">&#9742</abbr>&nbsp;+7&nbsp;926&nbsp;729-34-99
+        <br />
+        <abbr title="Эл. почта">@@</abbr>&nbsp;<a href="mailto:alextechnologies@gmail.com">AlexTechnologies@gmail.com</a>
+    </address>
+    <p>
+        Рынок работает только по <b>средам</b> с 7:00 до 18:00. Если планируете приехать в другой день предварительно позвоните.
+    </p>
+    <h3>Схема проезда</h3>
+    <p>
+        <a href="https://maps.yandex.ru/-/CVw85BIR">
+            «Митинский оптово-строительный рынок» на Яндекс.Картах
+            <br />
+            <img src="~/Images/Map/Map.jpg" alt="Схема проезда" />
+        </a>
+    </p>
+</div>

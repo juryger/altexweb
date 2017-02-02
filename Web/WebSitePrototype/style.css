@@ -1,0 +1,147 @@
+﻿body {
+    font-size: 14px;
+    /* color: navy; */
+}
+
+#container {
+	position: relative;
+	width: 70%; /* width + border for IE 5.x */
+	border: solid #036;
+	border-width: 0 3px;
+	margin: auto;
+}
+
+#navigation {
+	position: absolute;
+	top: 30px;
+	margin-top: 5px;
+	width: 150px;
+	overflow:auto;
+	border-right: solid gray 1px;
+}
+
+#navigation ul {
+	margin: 0 0 0 5px;
+	padding: 0;
+	list-style: none;
+}
+
+#splitter {
+	position: absolute;
+	margin-top: 35px;
+	margin-left: 145px;
+}
+
+#content {
+	margin-top: 5px;
+	padding-left: 5px;
+	margin-left: 155px;
+}
+
+
+/* ----- Search ------*/
+#content-search {
+	float: right;
+	width: 270px;
+	margin: 0 0 15px 0;
+}
+
+#search-form {
+	width: 100%;
+}
+
+#search-form input {
+	line-height: 18px;
+	font-size: 12px;
+}
+
+#search-text {
+	width: 150px;
+}
+
+#search-form input[type=submit] {
+	width: 20px;
+	height: 20px;
+	border-width: 0px;
+	background: url('magnifier.png') 3px 5px no-repeat;
+}
+
+/* ----- Settings ------*/
+#content-settings {
+	clear: right;
+}
+
+#content-rownum {
+	float: right;
+}
+/* ----- Content List ------*/
+#content-list {
+	margin: 0 0 15px 0;
+}
+
+
+/* ----- Content Paging ------*/
+#content-paging {
+	margin: 0 0 15px 0;
+}
+
+.navbar-inverse {
+	background-color: #0066CC;
+	border-color: #080808;
+	color: white;
+}
+
+
+#merchandise-image
+{
+	float: left;
+	margin-top: 5px;
+	border: 2px #3399FF solid;
+}
+
+#merchandise-image img {
+	width: 100px;
+	height: 100px;	
+}
+
+#merchandise-details {
+	border: 0;
+    margin-top: 5px;
+	margin-left: 105px;
+}
+
+#merchandise-details input[id=amount]{
+	width: 50px;
+}
+
+#merchandise-details input[id=comment]{
+	width: 150px;
+}
+
+#merchandise-details input[id=remove-cart] {
+	width: 25px;
+	height: 25px;
+	border-width: 0px;
+	background: url('remove-cart.png') 0px 0px no-repeat;
+}
+
+/*-----------Customer------------*/
+
+#order-register, #customer-register {
+    border: 1px black solid;
+    width: 200px;
+    color: white;
+	background: #7ccf7c;
+}
+
+#order-cancel, #customer-cancel {
+    border: 1px black solid;
+    width: 200px;
+    color: white;
+	background: #ff6c6c;
+}
+
+#customer-confirmation input[type=text] {
+    width: 410px;
+}
+

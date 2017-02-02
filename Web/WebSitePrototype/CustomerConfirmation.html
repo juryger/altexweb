@@ -1,0 +1,110 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Untitled 1</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+<script type="text/javascript">
+    window.onresize = OnWindowResized;
+    window.onload = OnWindowLoaded;
+
+    function OnWindowLoaded() {
+        OnWindowResized();
+
+        if ('@ViewBag.SearchText' != '')
+            $('#search-field').val('@ViewBag.SearchText');
+    }
+
+    function OnWindowResized() {
+        var functionReturn = 0;
+
+        if ((document.documentElement) && (document.documentElement.clientHeight))
+            functionReturn = document.documentElement.clientHeight;
+        else if ((document.body) && (document.body.clientHeight))
+            functionReturn = document.body.clientHeight;
+        else if ((document.body) && (document.body.offsetHeight))
+            functionReturn = document.body.offsetHeight;
+        else if (window.innerHeight)
+            functionReturn = window.innerHeight - 18;
+
+        functionReturn = parseInt(functionReturn);
+        if ((isNaN(functionReturn) == true) || (functionReturn < 0))
+            functionReturn = 0;
+
+        functionReturn = functionReturn - 245;
+        if (functionReturn <= 0)
+            functionReturn = 500;
+
+        var clientHeight = document.getElementById("client-height");
+        if (clientHeight != null) {
+            if (clientHeight.value != functionReturn.toString()) {
+                var divContent = document.getElementById("customer-confirmation");
+                if (divContent != null) {
+                    divContent.setAttribute("style", "min-height:" + functionReturn.toString() + "px");
+                    divContent.style.height = functionReturn.toString() + 'px';
+                }
+            }
+            clientHeight.value = functionReturn.toString();
+        }
+    }
+</script>
+
+<h2>Данны о клиенте</h2>
+
+<!--Значение высоты окна браузера-->
+<input type="hidden" id="client-height" name="clientHeight" />
+
+<div id="notification" class="">
+    <div id="notification-icon">
+        <img src="/Images/bell.png">
+    </div>
+    <div id="notification-message">
+    </div>
+</div>
+
+<div id="customer-confirmation">
+    <form method="post" action="/Order/OrderConfirmation" id="customer-info-form">
+            <div>
+                <span>Клиент</span>
+                <br />
+                <input type="text" id="company" name="company" value="@Model.Company" style="width: 100%" />
+            </div>
+            <div>
+                <span>Контактное лицо</span>
+                <br />
+                <input type="text" id="contact-name" name="contactName" value="@Model.ContactName" />
+            </div>
+            <div>
+                <span>Контактный телефон</span>
+                <br />
+                <input type="text" id="phone-number" name="phoneNumber" value="@Model.PhoneNumber" />
+            </div>
+            <div>
+                <span>E-mail адрес</span>
+                <br />
+                <input type="text" id="email" name="email" value="@Model.EmailAddress" />
+            </div>
+            <div>
+                <span>Юридический адрес</span>
+                <br />
+                <input type="text" id="address" name="address" value="@Model.Address" />
+            </div>
+            <div>
+                <span>ИНН</span>
+                <br />
+                <input type="text" id="inn" name="inn" value="@Model.INN" />
+            </div>
+            <br />
+            <input type="button" id="customer-register" name="customerRegister" value="Завершить" onclick="javascript: CompleteOrderRegistration();" />
+            <input type="button" id="customer-cancel" name="customerCancel" value="Отменить" onclick="javascript: CancelOrderRegistration();" />
+    </form>
+</div>
+
+</body>
+
+</html>
