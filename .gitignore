@@ -5,6 +5,8 @@ $tf*/
 #Security sensitive config files
 app.confi?
 web.confi?
+[Ww]eb.[Dd]ebug.config
+[Ww]eb.[Rr]elease.config
 [Pp]ublish[Pp]rofile*/
 yandex_*
 #Unit tests results

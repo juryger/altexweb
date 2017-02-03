@@ -228,9 +228,7 @@
     <Content Include="fonts\rouble-webfont.eot" />
     <Content Include="fonts\rouble-webfont.ttf" />
     <Content Include="fonts\rouble-webfont.woff" />
-    <None Include="Properties\PublishProfiles\altech - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\altech - Web Deploy.pubxml" />
-    <None Include="Properties\PublishProfiles\altech.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -267,16 +265,16 @@
     <Content Include="Views\Order\OrderConfirmation.cshtml" />
     <Content Include="Views\Home\Stand.cshtml" />
     <Content Include="Views\Shared\Discounts.cshtml" />
-    <None Include="Web.config.sample">
+    <Content Include="Web.config.sample">
       <SubType>Designer</SubType>
-    </None>
-    <None Include="Web.config.Debug.sample">
+    </Content>
+    <Content Include="Web.Debug.config.sample">
       <DependentUpon>Web.config.sample</DependentUpon>
-    </None>
-    <None Include="Web.config.Release.sample">
+    </Content>
+    <Content Include="Web.Release.config.sample">
       <DependentUpon>Web.config.sample</DependentUpon>
       <SubType>Designer</SubType>
-    </None>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
