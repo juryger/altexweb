@@ -398,6 +398,7 @@ namespace Altech.WebJobs.OrderProcessing
             var from = new Email("admin@altexweb.ru", "Altex Web");
             var content = new Content("text/html", html);
             var mail = new Mail(from, subject, to, content);
+            mail.ReplyTo = new Email("AlexTechnologies@gmail.com");
 
             // Send email to customer.
             dynamic response = await sgc.client.mail.send.post(requestBody: mail.Get());
@@ -416,9 +417,10 @@ namespace Altech.WebJobs.OrderProcessing
 
             string subject = String.Format("Новый заказ на сайте АЛТЕХ Хозтовары от {0}", customer.Company);
             var to = new Email("AlexTechnologies@gmail.com");
-            var from = new Email(customer.EmailAddress);
+            var from = new Email("admin@altexweb.ru", "Altex Web");
             var content = new Content("text/html", html);
             var mail = new Mail(from, subject, to, content);
+            mail.ReplyTo = new Email(customer.EmailAddress);
 
             #region attachment preparation 
 
