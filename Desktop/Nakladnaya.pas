@@ -12,7 +12,6 @@ type
     Panel1: TPanel;
     Panel2: TPanel;
     DBGridEh1: TDBGridEh;
-    Panel3: TPanel;
     Panel4: TPanel;
     Label1: TLabel;
     Panel5: TPanel;
@@ -20,29 +19,31 @@ type
     clientsManagementPanel: TPanel;
     applyCustomerChangesButton: TSpeedButton;
     deleteCustomerButton: TSpeedButton;
-    invoiceManagementPanel: TPanel;
-    Splitter1: TSplitter;
-    orderNoComboBox: TDBLookupComboboxEh;
-    newOrderButton: TSpeedButton;
-    deleteOrderButton: TSpeedButton;
-    Label3: TLabel;
     Label5: TLabel;
     DBEditEh2: TDBEditEh;
     importWebOrderButton: TSpeedButton;
     importOrdersDialog: TOpenDialog;
-    Label6: TLabel;
-    saleDateTextBox: TEdit;
     Panel6: TPanel;
     exportExcelButton: TSpeedButton;
     previewButton: TSpeedButton;
     printButton: TSpeedButton;
     deleteGoodsItemButton: TSpeedButton;
-    DBEditEh1: TDBEditEh;
+    addCustomerButton: TSpeedButton;
+    invoiceManagementPanel: TPanel;
+    newOrderButton: TSpeedButton;
+    deleteOrderButton: TSpeedButton;
+    Label3: TLabel;
+    Label6: TLabel;
+    Label2: TLabel;
+    orderNoComboBox: TDBLookupComboboxEh;
+    saleDateTextBox: TEdit;
+    webOrderNoTextBox: TEdit;
+    Splitter1: TSplitter;
+    Panel3: TPanel;
     Label7: TLabel;
     Label4: TLabel;
-    addCustomerButton: TSpeedButton;
-    Label2: TLabel;
-    webOrderNoTextBox: TEdit;
+    Label8: TLabel;
+    DBEditEh1: TDBEditEh;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure deleteCustomerButtonClick(Sender: TObject);
     procedure deleteOrderButtonClick(Sender: TObject);
@@ -68,6 +69,7 @@ type
     procedure DBEditEh1Click(Sender: TObject);
     procedure DBEditEh1Change(Sender: TObject);
     procedure addCustomerButtonClick(Sender: TObject);
+    procedure DBEditEh1KeyPress(Sender: TObject; var Key: Char);
   private
     { Private declarations }
     procedure PrepareExcelHeader(sheet: TSheet);
@@ -664,17 +666,20 @@ begin
    end;
 
    // обновление БД
-   if DBmod.TCST.Locate('Guid', customerGuid, [loPartialKey,loCaseInsensitive]) = False then
+   if DBmod.TCST.Locate('Guid', customerGuid, [loPartialKey,loCaseInsensitive]) = True OR
+      DBmod.TCST.Locate('Company', company, [loPartialKey,loCaseInsensitive]) = True OR
+      DBmod.TCST.Locate('INN', inn, [loPartialKey,loCaseInsensitive]) = True then
    begin
+      DBmod.TCST.Edit;
+   end
+   else begin
       DBmod.TCST.Insert;
       DBmod.TCSTGuid.Value := customerGuid;
-   end
-   else
-      DBmod.TCST.Edit;
-      
-   DBmod.TCSTCompany.Value := company;
+      DBmod.TCSTCompany.Value := company;
+      DBmod.TCSTINN.Value := inn;
+   end;
+
    DBmod.TCSTContactName.Value := contactName;
-   DBmod.TCSTINN.Value := inn;
    DBmod.TCSTAddress.Value := address;
    DBmod.TCSTPhone.Value := phone;
    DBmod.TCSTEmail.Value := email;
@@ -746,14 +751,43 @@ end;
 procedure TNaklForm.DBEditEh1Change(Sender: TObject);
 begin
    If DBEditEh1.Text='' then
-   	DBmod.TCST.First
+   begin
+      DBMod.TCST.Filtered := False;
+      DBmod.TCST.First;
+   end
    else
-      DBmod.TCST.Locate('Company', DBEditEh1.Text, [loPartialKey,loCaseInsensitive])
+      DBmod.TCST.Locate('Company',DBEditEh1.Text,[loPartialKey,loCaseInsensitive]);
 end;
 
 procedure TNaklForm.addCustomerButtonClick(Sender: TObject);
 begin
    DBMod.TCST.Insert;
+end;
+
+procedure TNaklForm.DBEditEh1KeyPress(Sender: TObject; var Key: Char);
+var
+  i: Integer;
+  sFilter: string;
+begin
+  if (Key = #13) AND (Trim(DBEditEh1.Text) <> '') then
+  begin
+      DBMod.QCustomerLookup.Close();
+      DBMod.QCustomerLookup.ParamByName('C').Value := DBEditEh1.Text;
+      DBMod.QCustomerLookup.Open();
+      DBMod.QCustomerLookup.First;
+
+      sFilter := '';
+      For i := 1 to DBMod.QCustomerLookup.RecordCount do
+      begin
+         sFilter := sFilter + 'ID_CST = ' + DBMod.QCustomerLookupID_CST.AsString + ' OR ';
+         DBMod.QCustomerLookup.Next;
+      end;
+      sFilter := Copy(sFilter, 1, Length(sFilter)  - 4);
+
+      DBmod.TCST.Filtered := False;
+      DBmod.TCST.Filter := sFilter;
+      DBmod.TCST.Filtered := True;
+  end;
 end;
 
 end.

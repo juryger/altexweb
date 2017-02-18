@@ -20,7 +20,7 @@ object NaklForm: TNaklForm
   TextHeight = 13
   object Splitter1: TSplitter
     Left = 0
-    Top = 199
+    Top = 209
     Width = 1008
     Height = 3
     Cursor = crVSplit
@@ -30,7 +30,7 @@ object NaklForm: TNaklForm
     Left = 0
     Top = 0
     Width = 1008
-    Height = 199
+    Height = 209
     Align = alTop
     BevelOuter = bvNone
     TabOrder = 0
@@ -38,7 +38,7 @@ object NaklForm: TNaklForm
       Left = 0
       Top = 22
       Width = 1008
-      Height = 154
+      Height = 164
       Align = alClient
       BevelInner = bvRaised
       BevelOuter = bvLowered
@@ -47,7 +47,7 @@ object NaklForm: TNaklForm
         Left = 2
         Top = 2
         Width = 1004
-        Height = 150
+        Height = 160
         Align = alClient
         AllowedOperations = [alopInsertEh, alopUpdateEh, alopAppendEh]
         DataSource = DBmod.DCST
@@ -108,6 +108,7 @@ object NaklForm: TNaklForm
             FieldName = 'Phone'
             Footers = <>
             Title.Caption = #1058#1077#1083#1077#1092#1086#1085
+            Width = 250
           end
           item
             EditButtons = <>
@@ -124,57 +125,6 @@ object NaklForm: TNaklForm
           end>
       end
     end
-    object Panel3: TPanel
-      Left = 0
-      Top = 176
-      Width = 1008
-      Height = 23
-      Align = alBottom
-      BevelInner = bvRaised
-      BevelOuter = bvLowered
-      TabOrder = 1
-      object Label7: TLabel
-        Left = 66
-        Top = 6
-        Width = 39
-        Height = 13
-        Caption = #1050#1083#1080#1077#1085#1090':'
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = clBlack
-        Font.Height = -11
-        Font.Name = 'MS Sans Serif'
-        Font.Style = []
-        ParentFont = False
-        Layout = tlCenter
-      end
-      object Label4: TLabel
-        Left = 3
-        Top = 6
-        Width = 56
-        Height = 13
-        Caption = #1055#1086#1080#1089#1082' >>'
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = clBlue
-        Font.Height = -11
-        Font.Name = 'MS Sans Serif'
-        Font.Style = [fsBold]
-        ParentFont = False
-      end
-      object DBEditEh1: TDBEditEh
-        Left = 118
-        Top = 2
-        Width = 163
-        Height = 19
-        Alignment = taLeftJustify
-        AlwaysShowBorder = True
-        EditButtons = <>
-        Flat = True
-        TabOrder = 0
-        Visible = True
-        OnChange = DBEditEh1Change
-        OnClick = DBEditEh1Click
-      end
-    end
     object clientsManagementPanel: TPanel
       Left = 0
       Top = 0
@@ -182,7 +132,7 @@ object NaklForm: TNaklForm
       Height = 22
       Align = alTop
       BevelOuter = bvNone
-      TabOrder = 2
+      TabOrder = 1
       object applyCustomerChangesButton: TSpeedButton
         Left = 96
         Top = 1
@@ -302,10 +252,76 @@ object NaklForm: TNaklForm
         OnClick = addCustomerButtonClick
       end
     end
+    object Panel3: TPanel
+      Left = 0
+      Top = 186
+      Width = 1008
+      Height = 23
+      Align = alBottom
+      BevelInner = bvRaised
+      BevelOuter = bvLowered
+      TabOrder = 2
+      object Label7: TLabel
+        Left = 66
+        Top = 6
+        Width = 71
+        Height = 13
+        Caption = #1087#1086' '#1050#1083#1080#1077#1085#1090#1091':'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clBlack
+        Font.Height = -11
+        Font.Name = 'MS Sans Serif'
+        Font.Style = [fsBold]
+        ParentFont = False
+        Layout = tlCenter
+      end
+      object Label4: TLabel
+        Left = 3
+        Top = 6
+        Width = 56
+        Height = 13
+        Caption = #1055#1086#1080#1089#1082' >>'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clBlue
+        Font.Height = -11
+        Font.Name = 'MS Sans Serif'
+        Font.Style = [fsBold]
+        ParentFont = False
+      end
+      object Label8: TLabel
+        Left = 313
+        Top = 6
+        Width = 194
+        Height = 13
+        Caption = '('#1087#1086' '#1079#1072#1074#1077#1088#1096#1077#1085#1080#1102' '#1074#1074#1086#1076#1072' '#1085#1072#1078#1084#1080#1090#1077' Enter)'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clRed
+        Font.Height = -11
+        Font.Name = 'MS Sans Serif'
+        Font.Style = []
+        ParentFont = False
+        Layout = tlCenter
+      end
+      object DBEditEh1: TDBEditEh
+        Left = 142
+        Top = 2
+        Width = 163
+        Height = 19
+        Alignment = taLeftJustify
+        AlwaysShowBorder = True
+        EditButtons = <>
+        Flat = True
+        TabOrder = 0
+        Visible = True
+        OnChange = DBEditEh1Change
+        OnClick = DBEditEh1Click
+        OnKeyPress = DBEditEh1KeyPress
+      end
+    end
   end
   object Panel4: TPanel
     Left = 0
-    Top = 477
+    Top = 476
     Width = 1008
     Height = 25
     Align = alBottom
@@ -328,19 +344,19 @@ object NaklForm: TNaklForm
     object Label5: TLabel
       Left = 63
       Top = 6
-      Width = 22
+      Width = 51
       Height = 13
-      Caption = #1050#1086#1076':'
+      Caption = #1087#1086' '#1050#1086#1076#1091':'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clBlack
       Font.Height = -11
       Font.Name = 'MS Sans Serif'
-      Font.Style = []
+      Font.Style = [fsBold]
       ParentFont = False
       Layout = tlCenter
     end
     object DBEditEh2: TDBEditEh
-      Left = 91
+      Left = 115
       Top = 2
       Width = 89
       Height = 19
@@ -356,18 +372,18 @@ object NaklForm: TNaklForm
   end
   object Panel5: TPanel
     Left = 0
-    Top = 227
+    Top = 212
     Width = 1008
-    Height = 250
+    Height = 264
     Align = alClient
     BevelInner = bvRaised
     BevelOuter = bvLowered
     TabOrder = 2
     object DBGridEh3: TDBGridEh
       Left = 2
-      Top = 27
+      Top = 52
       Width = 1004
-      Height = 221
+      Height = 210
       Align = alClient
       AllowedOperations = [alopUpdateEh]
       DataSource = DBmod.DSLS_DTL
@@ -470,7 +486,7 @@ object NaklForm: TNaklForm
     end
     object Panel6: TPanel
       Left = 2
-      Top = 2
+      Top = 27
       Width = 1004
       Height = 25
       Align = alTop
@@ -593,145 +609,145 @@ object NaklForm: TNaklForm
         OnClick = deleteGoodsItemButtonClick
       end
     end
-  end
-  object invoiceManagementPanel: TPanel
-    Left = 0
-    Top = 202
-    Width = 1008
-    Height = 25
-    Align = alTop
-    BevelInner = bvRaised
-    BevelOuter = bvLowered
-    TabOrder = 3
-    object newOrderButton: TSpeedButton
-      Left = 152
+    object invoiceManagementPanel: TPanel
+      Left = 2
       Top = 2
-      Width = 20
-      Height = 21
-      Hint = #1057#1086#1079#1076#1072#1090#1100' '#1085#1086#1074#1099#1081' '#1079#1072#1082#1072#1079
-      Font.Charset = RUSSIAN_CHARSET
-      Font.Color = clGreen
-      Font.Height = -19
-      Font.Name = 'Arial'
-      Font.Style = [fsBold]
-      Glyph.Data = {
-        76010000424D7601000000000000760000002800000020000000100000000100
-        04000000000000010000130B0000130B00001000000000000000000000000000
-        800000800000008080008000000080008000808000007F7F7F00BFBFBF000000
-        FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF0033333333B333
-        333B33FF33337F3333F73BB3777BB7777BB3377FFFF77FFFF77333B000000000
-        0B3333777777777777333330FFFFFFFF07333337F33333337F333330FFFFFFFF
-        07333337F33333337F333330FFFFFFFF07333337F33333337F333330FFFFFFFF
-        07333FF7F33333337FFFBBB0FFFFFFFF0BB37777F3333333777F3BB0FFFFFFFF
-        0BBB3777F3333FFF77773330FFFF000003333337F333777773333330FFFF0FF0
-        33333337F3337F37F3333330FFFF0F0B33333337F3337F77FF333330FFFF003B
-        B3333337FFFF77377FF333B000000333BB33337777777F3377FF3BB3333BB333
-        3BB33773333773333773B333333B3333333B7333333733333337}
-      NumGlyphs = 2
-      ParentFont = False
-      ParentShowHint = False
-      ShowHint = True
-      OnClick = newOrderButtonClick
-    end
-    object deleteOrderButton: TSpeedButton
-      Left = 173
-      Top = 2
-      Width = 20
-      Height = 21
-      Hint = #1059#1076#1072#1083#1080#1090#1100' '#1074#1099#1073#1088#1072#1085#1085#1099#1081' '#1079#1072#1082#1072#1079
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clGreen
-      Font.Height = -11
-      Font.Name = 'MS Sans Serif'
-      Font.Style = [fsBold]
-      Glyph.Data = {
-        76010000424D7601000000000000760000002800000020000000100000000100
-        04000000000000010000120B0000120B00001000000000000000000000000000
-        800000800000008080008000000080008000808000007F7F7F00BFBFBF000000
-        FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF00333000000000
-        3333333777777777F3333330F777777033333337F3F3F3F7F3333330F0808070
-        33333337F7F7F7F7F3333330F080707033333337F7F7F7F7F3333330F0808070
-        33333337F7F7F7F7F3333330F080707033333337F7F7F7F7F3333330F0808070
-        333333F7F7F7F7F7F3F33030F080707030333737F7F7F7F7F7333300F0808070
-        03333377F7F7F7F773333330F080707033333337F7F7F7F7F333333070707070
-        33333337F7F7F7F7FF3333000000000003333377777777777F33330F88877777
-        0333337FFFFFFFFF7F3333000000000003333377777777777333333330777033
-        3333333337FFF7F3333333333000003333333333377777333333}
-      NumGlyphs = 2
-      ParentFont = False
-      ParentShowHint = False
-      ShowHint = True
-      OnClick = deleteOrderButtonClick
-    end
-    object Label3: TLabel
-      Left = 3
-      Top = 5
-      Width = 59
-      Height = 13
-      Caption = #8470' '#1079#1072#1082#1072#1079#1072
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clBlack
-      Font.Height = -11
-      Font.Name = 'MS Sans Serif'
-      Font.Style = [fsBold]
-      ParentFont = False
-    end
-    object Label6: TLabel
-      Left = 204
-      Top = 5
-      Width = 26
-      Height = 13
-      Caption = '/ '#1054#1090
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clBlack
-      Font.Height = -11
-      Font.Name = 'MS Sans Serif'
-      Font.Style = [fsBold]
-      ParentFont = False
-    end
-    object Label2: TLabel
-      Left = 370
-      Top = 5
-      Width = 76
-      Height = 13
-      Caption = '/ Web-'#1079#1072#1082#1072#1079
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clBlack
-      Font.Height = -11
-      Font.Name = 'MS Sans Serif'
-      Font.Style = [fsBold]
-      ParentFont = False
-    end
-    object orderNoComboBox: TDBLookupComboboxEh
-      Left = 69
-      Top = 2
-      Width = 81
-      Height = 21
-      EditButtons = <>
-      KeyField = 'ID_SAL_GRP'
-      ListField = 'OrderNo'
-      ListSource = DBmod.DSLS_GRP
-      TabOrder = 0
-      Visible = True
-      OnKeyValueChanged = orderNoComboBoxKeyValueChanged
-    end
-    object saleDateTextBox: TEdit
-      Left = 238
-      Top = 1
-      Width = 121
-      Height = 21
-      Color = 16245198
-      ReadOnly = True
-      TabOrder = 1
-    end
-    object webOrderNoTextBox: TEdit
-      Left = 451
-      Top = 1
-      Width = 121
-      Height = 21
-      Color = 16245198
-      ReadOnly = True
+      Width = 1004
+      Height = 25
+      Align = alTop
+      BevelInner = bvRaised
+      BevelOuter = bvLowered
       TabOrder = 2
+      object newOrderButton: TSpeedButton
+        Left = 152
+        Top = 2
+        Width = 20
+        Height = 21
+        Hint = #1057#1086#1079#1076#1072#1090#1100' '#1085#1086#1074#1099#1081' '#1079#1072#1082#1072#1079
+        Font.Charset = RUSSIAN_CHARSET
+        Font.Color = clGreen
+        Font.Height = -19
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        Glyph.Data = {
+          76010000424D7601000000000000760000002800000020000000100000000100
+          04000000000000010000130B0000130B00001000000000000000000000000000
+          800000800000008080008000000080008000808000007F7F7F00BFBFBF000000
+          FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF0033333333B333
+          333B33FF33337F3333F73BB3777BB7777BB3377FFFF77FFFF77333B000000000
+          0B3333777777777777333330FFFFFFFF07333337F33333337F333330FFFFFFFF
+          07333337F33333337F333330FFFFFFFF07333337F33333337F333330FFFFFFFF
+          07333FF7F33333337FFFBBB0FFFFFFFF0BB37777F3333333777F3BB0FFFFFFFF
+          0BBB3777F3333FFF77773330FFFF000003333337F333777773333330FFFF0FF0
+          33333337F3337F37F3333330FFFF0F0B33333337F3337F77FF333330FFFF003B
+          B3333337FFFF77377FF333B000000333BB33337777777F3377FF3BB3333BB333
+          3BB33773333773333773B333333B3333333B7333333733333337}
+        NumGlyphs = 2
+        ParentFont = False
+        ParentShowHint = False
+        ShowHint = True
+        OnClick = newOrderButtonClick
+      end
+      object deleteOrderButton: TSpeedButton
+        Left = 173
+        Top = 2
+        Width = 20
+        Height = 21
+        Hint = #1059#1076#1072#1083#1080#1090#1100' '#1074#1099#1073#1088#1072#1085#1085#1099#1081' '#1079#1072#1082#1072#1079
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clGreen
+        Font.Height = -11
+        Font.Name = 'MS Sans Serif'
+        Font.Style = [fsBold]
+        Glyph.Data = {
+          76010000424D7601000000000000760000002800000020000000100000000100
+          04000000000000010000120B0000120B00001000000000000000000000000000
+          800000800000008080008000000080008000808000007F7F7F00BFBFBF000000
+          FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF00333000000000
+          3333333777777777F3333330F777777033333337F3F3F3F7F3333330F0808070
+          33333337F7F7F7F7F3333330F080707033333337F7F7F7F7F3333330F0808070
+          33333337F7F7F7F7F3333330F080707033333337F7F7F7F7F3333330F0808070
+          333333F7F7F7F7F7F3F33030F080707030333737F7F7F7F7F7333300F0808070
+          03333377F7F7F7F773333330F080707033333337F7F7F7F7F333333070707070
+          33333337F7F7F7F7FF3333000000000003333377777777777F33330F88877777
+          0333337FFFFFFFFF7F3333000000000003333377777777777333333330777033
+          3333333337FFF7F3333333333000003333333333377777333333}
+        NumGlyphs = 2
+        ParentFont = False
+        ParentShowHint = False
+        ShowHint = True
+        OnClick = deleteOrderButtonClick
+      end
+      object Label3: TLabel
+        Left = 3
+        Top = 5
+        Width = 59
+        Height = 13
+        Caption = #8470' '#1079#1072#1082#1072#1079#1072
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clBlack
+        Font.Height = -11
+        Font.Name = 'MS Sans Serif'
+        Font.Style = [fsBold]
+        ParentFont = False
+      end
+      object Label6: TLabel
+        Left = 204
+        Top = 5
+        Width = 26
+        Height = 13
+        Caption = '/ '#1054#1090
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clBlack
+        Font.Height = -11
+        Font.Name = 'MS Sans Serif'
+        Font.Style = [fsBold]
+        ParentFont = False
+      end
+      object Label2: TLabel
+        Left = 370
+        Top = 5
+        Width = 76
+        Height = 13
+        Caption = '/ Web-'#1079#1072#1082#1072#1079
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clBlack
+        Font.Height = -11
+        Font.Name = 'MS Sans Serif'
+        Font.Style = [fsBold]
+        ParentFont = False
+      end
+      object orderNoComboBox: TDBLookupComboboxEh
+        Left = 69
+        Top = 2
+        Width = 81
+        Height = 21
+        EditButtons = <>
+        KeyField = 'ID_SAL_GRP'
+        ListField = 'OrderNo'
+        ListSource = DBmod.DSLS_GRP
+        TabOrder = 0
+        Visible = True
+        OnKeyValueChanged = orderNoComboBoxKeyValueChanged
+      end
+      object saleDateTextBox: TEdit
+        Left = 238
+        Top = 1
+        Width = 121
+        Height = 21
+        Color = 16245198
+        ReadOnly = True
+        TabOrder = 1
+      end
+      object webOrderNoTextBox: TEdit
+        Left = 451
+        Top = 1
+        Width = 121
+        Height = 21
+        Color = 16245198
+        ReadOnly = True
+        TabOrder = 2
+      end
     end
   end
   object importOrdersDialog: TOpenDialog

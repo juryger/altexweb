@@ -1315,28 +1315,28 @@ object PriceForm: TPriceForm
       object Label2: TLabel
         Left = 66
         Top = 6
-        Width = 22
+        Width = 51
         Height = 13
-        Caption = #1050#1086#1076':'
+        Caption = #1087#1086' '#1050#1086#1076#1091':'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Height = -11
         Font.Name = 'MS Sans Serif'
-        Font.Style = []
+        Font.Style = [fsBold]
         ParentFont = False
         Layout = tlCenter
       end
       object Label3: TLabel
-        Left = 152
+        Left = 184
         Top = 6
-        Width = 53
+        Width = 83
         Height = 13
-        Caption = #1053#1072#1079#1074#1072#1085#1080#1077':'
+        Caption = #1087#1086' '#1053#1072#1079#1074#1072#1085#1080#1102':'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Height = -11
         Font.Name = 'MS Sans Serif'
-        Font.Style = []
+        Font.Style = [fsBold]
         ParentFont = False
         Layout = tlCenter
       end
@@ -1353,10 +1353,24 @@ object PriceForm: TPriceForm
         Font.Style = [fsBold]
         ParentFont = False
       end
+      object Label8: TLabel
+        Left = 479
+        Top = 6
+        Width = 194
+        Height = 13
+        Caption = '('#1087#1086' '#1079#1072#1074#1077#1088#1096#1077#1085#1080#1102' '#1074#1074#1086#1076#1072' '#1085#1072#1078#1084#1080#1090#1077' Enter)'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clRed
+        Font.Height = -11
+        Font.Name = 'MS Sans Serif'
+        Font.Style = []
+        ParentFont = False
+        Layout = tlCenter
+      end
       object DBEditEh1: TDBEditEh
-        Left = 216
+        Left = 272
         Top = 2
-        Width = 273
+        Width = 201
         Height = 19
         Alignment = taLeftJustify
         AlwaysShowBorder = True
@@ -1366,9 +1380,10 @@ object PriceForm: TPriceForm
         Visible = True
         OnChange = DBEditEh1Change
         OnClick = DBEditEh1Click
+        OnKeyPress = DBEditEh1KeyPress
       end
       object DBEditEh2: TDBEditEh
-        Left = 94
+        Left = 118
         Top = 2
         Width = 50
         Height = 19

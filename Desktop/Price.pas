@@ -51,6 +51,7 @@ type
     exportButton: TSpeedButton;
     Image1: TImage;
     Image2: TImage;
+    Label8: TLabel;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure DBGridEh2CellClick(Column: TColumnEh);
@@ -92,6 +93,7 @@ type
     procedure addSubgroupButtonClick(Sender: TObject);
     procedure addGoodsButtonClick(Sender: TObject);
     procedure discountsButtonClick(Sender: TObject);
+    procedure DBEditEh1KeyPress(Sender: TObject; var Key: Char);
   private
     { Private declarations }
     procedure SaveImageInternal(bitMap: TBitmap);
@@ -151,10 +153,10 @@ var
    deletedRecordsFilter, deletedRecordsFilter2: String;
 begin
 	deletedRecordsFilter := '';
-	deletedRecordsFilter := '';
+	deletedRecordsFilter2 := '';
 	if showDeletedRecords = false then
    begin
-   	deletedRecordsFilter := ' AND DEL<>1';
+   	  deletedRecordsFilter := ' AND DEL<>1';
       deletedRecordsFilter2 := 'DEL<>1';
    end;
 
@@ -246,8 +248,13 @@ end;
 
 procedure TPriceForm.DBEditEh1Change(Sender: TObject);
 begin
-   If DBEditEh1.Text='' then DBmod.TGDS_DTL.First
-   else DBmod.TGDS_DTL.Locate('DESCRIPTION',DBEditEh1.Text,[loPartialKey,loCaseInsensitive])
+   If DBEditEh1.Text='' then
+   begin
+      RefreshSubgroupsTable();
+      DBmod.TGDS_DTL.First;
+   end
+   else
+      DBmod.TGDS_DTL.Locate('DESCRIPTION',DBEditEh1.Text,[loPartialKey,loCaseInsensitive]);
 end;
 
 procedure TPriceForm.DBEditEh1Click(Sender: TObject);
@@ -1502,6 +1509,34 @@ end;
 procedure TPriceForm.discountsButtonClick(Sender: TObject);
 begin
    DiscountsForm.ShowModal;
+end;
+
+procedure TPriceForm.DBEditEh1KeyPress(Sender: TObject; var Key: Char);
+var
+  i: Integer;
+  sFilter: string;
+begin
+  if (Key = #13) AND (Trim(DBEditEh1.Text) <> '') then
+  begin
+      DBMod.QPriceLookup.Close();
+      DBMod.QPriceLookup.ParamByName('D').Value := DBEditEh1.Text;
+      DBMod.QPriceLookup.Open();
+      DBMod.QPriceLookup.First;
+
+      sFilter := '';
+      For i := 1 to DBMod.QPriceLookup.RecordCount do
+      begin
+         sFilter := sFilter + 'ID_GDS_DTL = ' + DBMod.QPriceLookupID_GDS_DTL.AsString + ' OR ';
+         DBMod.QPriceLookup.Next;
+      end;
+      sFilter := Copy(sFilter, 1, Length(sFilter)  - 4);
+
+      RefreshSubgroupsTable();
+
+      DBmod.TGDS_DTL.Filtered := False;
+      DBmod.TGDS_DTL.Filter := DBmod.TGDS_DTL.Filter + ' AND ' + sFilter;
+      DBmod.TGDS_DTL.Filtered := True;
+  end;
 end;
 
 end.

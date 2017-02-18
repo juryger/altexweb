@@ -2,8 +2,8 @@ object DBmod: TDBmod
   OldCreateOrder = False
   OnCreate = DataModuleCreate
   OnDestroy = DataModuleDestroy
-  Left = 168
-  Top = 299
+  Left = 499
+  Top = 370
   Height = 662
   Width = 919
   object TGDS_GRP: TTable
@@ -85,7 +85,105 @@ object DBmod: TDBmod
     AfterDelete = TGDS_DTLAfterDelete
     OnCalcFields = TGDS_DTLCalcFields
     DatabaseName = 'AGCompound'
-    IndexName = 'description_asc'
+    FieldDefs = <
+      item
+        Name = 'ID_GDS_DTL'
+        Attributes = [faReadonly]
+        DataType = ftAutoInc
+      end
+      item
+        Name = 'ID_GDS_SGRP'
+        DataType = ftInteger
+      end
+      item
+        Name = 'ID_OKEY'
+        DataType = ftInteger
+      end
+      item
+        Name = 'DESCRIPTION'
+        DataType = ftString
+        Size = 100
+      end
+      item
+        Name = 'COST_OPT'
+        DataType = ftCurrency
+      end
+      item
+        Name = 'COST_ROZ'
+        DataType = ftCurrency
+      end
+      item
+        Name = 'COST_ZAK'
+        DataType = ftCurrency
+      end
+      item
+        Name = 'WARE_NUM'
+        DataType = ftInteger
+      end
+      item
+        Name = 'IMAGE'
+        DataType = ftGraphic
+      end
+      item
+        Name = 'DEL'
+        DataType = ftInteger
+      end
+      item
+        Name = 'PACK_NUM'
+        DataType = ftInteger
+      end
+      item
+        Name = 'UPLOADED'
+        DataType = ftInteger
+      end
+      item
+        Name = 'COST_PURCH'
+        DataType = ftCurrency
+      end
+      item
+        Name = 'COST_WHS1'
+        DataType = ftCurrency
+      end
+      item
+        Name = 'COST_WHS2'
+        DataType = ftCurrency
+      end
+      item
+        Name = 'COST_WHS3'
+        DataType = ftCurrency
+      end
+      item
+        Name = 'IMAGE_SET'
+        DataType = ftInteger
+      end>
+    IndexDefs = <
+      item
+        Name = 'TGDS_DTLIndex1'
+        Fields = 'ID_GDS_DTL'
+        Options = [ixPrimary, ixUnique]
+      end
+      item
+        Name = 'description_desc'
+        Fields = 'DESCRIPTION'
+        Options = [ixDescending, ixCaseInsensitive]
+      end
+      item
+        Name = 'description_asc'
+        Fields = 'DESCRIPTION'
+        Options = [ixCaseInsensitive]
+      end
+      item
+        Name = 'id_gds_dtl_asc'
+        Fields = 'ID_GDS_DTL'
+        Options = [ixCaseInsensitive]
+      end
+      item
+        Name = 'id_gds_dtl_desc'
+        Fields = 'ID_GDS_DTL'
+        Options = [ixDescending, ixCaseInsensitive]
+      end>
+    IndexFieldNames = 'DESCRIPTION'
+    StoreDefs = True
     TableName = 'Goods_detail.db'
     Left = 164
     Top = 8
@@ -260,12 +358,83 @@ object DBmod: TDBmod
     Top = 184
   end
   object TCST: TTable
+    ObjectView = True
     BeforeInsert = TCSTBeforeInsert
     BeforeEdit = TCSTBeforeInsert
     AfterPost = TCSTAfterPost
     AfterCancel = TCSTAfterCancel
     DatabaseName = 'AGCompound'
-    IndexName = 'ind_company'
+    FieldDefs = <
+      item
+        Name = 'ID_CST'
+        Attributes = [faReadonly]
+        DataType = ftAutoInc
+      end
+      item
+        Name = 'Company'
+        DataType = ftString
+        Size = 50
+      end
+      item
+        Name = 'ContactName'
+        DataType = ftString
+        Size = 50
+      end
+      item
+        Name = 'INN'
+        DataType = ftString
+        Size = 30
+      end
+      item
+        Name = 'Address'
+        DataType = ftString
+        Size = 100
+      end
+      item
+        Name = 'Del'
+        DataType = ftInteger
+      end
+      item
+        Name = 'Opt'
+        DataType = ftInteger
+      end
+      item
+        Name = 'Phone'
+        DataType = ftString
+        Size = 100
+      end
+      item
+        Name = 'Email'
+        DataType = ftString
+        Size = 50
+      end
+      item
+        Name = 'Guid'
+        DataType = ftString
+        Size = 36
+      end
+      item
+        Name = 'ID_COST_DCT'
+        DataType = ftInteger
+      end>
+    IndexDefs = <
+      item
+        Name = 'TCSTIndex1'
+        Fields = 'ID_CST'
+        Options = [ixPrimary, ixUnique]
+      end
+      item
+        Name = 'company_desc'
+        Fields = 'Company'
+        Options = [ixDescending, ixCaseInsensitive]
+      end
+      item
+        Name = 'company_asc'
+        Fields = 'Company'
+        Options = [ixCaseInsensitive]
+      end>
+    IndexFieldNames = 'Company'
+    StoreDefs = True
     TableName = 'Customers.db'
     Left = 282
     Top = 9
@@ -275,11 +444,11 @@ object DBmod: TDBmod
     end
     object TCSTCompany: TStringField
       FieldName = 'Company'
-      Size = 40
+      Size = 50
     end
     object TCSTContactName: TStringField
       FieldName = 'ContactName'
-      Size = 30
+      Size = 50
     end
     object TCSTINN: TStringField
       FieldName = 'INN'
@@ -287,7 +456,7 @@ object DBmod: TDBmod
     end
     object TCSTAddress: TStringField
       FieldName = 'Address'
-      Size = 70
+      Size = 100
     end
     object TCSTDel: TIntegerField
       FieldName = 'Del'
@@ -297,10 +466,11 @@ object DBmod: TDBmod
     end
     object TCSTPhone: TStringField
       FieldName = 'Phone'
+      Size = 100
     end
     object TCSTEmail: TStringField
       FieldName = 'Email'
-      Size = 30
+      Size = 50
     end
     object TCSTGuid: TStringField
       FieldName = 'Guid'
@@ -309,7 +479,7 @@ object DBmod: TDBmod
     object TCSTID_COST_DCT: TIntegerField
       FieldName = 'ID_COST_DCT'
     end
-    object TCSTProfitPercentage: TFloatField
+    object TCSTProfitPercentage: TIntegerField
       FieldKind = fkLookup
       FieldName = 'ProfitPercentage'
       LookupDataSet = TDiscounts
@@ -496,7 +666,7 @@ object DBmod: TDBmod
   end
   object Database1: TDatabase
     AliasName = 'AGCompound'
-    DatabaseName = 'proj_db'
+    DatabaseName = 'db_proj'
     KeepConnection = False
     LoginPrompt = False
     SessionName = 'Default'
@@ -1212,7 +1382,6 @@ object DBmod: TDBmod
     Top = 56
   end
   object TGoods4Orders: TTable
-    Active = True
     DatabaseName = 'AGCompound'
     TableName = 'Goods_detail.db'
     Left = 400
@@ -1224,6 +1393,47 @@ object DBmod: TDBmod
     object TGoods4OrdersDESCRIPTION: TStringField
       FieldName = 'DESCRIPTION'
       Size = 100
+    end
+  end
+  object QCustomerLookup: TQuery
+    DatabaseName = 'AGCompound'
+    SQL.Strings = (
+      'SELECT Customers.ID_CST'
+      'FROM "Customers.DB" Customers'
+      'WHERE upper(Customers.Company) LIKE '#39'%'#39' + upper(:C) + '#39'%'#39
+      'ORDER BY Customers.ID_CST')
+    Left = 461
+    Top = 356
+    ParamData = <
+      item
+        DataType = ftString
+        Name = 'C'
+        ParamType = ptUnknown
+        Value = '0'
+      end>
+    object QCustomerLookupID_CST: TIntegerField
+      FieldName = 'ID_CST'
+      Origin = 'AGCOMPOUND."Customers.DB".ID_CST'
+    end
+  end
+  object QPriceLookup: TQuery
+    DatabaseName = 'AGCompound'
+    SQL.Strings = (
+      'SELECT Price.ID_GDS_DTL'
+      'FROM "Goods_detail.DB" Price'
+      'WHERE upper(Price.DESCRIPTION) LIKE '#39'%'#39' + upper(:D) + '#39'%'#39
+      'ORDER BY Price.ID_GDS_DTL')
+    Left = 377
+    Top = 357
+    ParamData = <
+      item
+        DataType = ftString
+        Name = 'D'
+        ParamType = ptUnknown
+      end>
+    object QPriceLookupID_GDS_DTL: TIntegerField
+      FieldName = 'ID_GDS_DTL'
+      Origin = 'AGCOMPOUND."Goods_detail.DB".ID_GDS_DTL'
     end
   end
 end
