@@ -4,8 +4,8 @@ object DBmod: TDBmod
   OnDestroy = DataModuleDestroy
   Left = 499
   Top = 370
-  Height = 662
-  Width = 919
+  Height = 700
+  Width = 940
   object TGDS_GRP: TTable
     BeforeInsert = TGDS_GRPBeforeInsert
     BeforeEdit = TGDS_GRPBeforeEdit
@@ -837,21 +837,21 @@ object DBmod: TDBmod
     Top = 238
   end
   object ExportPriceExcelFile: TXLSExportFile
-    Left = 80
-    Top = 496
+    Left = 56
+    Top = 416
   end
   object XLSExportPriceDataSource: TXLSExportDataSource
     XLSExportFile = ExportPriceExcelFile
     DataSource = DQPriceExcel
     Options = []
     OnSaveTitle = XLSExportPriceDataSourceSaveTitle
-    Left = 240
-    Top = 496
+    Left = 56
+    Top = 472
   end
   object DQPriceExcel: TDataSource
     DataSet = QPriceExcel
-    Left = 583
-    Top = 548
+    Left = 139
+    Top = 580
   end
   object QPriceExcel: TQuery
     DatabaseName = 'AGCompound'
@@ -880,8 +880,8 @@ object DBmod: TDBmod
       ' '
       ' '
       ' ')
-    Left = 580
-    Top = 496
+    Left = 140
+    Top = 528
     object QPriceExcelID_GDS_DTL: TIntegerField
       FieldName = 'ID_GDS_DTL'
     end
@@ -911,8 +911,8 @@ object DBmod: TDBmod
       'WHERE Goods_detail.DEL <> 1'
       'ORDER BY Goods_detail.ID_GDS_DTL'
       ' ')
-    Left = 384
-    Top = 496
+    Left = 56
+    Top = 528
     object QCatalogExcelID_GDS_DTL: TIntegerField
       FieldName = 'ID_GDS_DTL'
       Origin = 'AGCOMPOUND."Goods_detail.DB".ID_GDS_DTL'
@@ -925,25 +925,25 @@ object DBmod: TDBmod
   end
   object DQCatalogExcel: TDataSource
     DataSet = QPriceExcel
-    Left = 383
-    Top = 548
+    Left = 55
+    Top = 580
   end
   object XLSExportNakladnayaDataSource: TXLSExportDataSource
-    XLSExportFile = ExportNakladnayaExcelFile
+    XLSExportFile = ExportPriceExcelFile
     DataSource = DQNakladnayaExcel
     Options = []
     OnSaveTitle = XLSExportNakladnayaDataSourceSaveTitle
-    Left = 239
-    Top = 549
+    Left = 255
+    Top = 469
   end
   object DQNakladnayaExcel: TDataSource
     DataSet = QNakladnayaExcel
-    Left = 483
-    Top = 548
+    Left = 259
+    Top = 580
   end
   object ExportNakladnayaExcelFile: TXLSExportFile
-    Left = 80
-    Top = 550
+    Left = 256
+    Top = 422
   end
   object QNakladnayaExcel: TQuery
     DatabaseName = 'AGCompound'
@@ -963,8 +963,8 @@ object DBmod: TDBmod
       '   ON  (OkeyCodes.ID_OKEY = Goods_detail.ID_OKEY)'
       'WHERE  Customers.ID_CST = :C AND Sales_group.ID_SAL_GRP = :O'
       'ORDER BY Goods_detail.DESCRIPTION')
-    Left = 482
-    Top = 494
+    Left = 258
+    Top = 526
     ParamData = <
       item
         DataType = ftInteger
@@ -1403,7 +1403,7 @@ object DBmod: TDBmod
       'WHERE upper(Customers.Company) LIKE '#39'%'#39' + upper(:C) + '#39'%'#39
       'ORDER BY Customers.ID_CST')
     Left = 461
-    Top = 356
+    Top = 348
     ParamData = <
       item
         DataType = ftString
@@ -1424,7 +1424,7 @@ object DBmod: TDBmod
       'WHERE upper(Price.DESCRIPTION) LIKE '#39'%'#39' + upper(:D) + '#39'%'#39
       'ORDER BY Price.ID_GDS_DTL')
     Left = 377
-    Top = 357
+    Top = 349
     ParamData = <
       item
         DataType = ftString

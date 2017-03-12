@@ -5,7 +5,8 @@ interface
 uses
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
   StdCtrls, ExtCtrls, Grids, DBGridEh, Mask, DBCtrlsEh, Buttons, DB,
-  DBLookupEh, DBCtrls, XLSWorkbook, Variants, XMLDoc, XMLIntf, StrUtils;
+  DBLookupEh, DBCtrls, XLSFile, XLSWorkbook, Variants, XMLDoc, XMLIntf, StrUtils,
+  AppSettingsHelper, Sum_Propis_3;
 
 type
   TNaklForm = class(TForm)
@@ -44,6 +45,7 @@ type
     Label4: TLabel;
     Label8: TLabel;
     DBEditEh1: TDBEditEh;
+    btExportAccountExcel: TSpeedButton;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure deleteCustomerButtonClick(Sender: TObject);
     procedure deleteOrderButtonClick(Sender: TObject);
@@ -70,6 +72,7 @@ type
     procedure DBEditEh1Change(Sender: TObject);
     procedure addCustomerButtonClick(Sender: TObject);
     procedure DBEditEh1KeyPress(Sender: TObject; var Key: Char);
+    procedure btExportAccountExcelClick(Sender: TObject);
   private
     { Private declarations }
     procedure PrepareExcelHeader(sheet: TSheet);
@@ -93,7 +96,7 @@ var
 
 implementation
 
-uses dbModule, MAIN, Price, DatePickUp, NDS_Params, ShellAPI, XLSFormat, FILECTRL;
+uses dbModule, MAIN, Price, DatePickUp, NDS_Params, ShellAPI, XLSFormat, FILECTRL, AccountParams;
 
 {$R *.DFM}
 
@@ -253,7 +256,7 @@ end;
 procedure TNaklForm.DBGridEh3DragDrop(Sender, Source: TObject; X,
   Y: Integer);
 var
-   cost: Real;
+    cost: Real;
    dtl_i: Integer;
    whs_column: String;
 begin
@@ -517,7 +520,7 @@ begin
     DbMod.ExportPriceExcelFile.Workbook.Clear;
 
     // переименовываем первый лист
-    DbMod.ExportNakladnayaExcelFile.Workbook.Sheets[0].Name := 'Накладная';
+    DbMod.ExportNakladnayaExcelFile.Workbook.Sheets[0].Name := 'Счёт';
 
     // Заголовок отчета каталог цен.
     PrepareExcelHeader(DbMod.ExportNakladnayaExcelFile.Workbook.Sheets[0]);
@@ -528,12 +531,12 @@ begin
     DBmod.QNakladnayaExcel.ParamByName('C').Value := DBmod.TCST.FieldByName('ID_CST').Value;
     DBmod.QNakladnayaExcel.ParamByName('O').Value := DBmod.TSLS_GRPID_SAL_GRP.Value;
     DBmod.QNakladnayaExcel.Open();
-    
+
     DbMod.XLSExportNakladnayaDataSource.ExportData(0, 5, 0);
 
-    //excelDir := ExtractFilePath(ParamStr(0)) + 'Excel';
     // исключить синхронизацию Dropbox
-    excelDir := 'D:\Temp\Ag\Excel';
+    //excelDir := 'D:\Temp\Ag\Excel';
+    excelDir := GetSettingsParam(Self, 'TempDir') + '\AG\Excel';
     if (NOT DirectoryExists(excelDir)) then
         //CreateDir(excelDir);
         ForceDirectories(excelDir);
@@ -788,6 +791,116 @@ begin
       DBmod.TCST.Filter := sFilter;
       DBmod.TCST.Filtered := True;
   end;
+end;
+
+procedure TNaklForm.btExportAccountExcelClick(Sender: TObject);
+var
+    accountTitle, excelDir, fileName, customerInfo, sumItemsText, strBuff1, strBuff2, strBuff3: string;
+    xf: TXLSFile;
+    i, itemsCount, taxValue: Integer;
+    sum: Real;
+begin
+    if (frmAccountParams.ShowModal() = mrCancel) then
+        exit;
+
+    taxValue := StrToInt(frmAccountParams.tbPercentageValue.Text);
+
+    xf:= TXLSFile.Create;
+    try
+        xf.OpenFile(ExtractFilePath(ParamStr(0)) + 'templates' + '\account_template.xls');
+
+        with xf.Workbook.Sheets[0] do
+        begin
+            { Account header }
+            // Title
+            accountTitle := StringReplace(Cells.CellByA1Ref['B10'].Value, '{0}',
+                frmAccountParams.tbAccNo.Text, [rfReplaceAll, rfIgnoreCase]);
+            Cells.CellByA1Ref['B10'].Value := StringReplace(accountTitle, '{1}',
+                DateToStr(frmAccountParams.dtpAccountDate.Date), [rfReplaceAll, rfIgnoreCase]);
+
+            strBuff1 := Cells.CellByA1Ref['D5'].Value; Cells.CellByA1Ref['D5'].Clear();
+            strBuff2 := Cells.CellByA1Ref['W3'].Value; Cells.CellByA1Ref['W3'].Clear();
+            strBuff3 := Cells.CellByA1Ref['W5'].Value; Cells.CellByA1Ref['W5'].Clear();
+            Cells.CellByA1Ref['D5'].Value := strBuff1;
+            Cells.CellByA1Ref['W3'].Value := strBuff2;
+            Cells.CellByA1Ref['W5'].Value := strBuff3;
+            Cells.CellByA1Ref['D5'].FormatStringIndex := 1;
+            Cells.CellByA1Ref['W3'].FormatStringIndex := 1;
+            Cells.CellByA1Ref['W5'].FormatStringIndex := 1;
+
+
+            // Customer
+            customerInfo := DBMod.TCSTCompany.Value + ', ИНН: ' + DBMod.TCSTINN.Value +
+                ', ' + DBMod.TCSTAddress.Value + ', тел. ' + DBMod.TCSTPhone.Value;
+            Cells.CellByA1Ref['H16'].Value := customerInfo;
+            Cells.CellByA1Ref['H18'].Value := customerInfo;
+
+            { Account body }
+            sum :=0;
+            itemsCount := DBMod.TSLS_DTL.RecordCount;
+            Rows.InsertRows(20, itemsCount - 1);
+
+            // row number - [20,1], item title - [20,2], item amount - [20,3], cost - [20,5], sum - [20,6]
+            for i := 1 to DBMod.TSLS_DTL.RecordCount do
+            begin
+                if (i <> DBMod.TSLS_DTL.RecordCount) then
+                    Rows.CopyRows(19 + i,19 + i, 20 + i);
+
+                Cells.CellByA1Ref['B' + IntToStr(20 + i)].Value := i;
+                Cells.CellByA1Ref['D' + IntToStr(20 + i)].Value := DBMod.TSLS_DTLTitle.Value;
+                Cells.CellByA1Ref['Y' + IntToStr(20 + i)].Value := DBMod.TSLS_DTLGDS_NUMB.Value;
+
+                Cells.CellByA1Ref['AD' + IntToStr(20 + i)].Clear();
+                Cells.CellByA1Ref['AD' + IntToStr(20 + i)].Value := DBMod.TSLS_DTLGDS_COST_NDS.Value;
+                Cells.CellByA1Ref['AD' + IntToStr(20 + i)].FormatStringIndex := 2;
+
+                Cells.CellByA1Ref['AH' + IntToStr(20 + i)].Clear();
+                Cells.CellByA1Ref['AH' + IntToStr(20 + i)].Value := DBMod.TSLS_DTLGDS_NUMB.Value * DBMod.TSLS_DTLGDS_COST_NDS.Value;
+                Cells.CellByA1Ref['AH' + IntToStr(20 + i)].FormatStringIndex := 2;
+
+                sum := sum + DBMod.TSLS_DTLGDS_NUMB.Value * DBMod.TSLS_DTLGDS_COST_NDS.Value;
+                DBMod.TSLS_DTL.Next;
+            end;
+
+            { Account footer }
+            Cells.CellByA1Ref['AH' + IntToStr(21 + itemsCount)].Clear();
+            Cells.CellByA1Ref['AH' + IntToStr(21 + itemsCount)].Value := sum;
+            Cells.CellByA1Ref['AH' + IntToStr(21 + itemsCount)].FormatStringIndex := 2;
+
+            Cells.CellByA1Ref['Z' + IntToStr(22 + itemsCount)].Value :=
+                StringReplace(Cells.CellByA1Ref['Z' + IntToStr(22 + itemsCount)].Value,
+                    '{0}', frmAccountParams.tbPercentageValue.Text, [rfReplaceAll, rfIgnoreCase]);
+
+            Cells.CellByA1Ref['AH' + IntToStr(22 + itemsCount)].Clear();
+            Cells.CellByA1Ref['AH' + IntToStr(22 + itemsCount)].Value := (sum * taxValue)/(100 + taxValue);
+            Cells.CellByA1Ref['AH' + IntToStr(22 + itemsCount)].FormatStringIndex := 2;
+
+            Cells.CellByA1Ref['AH' + IntToStr(23 + itemsCount)].Clear();
+            Cells.CellByA1Ref['AH' + IntToStr(23 + itemsCount)].Value := sum;
+            Cells.CellByA1Ref['AH' + IntToStr(23 + itemsCount)].FormatStringIndex := 2;
+
+            // overall sum with item num
+            sumItemsText := StringReplace(Cells.CellByA1Ref['B' + IntToStr(24 + itemsCount)].Value,
+                '{0}', IntToStr(itemsCount), [rfReplaceAll, rfIgnoreCase]);
+            Cells.CellByA1Ref['B' + IntToStr(24 + itemsCount)].Value :=
+                StringReplace(sumItemsText, '{1}', FloatToStr(sum), [rfReplaceAll, rfIgnoreCase]);
+            Cells.CellByA1Ref['B' + IntToStr(25 + itemsCount)].Value :=
+                Sp3.GetRealSumma(sum, false);
+
+            Cells.CellByA1Ref['B' + IntToStr(27 + itemsCount)].Wrap := True;
+        end;
+
+        // Экспортируем в формат Excel (подкаталог \Excel)
+        excelDir := GetSettingsParam(Self, 'TempDir') + '\AG\Excel';
+        fileName := excelDir + '\Счёт_' + DateToStr(Now) + '_' + frmAccountParams.tbAccNo.Text + '.xls';
+        xf.SaveAs(fileName);
+
+        // Открыть папку в которой будет располагаться архив
+        { Procedure uses OS shell to open and view XLS file }
+        ShellExecute(0, 'open', PChar(excelDir), nil, nil, SW_SHOW);
+    finally
+        xf.Destroy;
+    end;
 end;
 
 end.

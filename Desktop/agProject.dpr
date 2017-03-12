@@ -19,7 +19,8 @@ uses
   Store in 'Store.pas' {StoreForm},
   AppSettingsHelper in 'AppSettingsHelper.pas',
   FixBDE4GbBug in 'FixBDE4GbBug.pas',
-  Discounts in 'Discounts.pas' {DiscountsForm};
+  Discounts in 'Discounts.pas' {DiscountsForm},
+  AccountParams in 'AccountParams.pas' {frmAccountParams};
 
 {$R *.RES}
 
@@ -34,6 +35,7 @@ begin
   Application.CreateForm(TUnitMeasuringForm, UnitMeasuringForm);
   Application.CreateForm(TBeforPricePrintForm, BeforPricePrintForm);
   Application.CreateForm(TDiscountsForm, DiscountsForm);
+  Application.CreateForm(TfrmAccountParams, frmAccountParams);
   //Application.CreateForm(TSkladForm, SkladForm);
   Application.Run;
 end.

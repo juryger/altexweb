@@ -494,11 +494,11 @@ object NaklForm: TNaklForm
       BevelOuter = bvLowered
       TabOrder = 1
       object exportExcelButton: TSpeedButton
-        Left = 287
+        Left = 386
         Top = 2
-        Width = 95
+        Width = 146
         Height = 21
-        Caption = 'Excel'
+        Caption = #1053#1072#1082#1083#1072#1076#1085#1072#1103' Excel'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clPurple
         Font.Height = -11
@@ -519,6 +519,7 @@ object NaklForm: TNaklForm
           3333777777333333333333333333333333333333333333333333}
         NumGlyphs = 2
         ParentFont = False
+        Visible = False
         OnClick = exportExcelButtonClick
       end
       object previewButton: TSpeedButton
@@ -607,6 +608,34 @@ object NaklForm: TNaklForm
         ParentShowHint = False
         ShowHint = True
         OnClick = deleteGoodsItemButtonClick
+      end
+      object btExportAccountExcel: TSpeedButton
+        Left = 286
+        Top = 2
+        Width = 99
+        Height = 21
+        Caption = #1057#1095#1105#1090' Excel'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clPurple
+        Font.Height = -11
+        Font.Name = 'MS Sans Serif'
+        Font.Style = [fsBold]
+        Glyph.Data = {
+          76010000424D7601000000000000760000002800000020000000100000000100
+          04000000000000010000130B0000130B00001000000000000000000000000000
+          800000800000008080008000000080008000808000007F7F7F00BFBFBF000000
+          FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF00333333333303
+          333333333333337FF3333333333333903333333333333377FF33333333333399
+          03333FFFFFFFFF777FF3000000999999903377777777777777FF0FFFF0999999
+          99037F3337777777777F0FFFF099999999907F3FF777777777770F00F0999999
+          99037F773777777777730FFFF099999990337F3FF777777777330F00FFFFF099
+          03337F773333377773330FFFFFFFF09033337F3FF3FFF77733330F00F0000003
+          33337F773777777333330FFFF0FF033333337F3FF7F3733333330F08F0F03333
+          33337F7737F7333333330FFFF003333333337FFFF77333333333000000333333
+          3333777777333333333333333333333333333333333333333333}
+        NumGlyphs = 2
+        ParentFont = False
+        OnClick = btExportAccountExcelClick
       end
     end
     object invoiceManagementPanel: TPanel
