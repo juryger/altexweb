@@ -79,6 +79,11 @@ type
     function ImportCustomerFromWebOrder(customer: IXMLNode): Boolean;
     function ImportOrderDetailsFromWebOrder(webOrderId: integer; created: TDateTime; details: IXMLNode): Boolean;
     function GetNextOrderId(): integer;
+    procedure ExportBillToExcel(excelDir: string; taxValue: integer; billNo: string; billDate: TDateTime);
+    procedure ExportDeliveryNoteToExcel(excelDir: string; taxValue: integer; billNo: string; billDate: TDateTime; orderNo: integer);
+    procedure ExportInvoiceToExcel(excelDir: string; taxValue: integer; billNo: string; billDate: TDateTime; orderNo: integer);
+    function CalculateSumWithoutTax(sum: Double; taxValue: integer): Double;
+    function CalculateTax(sum: Double; taxValue: integer): Double;
   public
     { Public declarations }
     procedure Refresh_CSTTable();
@@ -795,28 +800,63 @@ end;
 
 procedure TNaklForm.btExportAccountExcelClick(Sender: TObject);
 var
-    accountTitle, excelDir, fileName, customerInfo, sumItemsText, strBuff1, strBuff2, strBuff3: string;
-    xf: TXLSFile;
-    i, itemsCount, taxValue: Integer;
-    sum: Real;
+    excelDir, billNo: string;
+    taxValue, orderNo: integer;
+    billDate: TDateTime;
 begin
+    if (DBMod.TSLS_DTL.RecordCount = 0) then
+      exit;
+
+    // Проверить заполненность собственных реквизитов
+    if (DBMod.TINF.RecordCount = 0) then begin
+      MessageDlg('Раздел Реквизиты не заполнен. Заполните реквизиты компании.',
+        mtInformation, [mbOk], 0);
+      exit;
+    end;
+
     if (frmAccountParams.ShowModal() = mrCancel) then
         exit;
 
     taxValue := StrToInt(frmAccountParams.tbPercentageValue.Text);
+    billNo := frmAccountParams.tbAccNo.Text;
+    billDate := frmAccountParams.dtpAccountDate.Date;
 
+    excelDir := GetSettingsParam(Self, 'TempDir') + '\AG\Excel';
+
+    orderNo := DBmod.TSLS_GRPID_WEB.Value;
+    if (orderNo = 0) then
+    begin
+        orderNo := Dbmod.TSLS_GRPOrderNo.Value;
+    end;
+
+    ExportBillToExcel(excelDir, taxValue, billNo, billDate);
+    ExportDeliveryNoteToExcel(excelDir, taxValue, billNo, billDate, orderNo);
+    ExportInvoiceToExcel(excelDir, taxValue, billNo, billDate, orderNo);
+
+    DBMod.TSLS_DTL.First;
+
+    { Procedure uses OS shell to open and view XLS file }
+    ShellExecute(0, 'open', PChar(excelDir), nil, nil, SW_SHOW);
+end;
+
+procedure TNaklForm.ExportBillToExcel(excelDir: string; taxValue: integer; billNo: string; billDate: TDateTime);
+var
+    billTitle, fileName, customerInfo, sumItemsText, strBuff1, strBuff2, strBuff3: string;
+    xf: TXLSFile;
+    i, itemsCount: Integer;
+    sum: Real;
+begin
     xf:= TXLSFile.Create;
     try
-        xf.OpenFile(ExtractFilePath(ParamStr(0)) + 'templates' + '\account_template.xls');
+        xf.OpenFile(ExtractFilePath(ParamStr(0)) + 'templates' + '\bill.xls');
 
         with xf.Workbook.Sheets[0] do
         begin
-            { Account header }
-            // Title
-            accountTitle := StringReplace(Cells.CellByA1Ref['B10'].Value, '{0}',
-                frmAccountParams.tbAccNo.Text, [rfReplaceAll, rfIgnoreCase]);
-            Cells.CellByA1Ref['B10'].Value := StringReplace(accountTitle, '{1}',
-                DateToStr(frmAccountParams.dtpAccountDate.Date), [rfReplaceAll, rfIgnoreCase]);
+            { Header }
+            billTitle := StringReplace(Cells.CellByA1Ref['B10'].Value, '{0}',
+                billNo, [rfReplaceAll, rfIgnoreCase]);
+            Cells.CellByA1Ref['B10'].Value := StringReplace(billTitle, '{1}',
+                DateToStr(billDate), [rfReplaceAll, rfIgnoreCase]);
 
             strBuff1 := Cells.CellByA1Ref['D5'].Value; Cells.CellByA1Ref['D5'].Clear();
             strBuff2 := Cells.CellByA1Ref['W3'].Value; Cells.CellByA1Ref['W3'].Clear();
@@ -828,23 +868,25 @@ begin
             Cells.CellByA1Ref['W3'].FormatStringIndex := 1;
             Cells.CellByA1Ref['W5'].FormatStringIndex := 1;
 
-
             // Customer
             customerInfo := DBMod.TCSTCompany.Value + ', ИНН: ' + DBMod.TCSTINN.Value +
                 ', ' + DBMod.TCSTAddress.Value + ', тел. ' + DBMod.TCSTPhone.Value;
             Cells.CellByA1Ref['H16'].Value := customerInfo;
             Cells.CellByA1Ref['H18'].Value := customerInfo;
 
-            { Account body }
+            { Body }
             sum :=0;
             itemsCount := DBMod.TSLS_DTL.RecordCount;
             Rows.InsertRows(20, itemsCount - 1);
 
             // row number - [20,1], item title - [20,2], item amount - [20,3], cost - [20,5], sum - [20,6]
+            DBMod.TSLS_DTL.First;
             for i := 1 to DBMod.TSLS_DTL.RecordCount do
             begin
                 if (i <> DBMod.TSLS_DTL.RecordCount) then
+                begin
                     Rows.CopyRows(19 + i,19 + i, 20 + i);
+                end;
 
                 Cells.CellByA1Ref['B' + IntToStr(20 + i)].Value := i;
                 Cells.CellByA1Ref['D' + IntToStr(20 + i)].Value := DBMod.TSLS_DTLTitle.Value;
@@ -862,7 +904,7 @@ begin
                 DBMod.TSLS_DTL.Next;
             end;
 
-            { Account footer }
+            { Footer }
             Cells.CellByA1Ref['AH' + IntToStr(21 + itemsCount)].Clear();
             Cells.CellByA1Ref['AH' + IntToStr(21 + itemsCount)].Value := sum;
             Cells.CellByA1Ref['AH' + IntToStr(21 + itemsCount)].FormatStringIndex := 2;
@@ -891,16 +933,129 @@ begin
         end;
 
         // Экспортируем в формат Excel (подкаталог \Excel)
-        excelDir := GetSettingsParam(Self, 'TempDir') + '\AG\Excel';
-        fileName := excelDir + '\Счёт_' + DateToStr(Now) + '_' + frmAccountParams.tbAccNo.Text + '.xls';
+        fileName := excelDir + '\Счёт_' + DBMod.TCSTCompany.Value + '_' + DateToStr(Now) + '_' + billNo + '.xls';
         xf.SaveAs(fileName);
-
-        // Открыть папку в которой будет располагаться архив
-        { Procedure uses OS shell to open and view XLS file }
-        ShellExecute(0, 'open', PChar(excelDir), nil, nil, SW_SHOW);
     finally
         xf.Destroy;
     end;
+end;
+
+procedure TNaklForm.ExportDeliveryNoteToExcel(excelDir: string; taxValue: integer; billNo: string; billDate: TDateTime; orderNo: integer);
+var
+    billTitle, fileName, customerInfo, customerInfo2, sumItemsText, strBuff1, strBuff2, strBuff3: string;
+    xf: TXLSFile;
+    i, itemsCount: Integer;
+    sum: Real;
+begin
+    xf:= TXLSFile.Create;
+    try
+        xf.OpenFile(ExtractFilePath(ParamStr(0)) + 'templates' + '\deliverynote.xls');
+
+        with xf.Workbook.Sheets[0] do
+        begin
+            { Header }
+            billTitle := StringReplace(Cells.CellByA1Ref['C10'].Value, '{0}',
+                billNo, [rfReplaceAll, rfIgnoreCase]);
+            Cells.CellByA1Ref['C10'].Value := StringReplace(billTitle, '{1}',
+                DateToStr(billDate), [rfReplaceAll, rfIgnoreCase]);
+
+            // Customer
+            customerInfo := DBMod.TCSTCompany.Value + ', ' + DBMod.TCSTAddress.Value + ', тел. ' + DBMod.TCSTPhone.Value;
+            customerInfo2 := DBMod.TCSTCompany.Value + ', ' + DBMod.TCSTAddress.Value + ', ИНН: ' + DBMod.TCSTINN.Value;
+            Cells.CellByA1Ref['C7'].Value := customerInfo;
+            Cells.CellByA1Ref['C9'].Value := customerInfo2;
+
+            // Order No and Date
+            Cells.CellByA1Ref['G13'].Value := orderNo;
+            Cells.CellByA1Ref['I13'].Value := DateToStr(billDate);
+
+            { Body }
+            sum :=0;
+            itemsCount := DBMod.TSLS_DTL.RecordCount;
+            Rows.InsertRows(18, itemsCount - 1);
+
+            // row number, item title, item amount, cost, sum
+            DBMod.TSLS_DTL.First;
+            for i := 1 to DBMod.TSLS_DTL.RecordCount do
+            begin
+                if (i <> DBMod.TSLS_DTL.RecordCount) then
+                begin
+                    Rows.CopyRows(17 + i, 17 + i, 18 + i);
+                end;
+
+                Cells.CellByA1Ref['A' + IntToStr(18 + i)].Value := i;
+                Cells.CellByA1Ref['B' + IntToStr(18 + i)].Value := DBMod.TSLS_DTLTitle.Value;
+                Cells.CellByA1Ref['K' + IntToStr(18 + i)].Value := DBMod.TSLS_DTLGDS_NUMB.Value;
+
+                Cells.CellByA1Ref['L' + IntToStr(18 + i)].Clear();
+                Cells.CellByA1Ref['L' + IntToStr(18 + i)].Value :=
+                    CalculateSumWithoutTax(DBMod.TSLS_DTLGDS_COST_NDS.Value, taxValue);
+                Cells.CellByA1Ref['L' + IntToStr(18 + i)].FormatStringIndex := 2;
+
+                Cells.CellByA1Ref['M' + IntToStr(18 + i)].Clear();
+                Cells.CellByA1Ref['M' + IntToStr(18 + i)].Value :=
+                    CalculateSumWithoutTax(DBMod.TSLS_DTLGDS_NUMB.Value * DBMod.TSLS_DTLGDS_COST_NDS.Value, taxValue);
+                Cells.CellByA1Ref['M' + IntToStr(18 + i)].FormatStringIndex := 2;
+
+                Cells.CellByA1Ref['N' + IntToStr(18 + i)].Value := taxValue;
+                Cells.CellByA1Ref['O' + IntToStr(18 + i)].Clear();
+                Cells.CellByA1Ref['O' + IntToStr(18 + i)].Value :=
+                    CalculateTax(DBMod.TSLS_DTLGDS_NUMB.Value * DBMod.TSLS_DTLGDS_COST_NDS.Value, taxValue);
+                Cells.CellByA1Ref['O' + IntToStr(18 + i)].FormatStringIndex := 2;
+
+                Cells.CellByA1Ref['P' + IntToStr(18 + i)].Clear();
+                Cells.CellByA1Ref['P' + IntToStr(18 + i)].Value := DBMod.TSLS_DTLGDS_NUMB.Value * DBMod.TSLS_DTLGDS_COST_NDS.Value;
+                Cells.CellByA1Ref['P' + IntToStr(18 + i)].FormatStringIndex := 2;
+
+                sum := sum + DBMod.TSLS_DTLGDS_NUMB.Value * DBMod.TSLS_DTLGDS_COST_NDS.Value;
+                DBMod.TSLS_DTL.Next;
+            end;
+
+            { Footer }
+            Cells.CellByA1Ref['M' + IntToStr(19 + itemsCount)].Formula := 'SUM(M19:M' + IntToStr(18 + itemsCount) +  ')';
+            Cells.CellByA1Ref['M' + IntToStr(20 + itemsCount)].Formula := 'M' + IntToStr(19 + itemsCount);
+
+            Cells.CellByA1Ref['O' + IntToStr(19 + itemsCount)].Formula := 'SUM(O19:O' + IntToStr(18 + itemsCount) +  ')';
+            Cells.CellByA1Ref['O' + IntToStr(20 + itemsCount)].Formula := 'O' + IntToStr(19 + itemsCount);
+
+            Cells.CellByA1Ref['P' + IntToStr(19 + itemsCount)].Formula := 'SUM(P19:P' + IntToStr(18 + itemsCount) +  ')';
+            Cells.CellByA1Ref['P' + IntToStr(20 + itemsCount)].Formula := 'P' + IntToStr(19 + itemsCount);
+
+            // overall sum with item num
+            Cells.CellByA1Ref['D' + IntToStr(23 + itemsCount)].Value := Sp3.GetRealSumma(itemsCount, true);
+
+            sumItemsText := Cells.CellByA1Ref['A' + IntToStr(29 + itemsCount)].Value;
+            Cells.CellByA1Ref['A' + IntToStr(29 + itemsCount)].Value :=
+                StringReplace(sumItemsText, '{0}', Sp3.GetRealSumma(sum, false), [rfReplaceAll, rfIgnoreCase]);
+            Cells.CellByA1Ref['C' + IntToStr(38 + itemsCount)].Value :=
+                DateToStr(billDate);
+        end;
+
+        // Экспортируем в формат Excel (подкаталог \Excel)
+        fileName := excelDir + '\Накладная_' + DBMod.TCSTCompany.Value + '_' + DateToStr(Now) + '_' + billNo + '.xls';
+        xf.SaveAs(fileName);
+    finally
+        xf.Destroy;
+    end;
+end;
+
+procedure TNaklForm.ExportInvoiceToExcel(excelDir: string; taxValue: integer; billNo: string; billDate: TDateTime; orderNo: integer);
+var
+    billTitle, fileName, customerInfo, sumItemsText, strBuff1, strBuff2, strBuff3: string;
+    xf: TXLSFile;
+    i, itemsCount: Integer;
+    sum: Real;
+begin
+end;
+
+function TNaklForm.CalculateSumWithoutTax(sum: Double; taxValue: integer): Double;
+begin
+    Result := sum - (sum * taxValue)/(100 + taxValue)
+end;
+
+function TNaklForm.CalculateTax(sum: Double; taxValue: integer): Double;
+begin
+    Result := (sum * taxValue)/(100 + taxValue);
 end;
 
 end.

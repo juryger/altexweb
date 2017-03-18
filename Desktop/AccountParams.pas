@@ -18,6 +18,7 @@ type
     btCancel: TBitBtn;
     btOkay: TBitBtn;
     procedure tbAccNoKeyPress(Sender: TObject; var Key: Char);
+    procedure FormCreate(Sender: TObject);
   private
     { Private declarations }
   public
@@ -39,6 +40,11 @@ begin
   // float - if not (Key in ['0'..'9', '.', #8, #9]) then Key := #0;
   if not (Key in ['0'..'9']) then
     Key := #0;
+end;
+
+procedure TfrmAccountParams.FormCreate(Sender: TObject);
+begin
+    dtpAccountDate.Date := date;
 end;
 
 end.
