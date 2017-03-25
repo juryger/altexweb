@@ -917,10 +917,6 @@ begin
             Cells.CellByA1Ref['AH' + IntToStr(22 + itemsCount)].Value := (sum * taxValue)/(100 + taxValue);
             Cells.CellByA1Ref['AH' + IntToStr(22 + itemsCount)].FormatStringIndex := 2;
 
-            Cells.CellByA1Ref['AH' + IntToStr(23 + itemsCount)].Clear();
-            Cells.CellByA1Ref['AH' + IntToStr(23 + itemsCount)].Value := sum;
-            Cells.CellByA1Ref['AH' + IntToStr(23 + itemsCount)].FormatStringIndex := 2;
-
             // overall sum with item num
             sumItemsText := StringReplace(Cells.CellByA1Ref['B' + IntToStr(24 + itemsCount)].Value,
                 '{0}', IntToStr(itemsCount), [rfReplaceAll, rfIgnoreCase]);
@@ -1041,11 +1037,96 @@ end;
 
 procedure TNaklForm.ExportInvoiceToExcel(excelDir: string; taxValue: integer; billNo: string; billDate: TDateTime; orderNo: integer);
 var
-    billTitle, fileName, customerInfo, sumItemsText, strBuff1, strBuff2, strBuff3: string;
+    billTitle, invoiceTitle, fileName, customerInfo, sumItemsText, strBuff1, strBuff2, strBuff3: string;
     xf: TXLSFile;
     i, itemsCount: Integer;
     sum: Real;
 begin
+    xf:= TXLSFile.Create;
+    try
+        xf.OpenFile(ExtractFilePath(ParamStr(0)) + 'templates' + '\invoice.xls');
+
+        with xf.Workbook.Sheets[0] do
+        begin
+            { Header }
+            billTitle := StringReplace(Cells.CellByA1Ref['B14'].Value, '{0}',
+                billNo, [rfReplaceAll, rfIgnoreCase]);
+            Cells.CellByA1Ref['B14'].Value := StringReplace(billTitle, '{1}',
+                DateToStr(billDate), [rfReplaceAll, rfIgnoreCase]);
+
+            // Customer
+            customerInfo := DBMod.TCSTCompany.Value + ', ' + DBMod.TCSTAddress.Value + ', тел. ' + DBMod.TCSTPhone.Value;
+            Cells.CellByA1Ref['B13'].Value := StringReplace(Cells.CellByA1Ref['B13'].Value, '{0}',
+                customerInfo, [rfReplaceAll, rfIgnoreCase]);
+            Cells.CellByA1Ref['B15'].Value := StringReplace(Cells.CellByA1Ref['B15'].Value, '{0}',
+                DBMod.TCSTCompany.Value, [rfReplaceAll, rfIgnoreCase]);
+            Cells.CellByA1Ref['B16'].Value := StringReplace(Cells.CellByA1Ref['B16'].Value, '{0}',
+                DBMod.TCSTAddress.Value, [rfReplaceAll, rfIgnoreCase]);
+            Cells.CellByA1Ref['B17'].Value := StringReplace(Cells.CellByA1Ref['B17'].Value, '{0}',
+                DBMod.TCSTINN.Value, [rfReplaceAll, rfIgnoreCase]);
+
+            // Order No and Date
+            invoiceTitle := StringReplace(Cells.CellByA1Ref['B7'].Value, '{0}',
+                IntToStr(orderNo), [rfReplaceAll, rfIgnoreCase]);
+            Cells.CellByA1Ref['B7'].Value := StringReplace(invoiceTitle, '{1}',
+                DateToStr(billDate), [rfReplaceAll, rfIgnoreCase]);
+
+            { Body }
+            sum :=0;
+            itemsCount := DBMod.TSLS_DTL.RecordCount;
+            Rows.InsertRows(21, itemsCount - 1);
+
+            // row number, item title, item amount, cost, sum
+            DBMod.TSLS_DTL.First;
+            for i := 1 to DBMod.TSLS_DTL.RecordCount do
+            begin
+                if (i <> DBMod.TSLS_DTL.RecordCount) then
+                begin
+                    Rows.CopyRows(20 + i, 20 + i, 21 + i);
+                end;
+
+                Cells.CellByA1Ref['B' + IntToStr(21 + i)].Value := DBMod.TSLS_DTLTitle.Value;
+                Cells.CellByA1Ref['E' + IntToStr(21 + i)].Value := DBMod.TSLS_DTLGDS_NUMB.Value;
+
+                Cells.CellByA1Ref['F' + IntToStr(21 + i)].Clear();
+                Cells.CellByA1Ref['F' + IntToStr(21 + i)].Value :=
+                    CalculateSumWithoutTax(DBMod.TSLS_DTLGDS_COST_NDS.Value, taxValue);
+                Cells.CellByA1Ref['F' + IntToStr(21 + i)].FormatStringIndex := 2;
+
+                Cells.CellByA1Ref['G' + IntToStr(21 + i)].Clear();
+                Cells.CellByA1Ref['G' + IntToStr(21 + i)].Value :=
+                    CalculateSumWithoutTax(DBMod.TSLS_DTLGDS_NUMB.Value * DBMod.TSLS_DTLGDS_COST_NDS.Value, taxValue);
+                Cells.CellByA1Ref['G' + IntToStr(21 + i)].FormatStringIndex := 2;
+
+                Cells.CellByA1Ref['I' + IntToStr(21 + i)].Value := taxValue;
+
+                Cells.CellByA1Ref['J' + IntToStr(21 + i)].Clear();
+                Cells.CellByA1Ref['J' + IntToStr(21 + i)].Value :=
+                    CalculateTax(DBMod.TSLS_DTLGDS_NUMB.Value * DBMod.TSLS_DTLGDS_COST_NDS.Value, taxValue);
+                Cells.CellByA1Ref['J' + IntToStr(21 + i)].FormatStringIndex := 2;
+
+                Cells.CellByA1Ref['K' + IntToStr(21 + i)].Clear();
+                Cells.CellByA1Ref['K' + IntToStr(21 + i)].Value := DBMod.TSLS_DTLGDS_NUMB.Value * DBMod.TSLS_DTLGDS_COST_NDS.Value;
+                Cells.CellByA1Ref['K' + IntToStr(21 + i)].FormatStringIndex := 2;
+
+                sum := sum + DBMod.TSLS_DTLGDS_NUMB.Value * DBMod.TSLS_DTLGDS_COST_NDS.Value;
+                DBMod.TSLS_DTL.Next;
+            end;
+
+            { Footer }
+            Cells.CellByA1Ref['G' + IntToStr(22 + itemsCount)].Formula := 'SUM(G22:G' + IntToStr(21 + itemsCount) +  ')';
+
+            Cells.CellByA1Ref['J' + IntToStr(22 + itemsCount)].Formula := 'SUM(J22:J' + IntToStr(21 + itemsCount) +  ')';
+
+            Cells.CellByA1Ref['K' + IntToStr(22 + itemsCount)].Formula := 'SUM(K22:K' + IntToStr(21 + itemsCount) +  ')';
+        end;
+
+        // Ёкспортируем в формат Excel (подкаталог \Excel)
+        fileName := excelDir + '\—чет-фактура_' + DBMod.TCSTCompany.Value + '_' + DateToStr(Now) + '_' + billNo + '.xls';
+        xf.SaveAs(fileName);
+    finally
+        xf.Destroy;
+    end;
 end;
 
 function TNaklForm.CalculateSumWithoutTax(sum: Double; taxValue: integer): Double;
