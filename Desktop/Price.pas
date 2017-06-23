@@ -1533,9 +1533,17 @@ begin
 
       RefreshSubgroupsTable();
 
-      DBmod.TGDS_DTL.Filtered := False;
-      DBmod.TGDS_DTL.Filter := DBmod.TGDS_DTL.Filter + ' AND ' + sFilter;
-      DBmod.TGDS_DTL.Filtered := True;
+      if (sFilter <> '') then
+      begin
+        DBmod.TGDS_DTL.Filtered := False;
+
+        if (DBmod.TGDS_DTL.Filter <> '') then
+            DBmod.TGDS_DTL.Filter := DBmod.TGDS_DTL.Filter + ' AND ' + sFilter
+        else
+            DBmod.TGDS_DTL.Filter := sFilter;
+
+        DBmod.TGDS_DTL.Filtered := True;
+      end;
   end;
 end;
 
