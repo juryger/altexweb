@@ -859,14 +859,16 @@ object DBmod: TDBmod
       
         'SELECT Goods_detail.ID_GDS_DTL, Goods_detail.IMAGE, Goods_detail' +
         '.DESCRIPTION as dtl_description, Goods_detail.COST_OPT, Goods_de' +
-        'tail.COST_ROZ, Goods_detail.COST_ZAK, Goods_detail.CODE_OKEY, Go' +
-        'ods_detail.PACK_NUM, Goods_group.DESCRIPTION + " > " + Goods_sub' +
-        'group.DESCRIPTION as sgrp_description'
+        'tail.COST_ROZ, Goods_detail.COST_ZAK, OkeyCodes.NAME as OKCODE, ' +
+        'Goods_detail.PACK_NUM, Goods_group.DESCRIPTION + " > " + Goods_s' +
+        'ubgroup.DESCRIPTION as sgrp_description'
       'FROM "Goods_detail.DB" Goods_detail'
       '   INNER JOIN "Goods_subgroup.db" Goods_subgroup'
       '   ON  (Goods_subgroup.ID_GDS_SGRP = Goods_detail.ID_GDS_SGRP)'
       '   INNER JOIN "Goods_group.db" Goods_group'
       '   ON  (Goods_group.ID_GDS_GRP = Goods_subgroup.ID_GDS_GRP)'
+      '   INNER JOIN "OkeyCodes.db" OkeyCodes'
+      '   ON  (OkeyCodes.ID_OKEY = Goods_detail.ID_OKEY)'
       
         'WHERE   ( (Goods_detail.COST_OPT <> 0)  OR  (Goods_detail.COST_R' +
         'OZ <> 0)  OR  (Goods_detail.COST_ZAK <> 0) )'
@@ -951,7 +953,7 @@ object DBmod: TDBmod
       
         'SELECT Sales_detail.ID_GDS_DTL, Goods_detail.DESCRIPTION as GDS_' +
         'DESCR, Sales_detail.GDS_COST_CLR, Sales_detail.GDS_NUMB, Sales_g' +
-        'roup."SDATE"'
+        'roup."SDATE", OkeyCodes.NAME AS OKCODE'
       'FROM "Goods_detail.DB" Goods_detail'
       '   INNER JOIN "Sales_detail.DB" Sales_detail'
       '   ON  (Sales_detail.ID_GDS_DTL = Goods_detail.ID_GDS_DTL)'
@@ -993,6 +995,10 @@ object DBmod: TDBmod
     end
     object QNakladnayaExcelSDATE: TDateField
       FieldName = 'SDATE'
+    end
+    object QNakladnayaExcelOKCODE: TStringField
+      FieldName = 'OKCODE'
+      Size = 10
     end
   end
   object TGDS_SGRP: TTable

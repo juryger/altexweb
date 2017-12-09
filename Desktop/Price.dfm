@@ -1,6 +1,6 @@
 object PriceForm: TPriceForm
-  Left = 314
-  Top = 152
+  Left = 291
+  Top = 187
   Width = 1024
   Height = 709
   Caption = #1055#1088#1072#1081#1089'-'#1051#1080#1089#1090

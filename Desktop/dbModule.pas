@@ -236,6 +236,7 @@ type
     TCSTGuid: TStringField;
     TCSTID_COST_DCT: TIntegerField;
     TCSTProfitPercentage: TIntegerField;
+    QNakladnayaExcelOKCODE: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure DataModuleDestroy(Sender: TObject);
     procedure TGDS_DTLBeforePost(DataSet: TDataSet);
