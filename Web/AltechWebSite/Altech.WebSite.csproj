@@ -27,6 +27,8 @@
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
     <TargetFrameworkProfile />
+    <Use64BitIISExpress />
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -202,6 +204,7 @@
     <Content Include="Images\bell.png" />
     <Content Include="Images\breadcrumb.png" />
     <Content Include="Images\close.png" />
+    <Content Include="Images\Map\map2.jpg" />
     <Content Include="Images\navigation-hide.png" />
     <Content Include="Images\magnifier.png" />
     <Content Include="Images\Map\Map.jpg" />
