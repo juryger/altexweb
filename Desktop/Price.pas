@@ -660,13 +660,13 @@ begin
         ForceDirectories(excelDir);
 
     // Добавляем новый лист для цветного каталога
-    DbMod.ExportPriceExcelFile.Workbook.Sheets.Add('Каталог');
+    //DbMod.ExportPriceExcelFile.Workbook.Sheets.Add('Каталог');
 
     // Запись картинок на лист
-    PrepareCatalogSheet(DbMod.ExportPriceExcelFile.Workbook.Sheets[1]);
+    //PrepareCatalogSheet(DbMod.ExportPriceExcelFile.Workbook.Sheets[1]);
 
     // На первый лист выполнить добавление сылок на картинки со второго листа
-    AddLinksToImagesOnPriceSheet(DbMod.ExportPriceExcelFile.Workbook.Sheets[0]);
+    //AddLinksToImagesOnPriceSheet(DbMod.ExportPriceExcelFile.Workbook.Sheets[0]);
 
     // Экспортируем в формат Excel (подкаталог \Excel)
     fileName := excelDir + '\Price_' + DateToStr(Date()) + '.xls';

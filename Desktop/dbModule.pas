@@ -114,10 +114,8 @@ type
     TGDS_SGRPDEL: TIntegerField;
     DGDS_SGRP: TDataSource;
     TGDS_SGRPID_GDS_GRP: TIntegerField;
-    QPriceExcelCOST_ZAK: TCurrencyField;
     QPriceExcelID_GDS_DTL: TIntegerField;
     QPriceExceldtl_description: TStringField;
-    QPriceExcelCOST_OPT: TCurrencyField;
     QPriceID_GDS_DTL: TIntegerField;
     QPriceIMAGE: TGraphicField;
     QPricedtl_description: TStringField;
@@ -182,7 +180,6 @@ type
     TGDS_DTLWeb: TIntegerField;
     QNaklCompany: TStringField;
     TSLS_GRPID_WEB: TIntegerField;
-    TSLS_DTLTitle: TStringField;
     TSLS_DTLComment: TStringField;
     TGDS_DTLCOST_PURCH: TCurrencyField;
     TGDS_SGRPGroupName: TStringField;
@@ -237,6 +234,10 @@ type
     TCSTID_COST_DCT: TIntegerField;
     TCSTProfitPercentage: TIntegerField;
     QNakladnayaExcelOKCODE: TStringField;
+    QPriceExcelCOST_WHS1: TCurrencyField;
+    QPriceExcelCOST_WHS2: TCurrencyField;
+    QPriceExcelCOST_WHS3: TCurrencyField;
+    TSLS_DTLTitle: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure DataModuleDestroy(Sender: TObject);
     procedure TGDS_DTLBeforePost(DataSet: TDataSet);
@@ -791,12 +792,17 @@ begin
         if (XLSCell.Col = 2) then XLSCell.Value := 'Наименование';
         if (XLSCell.Col = 3) then XLSCell.Value := 'Упаковка';
         if (XLSCell.Col = 4) then begin
-            XLSCell.Value:= 'Розничная цена';
+            XLSCell.Value:= 'Опт1 цена';
             Column.HAlign:= xlHAlignCenter;
             Column.WidthPx:= 150;
         end;
         if (XLSCell.Col = 5) then begin
-            XLSCell.Value := 'Цена на заказ';
+            XLSCell.Value := 'Опт2 цена';
+            Column.HAlign:= xlHAlignCenter;
+            Column.WidthPx:= 150;
+        end;
+        if (XLSCell.Col = 6) then begin
+            XLSCell.Value := 'Опт3 цена';
             Column.HAlign:= xlHAlignCenter;
             Column.WidthPx:= 150;
         end;

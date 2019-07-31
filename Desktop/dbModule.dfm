@@ -2,8 +2,8 @@ object DBmod: TDBmod
   OldCreateOrder = False
   OnCreate = DataModuleCreate
   OnDestroy = DataModuleDestroy
-  Left = 499
-  Top = 370
+  Left = 488
+  Top = 253
   Height = 700
   Width = 940
   object TGDS_GRP: TTable
@@ -555,20 +555,19 @@ object DBmod: TDBmod
     object TSLS_DTLGDS_NUMB: TIntegerField
       FieldName = 'GDS_NUMB'
     end
+    object TSLS_DTLComment: TStringField
+      FieldName = 'Comment'
+      Size = 100
+    end
     object TSLS_DTLTitle: TStringField
-      DisplayWidth = 100
       FieldKind = fkLookup
       FieldName = 'Title'
-      LookupDataSet = TGoods4Orders
+      LookupDataSet = TGDS_DTL
       LookupKeyFields = 'ID_GDS_DTL'
       LookupResultField = 'DESCRIPTION'
       KeyFields = 'ID_GDS_DTL'
       Size = 100
       Lookup = True
-    end
-    object TSLS_DTLComment: TStringField
-      FieldName = 'Comment'
-      Size = 100
     end
   end
   object DSLS_DTL: TDataSource
@@ -858,10 +857,10 @@ object DBmod: TDBmod
     SQL.Strings = (
       
         'SELECT Goods_detail.ID_GDS_DTL, Goods_detail.IMAGE, Goods_detail' +
-        '.DESCRIPTION as dtl_description, Goods_detail.COST_OPT, Goods_de' +
-        'tail.COST_ROZ, Goods_detail.COST_ZAK, OkeyCodes.NAME as OKCODE, ' +
-        'Goods_detail.PACK_NUM, Goods_group.DESCRIPTION + " > " + Goods_s' +
-        'ubgroup.DESCRIPTION as sgrp_description'
+        '.DESCRIPTION as dtl_description, Goods_detail.COST_WHS1, Goods_d' +
+        'etail.COST_WHS2, Goods_detail.COST_WHS3, OkeyCodes.NAME as OKCOD' +
+        'E, Goods_detail.PACK_NUM, Goods_group.DESCRIPTION + " > " + Good' +
+        's_subgroup.DESCRIPTION as sgrp_description'
       'FROM "Goods_detail.DB" Goods_detail'
       '   INNER JOIN "Goods_subgroup.db" Goods_subgroup'
       '   ON  (Goods_subgroup.ID_GDS_SGRP = Goods_detail.ID_GDS_SGRP)'
@@ -898,11 +897,14 @@ object DBmod: TDBmod
     object QPriceExcelPACK_NUM: TIntegerField
       FieldName = 'PACK_NUM'
     end
-    object QPriceExcelCOST_OPT: TCurrencyField
-      FieldName = 'COST_OPT'
+    object QPriceExcelCOST_WHS1: TCurrencyField
+      FieldName = 'COST_WHS1'
     end
-    object QPriceExcelCOST_ZAK: TCurrencyField
-      FieldName = 'COST_ZAK'
+    object QPriceExcelCOST_WHS2: TCurrencyField
+      FieldName = 'COST_WHS2'
+    end
+    object QPriceExcelCOST_WHS3: TCurrencyField
+      FieldName = 'COST_WHS3'
     end
   end
   object QCatalogExcel: TQuery
