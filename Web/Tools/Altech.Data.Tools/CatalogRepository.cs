@@ -52,18 +52,18 @@ namespace Altech.DAL
 
         public IEnumerable<Group> Groups
         {
-            get { return this.db.Groups.ToList(); }
+            get { return this.db.Groups.Where(g => !g.IsDeleted).ToList(); }
         }
 
         public void ClarifyGroupAndSubgroupIDs(int merchandiseId, out int groupId, out int subgroupId)
         {
             groupId = subgroupId = 0;
 
-            var m = this.db.Merchandises.SingleOrDefault(d => d.ID == merchandiseId);
+            var m = this.db.Merchandises.SingleOrDefault(x => x.ID == merchandiseId && !x.IsDeleted);
             if (m != null)
             {
                 subgroupId = m.SubgroupID;
-                var s = this.db.Subgroups.SingleOrDefault(d => d.ID == m.SubgroupID);
+                var s = this.db.Subgroups.SingleOrDefault(x => x.ID == m.SubgroupID && !x.IsDeleted);
                 if (s != null)
                     groupId = s.GroupID;
             }
@@ -79,17 +79,17 @@ namespace Altech.DAL
                 result = GetAllMerchandise();
             else
             {
-                group = this.db.Groups.FirstOrDefault(g => g.ID == id.Value);
+                group = this.db.Groups.FirstOrDefault(g => g.ID == id.Value && !g.IsDeleted);
                 if (!id2.HasValue)
                     result = GetAllMerchandiseInGroup(id.Value);
                 else
                 {
-                    subgroup = this.db.Subgroups.FirstOrDefault(s => s.ID == id2.Value);
+                    subgroup = this.db.Subgroups.FirstOrDefault(s => s.ID == id2.Value && !s.IsDeleted);
                     if (!id3.HasValue)
                         result = GetAllMerchandiseInSubgroup(id2.Value);
                     else
                     {
-                        var merchandise = this.db.Merchandises.FirstOrDefault(m => m.ID == id3.Value);
+                        var merchandise = this.db.Merchandises.FirstOrDefault(m => m.ID == id3.Value && !m.IsDeleted);
                         if (merchandise != null)
                             result = new List<Merchandise>() { merchandise };
                     }
@@ -130,14 +130,14 @@ namespace Altech.DAL
 
         public string GetGroupTitle(int id)
         {
-            var g = this.db.Groups.FirstOrDefault(d => d.ID == id);
+            var g = this.db.Groups.FirstOrDefault(x => x.ID == id && !x.IsDeleted);
             return g != null ? g.Title : "Группа отсутствует";
         }
 
         public string GetSubgroupTitle(int id)
         {
-            var g = this.db.Subgroups.FirstOrDefault(d => d.ID == id);
-            return g != null ? g.Title : "Подгруппа отсутствует";
+            var sg = this.db.Subgroups.FirstOrDefault(x => x.ID == id && !x.IsDeleted);
+            return sg != null ? sg.Title : "Подгруппа отсутствует";
         }
 
         public string GetDiscountsInfo()
@@ -181,7 +181,7 @@ namespace Altech.DAL
 
             foreach (var groupItem in this.db.Groups)
                 foreach (var subgroupItem in groupItem.Subgroups)
-                    result.AddRange(subgroupItem.Merchandises);
+                    result.AddRange(subgroupItem.Merchandises.Where(m => !m.IsDeleted));
 
             return result;
         }
@@ -192,7 +192,7 @@ namespace Altech.DAL
 
             var group = this.db.Groups.First(g => g.ID == groupId);
             foreach (var item in group.Subgroups)
-                result.AddRange(item.Merchandises);
+                result.AddRange(item.Merchandises.Where(m => !m.IsDeleted));
 
             return result;
         }
@@ -202,10 +202,9 @@ namespace Altech.DAL
             var result = new List<Merchandise>();
 
             var subgroup = this.db.Subgroups.First(s => s.ID == subgroupId);
-            result.AddRange(subgroup.Merchandises);
+            result.AddRange(subgroup.Merchandises.Where(m => !m.IsDeleted));
 
             return result;
-
         }
 
         private IEnumerable<Merchandise> SearchWholeCatalog(string searchText)
@@ -216,7 +215,7 @@ namespace Altech.DAL
             int id = 0;
             Int32.TryParse(searchText, out id);
 
-            return this.db.Merchandises.Where(m => m.ID == id || m.Title.ToUpper().Contains(searchText.ToUpper()));
+            return this.db.Merchandises.Where(m => (m.ID == id || m.Title.ToUpper().Contains(searchText.ToUpper())) && !m.IsDeleted);
         }
 
         private IEnumerable<Merchandise> SearchInGroup(int groupId, string searchText)

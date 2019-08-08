@@ -14,5 +14,7 @@ namespace Altech.Core.Models
 
         // стоимость заказа с которой начинает действовать скиидка
         public double StartSumm { get; set; }
+
+        public bool IsDeleted { get; set; }
     }
 }

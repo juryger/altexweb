@@ -56,8 +56,6 @@ namespace Altech.WebJobs.DataUploader
 
         public static void SaveDataToDb([BlobTrigger("defenitions/{name}")] CloudBlockBlob input, TextWriter log)
         {
-            var idDelList = new List<int>();
-
             using (var db = new AltechContext())
             {
                 using (var xr = new XmlTextReader(input.OpenRead()))
@@ -74,13 +72,13 @@ namespace Altech.WebJobs.DataUploader
                                 ProcessDiscountItem(db, xr);
                                 break;
                             case "groupitem":
-                                ProcessGroupItem(db, xr, idDelList, out groupId);
+                                ProcessGroupItem(db, xr, out groupId);
                                 break;
                             case "subgroupitem":
-                                ProcessSubgroupItem(db, xr, groupId, idDelList, out subGroupId);
+                                ProcessSubgroupItem(db, xr, groupId, out subGroupId);
                                 break;
                             case "goodsitem":
-                                ProcessMerchandiseItem(db, xr, subGroupId, idDelList);
+                                ProcessMerchandiseItem(db, xr, subGroupId);
                                 break;
                         }
                     }
@@ -93,13 +91,13 @@ namespace Altech.WebJobs.DataUploader
                 input.Delete();
 
                 // Check if there are no links to images from Merchandiese Table
-                log.WriteLine(String.Format("idDelList contains '{0}' items", idDelList.Count));
-                foreach (var id in idDelList)
-                    if (db.Merchandises.Find(id) == null)
-                    {
-                        log.WriteLine(String.Format("Following image: '{0}.jpg' does not has links from DB and will be deleted.", id));
-                        DeleteImagesFromBlobStorage(id);
-                    }
+                //log.WriteLine(String.Format("idDelList contains '{0}' items", idDelList.Count));
+                //foreach (var id in idDelList)
+                //    if (db.Merchandises.Find(id) == null)
+                //    {
+                //        log.WriteLine(String.Format("Following image: '{0}.jpg' does not has links from DB and will be deleted.", id));
+                //        DeleteImagesFromBlobStorage(id);
+                //    }
             }
         }
 
@@ -141,7 +139,7 @@ namespace Altech.WebJobs.DataUploader
             UpdateDiscount(db, new Discount { ID = id, StartSumm = summ });
         }
 
-        private static void ProcessGroupItem(IDbGeneralContext db, XmlTextReader xr, List<int> idDelList, out int id)
+        private static void ProcessGroupItem(IDbGeneralContext db, XmlTextReader xr, out int id)
         {
             if (db == null)
                 throw new ArgumentNullException("db");
@@ -168,7 +166,7 @@ namespace Altech.WebJobs.DataUploader
             // Если группа должна быть удалена, то удалить также подгруппы и товары входящие в ее состав
             if (isDeleted)
             {
-                DeleteGroup(db, id, idDelList);
+                DeleteGroup(db, id);
                 return;
             }
 
@@ -176,7 +174,7 @@ namespace Altech.WebJobs.DataUploader
             UpdateGroup(db, new Group { ID = id, Title = title });
         }
 
-        private static void ProcessSubgroupItem(IDbGeneralContext db, XmlTextReader xr, int groupId, List<int> idDelList, out int id)
+        private static void ProcessSubgroupItem(IDbGeneralContext db, XmlTextReader xr, int groupId, out int id)
         {
             if (db == null)
                 throw new ArgumentNullException("db");
@@ -203,7 +201,7 @@ namespace Altech.WebJobs.DataUploader
             // Если подгруппа должна быть удалена, то удалить также товары входящие в ее состав
             if (isDeleted)
             {
-                DeleteSubgroup(db, id, idDelList);
+                DeleteSubgroup(db, id);
                 return;
             }
 
@@ -211,7 +209,7 @@ namespace Altech.WebJobs.DataUploader
             UpdateSubgroup(db, new Subgroup { ID = id, GroupID = groupId, Title = title });
         }
 
-        private static void ProcessMerchandiseItem(IDbGeneralContext db, XmlTextReader xr, int subgroupId, List<int> idDelList)
+        private static void ProcessMerchandiseItem(IDbGeneralContext db, XmlTextReader xr, int subgroupId)
         {
             if (db == null)
                 throw new ArgumentNullException("db");
@@ -268,7 +266,7 @@ namespace Altech.WebJobs.DataUploader
 
             if (isDeleted)
             {
-                DeleteMerchandise(db, id, subgroupId, idDelList);
+                DeleteMerchandise(db, id, subgroupId);
                 return;
             }
 
@@ -354,10 +352,12 @@ namespace Altech.WebJobs.DataUploader
             if (d == null)
                 return;
 
-            db.Discounts.Remove(d);
+            // Note mark as deletede instead hard delete  
+            //db.Discounts.Remove(d);
+            d.IsDeleted = true;
         }
 
-        private static void DeleteGroup(IDbGeneralContext db, int id, List<int> idDelList)
+        private static void DeleteGroup(IDbGeneralContext db, int id)
         {
             if (db == null)
                 throw new ArgumentNullException("db");
@@ -366,11 +366,12 @@ namespace Altech.WebJobs.DataUploader
             if (g == null)
                 return;
 
-            // delete group from DB
-            db.Groups.Remove(g);
+            // Note mark as deletede instead hard delete  
+            //db.Groups.Remove(g);
+            g.IsDeleted = true;
         }
 
-        private static void DeleteSubgroup(IDbGeneralContext db, int id, List<int> idDelList)
+        private static void DeleteSubgroup(IDbGeneralContext db, int id)
         {
             if (db == null)
                 throw new ArgumentNullException("db");
@@ -379,22 +380,25 @@ namespace Altech.WebJobs.DataUploader
             if (s == null)
                 return;
 
-            // delete group from DB
-            db.Subgroups.Remove(s);
+            // Note mark as deletede instead hard delete  
+            //db.Subgroups.Remove(s);
+            s.IsDeleted = true;
         }
 
-        private static void DeleteMerchandise(IDbGeneralContext db, int id, int subgroupId, List<int> idDelList)
+        private static void DeleteMerchandise(IDbGeneralContext db, int id, int subgroupId)
         {
             if (db == null)
                 throw new ArgumentNullException("db");
 
             // delete merchandise from DB
             var item = db.Merchandises.FirstOrDefault(m => m.ID == id && m.SubgroupID == subgroupId);
-            if (item != null)
-            {
-                db.Merchandises.Remove(item);
-                idDelList.Add(id);
-            }
+            if (item == null)
+                return;
+
+            // Note mark as deletede instead hard delete                
+            //db.Merchandises.Remove(item);
+            //idDelList.Add(id);
+            item.IsDeleted = true;
         }
 
         private static void DeleteImagesFromBlobStorage(int merchandiseId)

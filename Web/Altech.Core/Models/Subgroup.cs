@@ -14,6 +14,8 @@ namespace Altech.Core.Models
         // название подгруппы
         public string Title { get; set; }
 
+        public bool IsDeleted { get; set; }
+
         // группа в которую входит данная подгруппа
         public virtual Group Group { get; set; }
 

@@ -34,6 +34,8 @@ namespace Altech.Core.Models
         // имя файла с изображением товара
         public string ImageName { get; set; }
 
+        public bool IsDeleted { get; set; }
+
         // группа в которую входит данный товар
         public virtual Subgroup Subgroup { get; set; }
     }

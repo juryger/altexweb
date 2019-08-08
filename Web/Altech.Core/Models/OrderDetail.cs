@@ -23,6 +23,6 @@ namespace Altech.Core.Models
         public string Comment { get; set; }
 
         // заказ в который входит данная позиция товара
-        public virtual Order Order { get; set; }
+        public virtual Order Order { get; set; }        
     }
 }

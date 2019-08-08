@@ -57,7 +57,9 @@ namespace Altech.DAL
             if (g == null)
                 return;
 
-            this.db.Groups.Remove(g);
+            // Note mark as deletede instead hard delete
+            //this.db.Groups.isDe(g);
+            g.IsDeleted = true;
         }
 
         public void DeleteSubgroup(int id)
@@ -66,7 +68,9 @@ namespace Altech.DAL
             if (s == null)
                 return;
 
-            db.Subgroups.Remove(s);
+            // Note mark as deletede instead hard delete
+            //db.Subgroups.Remove(s);
+            s.IsDeleted = true;
         }
 
         public void DeleteMerchandise(int id)
@@ -76,7 +80,9 @@ namespace Altech.DAL
             if (m == null)
                 return;
 
-            db.Merchandises.Remove(m);          
+            // Note mark as deletede instead hard delete
+            //db.Merchandises.Remove(m);          
+            m.IsDeleted = true;
         }
 
         public void DeleteDiscount(int id)
@@ -85,7 +91,9 @@ namespace Altech.DAL
             if (d == null)
                 return;
 
-            this.db.Discounts.Remove(d);
+            // Note mark as deletede instead hard delete
+            //this.db.Discounts.Remove(d);
+            d.IsDeleted = true;
         }
 
         public void Dispose()

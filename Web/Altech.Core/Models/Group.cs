@@ -11,6 +11,8 @@ namespace Altech.Core.Models
         // название группы
         public string Title { get; set; }
 
+        public bool IsDeleted { get; set; }
+
         // подгруппы данной группы
         public virtual ICollection<Subgroup> Subgroups { get; set; }
     }
