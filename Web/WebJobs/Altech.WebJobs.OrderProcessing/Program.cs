@@ -38,7 +38,7 @@ namespace Altech.WebJobs.OrderProcessing
         {
             int orderId;
             var errorMessage = string.Empty;
-            
+
             if (!Int32.TryParse(inputText, out orderId))
             {
                 errorMessage = "Failed to parse inputText to Int32.";
@@ -203,12 +203,12 @@ namespace Altech.WebJobs.OrderProcessing
                 // Decided to comment, because of having plans to purchase 2GB Database plan for storing historical data.
                 //////db.Orders.Remove(order);
                 //////db.SaveChanges();
-                
+
                 #endregion
 
                 CleanUp(costCalculation);
-            }                
-            
+            }
+
             log.WriteLine("Message successfully processed.");
         }
 
@@ -285,7 +285,7 @@ namespace Altech.WebJobs.OrderProcessing
             writer.WriteStartElement("Details");
 
             #region Создать представление на основе таблиц OrderDetails и Merchandise
-            
+
             var merchandiseOrder =
                 order.Details.Join(merchandises, od => od.GoodsID, m => m.ID, (od, m) => new
                 {
@@ -391,21 +391,45 @@ namespace Altech.WebJobs.OrderProcessing
         private static async Task SendClientMail(Customer customer, string html)
         {
             var apiKey = ConfigurationManager.AppSettings["sg_altexweb"];
+
+            /* 
+             * Web API implementaion
+             * 
             dynamic sgc = new SendGridAPIClient(apiKey);
 
             var subject = "Новый заказ на сайте АЛТЕХ Хозтовары";
             var to = new Email(customer.EmailAddress);
             var from = new Email("admin@altexweb.ru", "Altex Web");
+            
             var content = new Content("text/html", html);
             var mail = new Mail(from, subject, to, content);
             mail.ReplyTo = new Email("AlexTechnologies@gmail.com");
 
             // Send email to customer.
             dynamic response = await sgc.client.mail.send.post(requestBody: mail.Get());
+            if (response.StatusCode != System.Net.HttpStatusCode.OK)
+            {
+                throw new FailedSendMailException(
+                    String.Format("Failed to send mail to client, SendGrid server returned status: {0}",
+                        response.StatusCode.ToString()));
+            }
+            */
+
+            var client = new SendGridClient(apiKey);
+
+            var subject = "Новый заказ на сайте АЛТЕХ Хозтовары";
+            var from = new EmailAddress("AlexTechnologies@gmail.com", "Altex Web");
+            var to = new EmailAddress(customer.EmailAddress);
+
+            var plainTextContent = "Содержимое письма может быть прочитано только в HTML формате.";
+            var msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent, html);
+
+            var response = await client.SendEmailAsync(msg);
+
             if (response.StatusCode != System.Net.HttpStatusCode.Accepted)
             {
                 throw new FailedSendMailException(
-                    String.Format("Failed to send mail to client, SendGrid server returned status: {0}", 
+                    String.Format("Failed to send mail to client, SendGrid server returned status: {0}",
                         response.StatusCode.ToString()));
             }
         }
@@ -413,6 +437,10 @@ namespace Altech.WebJobs.OrderProcessing
         private static async Task SendBackOfficeMail(Customer customer, string html, Stream attachment, string attachmentFileName)
         {
             var apiKey = ConfigurationManager.AppSettings["sg_altexweb"];
+
+            /* 
+             * Web API implementaion
+             *             
             dynamic sgc = new SendGridAPIClient(apiKey);
 
             string subject = String.Format("Новый заказ на сайте АЛТЕХ Хозтовары от {0}", customer.Company);
@@ -438,8 +466,33 @@ namespace Altech.WebJobs.OrderProcessing
 
             #endregion
 
-            // Send email to back   office.
+            // Send email to back office.
             dynamic response = await sgc.client.mail.send.post(requestBody: mail.Get());
+            if (response.StatusCode != System.Net.HttpStatusCode.OK)
+            {
+                throw new FailedSendMailException(
+                    String.Format("Failed to send email to backoffice, SendGrid server returned status: {0}",
+                        response.StatusCode.ToString()));
+            }
+            */
+
+            var client = new SendGridClient(apiKey);
+
+            string subject = String.Format("Новый заказ на сайте АЛТЕХ Хозтовары от {0}", customer.Company);
+            var from = new EmailAddress(customer.EmailAddress);
+            var to = new EmailAddress("AlexTechnologies@gmail.com", "Altex Web");
+
+            var plainTextContent = "Содержимое письма может быть прочитано только в HTML формате.";
+            var msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent, html);
+
+            #region attachment preparation 
+
+            await msg.AddAttachmentAsync(attachmentFileName, attachment);
+
+            #endregion
+
+            var response = await client.SendEmailAsync(msg);
+
             if (response.StatusCode != System.Net.HttpStatusCode.Accepted)
             {
                 throw new FailedSendMailException(
@@ -447,6 +500,5 @@ namespace Altech.WebJobs.OrderProcessing
                         response.StatusCode.ToString()));
             }
         }
-
     }
 }

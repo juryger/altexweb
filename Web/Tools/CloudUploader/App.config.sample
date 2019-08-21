@@ -3,9 +3,6 @@
   <startup> 
     <supportedRuntime version="v4.0" sku=".NETFramework,Version=v4.5" />
   </startup>
-  <!--<appSettings>
-    <add key="StorageConnection" value="DefaultEndpointsProtocol=https;AccountName=altechstorage;AccountKey=" />
-  </appSettings>-->
   <connectionStrings>
     <add name="StorageConnection" connectionString="DefaultEndpointsProtocol=https;AccountName=altechstorage;AccountKey="/>
   </connectionStrings>
