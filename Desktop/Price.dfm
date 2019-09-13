@@ -1354,7 +1354,7 @@ object PriceForm: TPriceForm
         ParentFont = False
       end
       object Label8: TLabel
-        Left = 479
+        Left = 485
         Top = 6
         Width = 194
         Height = 13
