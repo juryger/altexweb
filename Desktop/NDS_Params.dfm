@@ -1,10 +1,10 @@
 object NdsParamsForm: TNdsParamsForm
-  Left = 358
+  Left = 355
   Top = 335
   BorderStyle = bsToolWindow
-  Caption = #1055#1072#1088#1072#1084#1077#1090#1088#1099
+  Caption = #207#224#240#224#236#229#242#240#251' '#205#196#209
   ClientHeight = 235
-  ClientWidth = 243
+  ClientWidth = 246
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -20,14 +20,14 @@ object NdsParamsForm: TNdsParamsForm
     Top = 6
     Width = 225
     Height = 187
-    Caption = #1042#1080#1076' '#1085#1072#1082#1083#1072#1076#1085#1086#1081
+    Caption = #194#232#228' '#237#224#234#235#224#228#237#238#233
     TabOrder = 0
     object simpleViewRadioButton: TRadioButton
       Left = 16
       Top = 24
       Width = 201
       Height = 17
-      Caption = #1054#1073#1097#1080#1081' '#1074#1080#1076' ('#1091#1087#1088#1086#1097#1077#1085#1085#1099#1081' '#1074#1072#1088#1080#1072#1085#1090')'
+      Caption = #206#225#249#232#233' '#226#232#228' ('#243#239#240#238#249#229#237#237#224#255')'
       Checked = True
       TabOrder = 0
       TabStop = True
@@ -36,29 +36,29 @@ object NdsParamsForm: TNdsParamsForm
     object ndsViewRadioButton: TRadioButton
       Left = 16
       Top = 72
-      Width = 113
+      Width = 201
       Height = 17
-      Caption = #1057' % '#1089#1090#1072#1074#1082#1086#1081
+      Caption = #209' '#243#247#229#242#238#236' '#239#240#238#246#229#237#242#237#238#233' '#241#242#224#226#234#232
       TabOrder = 2
       OnClick = ndsViewRadioButtonClick
     end
     object GroupBox2: TGroupBox
       Left = 16
-      Top = 88
+      Top = 96
       Width = 193
-      Height = 57
-      Caption = #1053#1044#1057
+      Height = 49
+      Caption = #205#196#209
       TabOrder = 3
       object Label1: TLabel
         Left = 125
-        Top = 27
+        Top = 23
         Width = 8
         Height = 13
         Caption = '%'
       end
       object Edit1: TEdit
         Left = 8
-        Top = 24
+        Top = 20
         Width = 113
         Height = 21
         Color = clBtnFace
@@ -69,27 +69,27 @@ object NdsParamsForm: TNdsParamsForm
     object noNdsViewRadioButton: TRadioButton
       Left = 16
       Top = 48
-      Width = 113
+      Width = 201
       Height = 17
-      Caption = #1041#1077#1079' % '#1089#1090#1072#1074#1082#1080
+      Caption = #193#229#231' '#239#240#238#246#229#237#242#237#238#233' '#241#242#224#226#234#232
       TabOrder = 1
       OnClick = noNdsViewRadioButtonClick
     end
     object TicketCheckBox: TCheckBox
       Left = 16
       Top = 165
-      Width = 185
+      Width = 201
       Height = 17
-      Caption = #1056#1072#1089#1087#1077#1095#1072#1090#1100' '#1050#1072#1089#1086#1074#1099#1081' '#1086#1088#1076#1077#1088
+      Caption = #194#234#235#254#247#232#242#252' '#234#224#241#241#238#226#251#233' '#238#240#228#229#240
       Enabled = False
       TabOrder = 4
     end
     object InvoiceCheckBox: TCheckBox
       Left = 16
       Top = 148
-      Width = 185
+      Width = 201
       Height = 17
-      Caption = #1056#1072#1089#1087#1077#1095#1072#1090#1100' '#1057#1095#1077#1090'-'#1092#1072#1082#1090#1091#1088#1091
+      Caption = #194#234#235#254#247#232#242#252' '#241#247#229#242'-'#244#224#234#242#243#240#243
       Enabled = False
       TabOrder = 5
     end

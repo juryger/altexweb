@@ -2,8 +2,8 @@ object DBmod: TDBmod
   OldCreateOrder = False
   OnCreate = DataModuleCreate
   OnDestroy = DataModuleDestroy
-  Left = 488
-  Top = 253
+  Left = 636
+  Top = 236
   Height = 700
   Width = 940
   object TGDS_GRP: TTable
@@ -522,6 +522,9 @@ object DBmod: TDBmod
     end
     object TSLS_GRPOrderNo: TIntegerField
       FieldName = 'OrderNo'
+    end
+    object TSLS_GRPCashlessPayment: TIntegerField
+      FieldName = 'CashlessPayment'
     end
   end
   object DSLS_GRP: TDataSource

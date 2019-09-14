@@ -3,7 +3,7 @@ object PriceForm: TPriceForm
   Top = 187
   Width = 1024
   Height = 709
-  Caption = #1055#1088#1072#1081#1089'-'#1051#1080#1089#1090
+  Caption = #207#240#224#233#241'-'#235#232#241#242
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -46,7 +46,7 @@ object PriceForm: TPriceForm
       Top = 2
       Width = 33
       Height = 162
-      Hint = #1055#1086#1076#1075#1088#1091#1087#1087#1099' '#1074#1099#1073#1088#1072#1085#1085#1086#1081' '#1075#1088#1091#1087#1087#1099
+      Hint = '????????? ????????? ??????'
       Align = alLeft
       Center = True
       ParentShowHint = False
@@ -137,7 +137,7 @@ object PriceForm: TPriceForm
       Top = 2
       Width = 34
       Height = 162
-      Hint = #1058#1086#1074#1072#1088#1099' '#1074#1099#1073#1088#1072#1085#1085#1099#1093' '#1087#1086#1076#1075#1088#1091#1087#1087#1099' '#1080' '#1075#1088#1091#1087#1087#1099
+      Hint = '?????? ????????? ????????? ? ??????'
       Align = alLeft
       Center = True
       ParentShowHint = False
@@ -810,8 +810,8 @@ object PriceForm: TPriceForm
           Top = 2
           Width = 95
           Height = 21
-          Hint = #1044#1086#1073#1072#1074#1080#1090#1100' '#1085#1086#1074#1091#1102' '#1075#1088#1091#1087#1087#1091
-          Caption = #1044#1086#1073#1072#1074#1080#1090#1100
+          Hint = #196#238#225#224#226#232#242#252' '#237#238#226#243#254' '#227#240#243#239#239#243
+          Caption = #196#238#225#224#226#232#242#252
           Glyph.Data = {
             76010000424D7601000000000000760000002800000020000000100000000100
             04000000000000010000130B0000130B00001000000000000000000000000000
@@ -835,8 +835,8 @@ object PriceForm: TPriceForm
           Top = 2
           Width = 95
           Height = 21
-          Hint = #1059#1076#1072#1083#1080#1090#1100' '#1074#1099#1073#1088#1072#1085#1085#1091#1102' '#1075#1088#1091#1087#1087#1091
-          Caption = #1059#1076#1072#1083#1080#1090#1100
+          Hint = #211#228#224#235#232#242#252' '#226#251#225#240#224#237#237#243#254' '#227#240#243#239#239#243
+          Caption = #211#228#224#235#232#242#252
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clRed
           Font.Height = -11
@@ -891,7 +891,7 @@ object PriceForm: TPriceForm
             EditButtons = <>
             FieldName = 'DESCRIPTION'
             Footers = <>
-            Title.Caption = #1043#1088#1091#1087#1087#1072
+            Title.Caption = #200#236#255' '#227#240#243#239#239#251
             Title.Font.Charset = DEFAULT_CHARSET
             Title.Font.Color = clBlue
             Title.Font.Height = -11
@@ -924,8 +924,8 @@ object PriceForm: TPriceForm
           Top = 2
           Width = 95
           Height = 21
-          Hint = #1044#1086#1073#1072#1074#1080#1090#1100' '#1085#1086#1074#1091#1102' '#1087#1086#1076#1075#1088#1091#1087#1087#1091
-          Caption = #1044#1086#1073#1072#1074#1080#1090#1100
+          Hint = #196#238#225#224#226#232#242#252' '#237#238#226#243#254' '#239#238#228#227#240#243#239#239#243
+          Caption = #196#238#225#224#226#232#242#252
           Glyph.Data = {
             76010000424D7601000000000000760000002800000020000000100000000100
             04000000000000010000130B0000130B00001000000000000000000000000000
@@ -949,8 +949,8 @@ object PriceForm: TPriceForm
           Top = 2
           Width = 95
           Height = 21
-          Hint = #1059#1076#1072#1083#1080#1090#1100' '#1074#1099#1073#1088#1072#1085#1085#1091#1102' '#1087#1086#1076#1075#1088#1091#1087#1087#1091
-          Caption = #1059#1076#1072#1083#1080#1090#1100
+          Hint = #211#228#224#235#232#242#252' '#226#251#225#240#224#237#237#243#254' '#239#238#228#227#240#243#239#239#243
+          Caption = #211#228#224#235#232#242#252
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clRed
           Font.Height = -11
@@ -1007,7 +1007,7 @@ object PriceForm: TPriceForm
             EditButtons = <>
             FieldName = 'DESCRIPTION'
             Footers = <>
-            Title.Caption = #1055#1086#1076#1075#1088#1091#1087#1087#1072
+            Title.Caption = #200#236#255' '#239#238#228#227#240#243#239#239#251
             Title.Font.Charset = DEFAULT_CHARSET
             Title.Font.Color = clBlue
             Title.Font.Height = -11
@@ -1097,14 +1097,14 @@ object PriceForm: TPriceForm
           FieldName = 'ID_GDS_DTL'
           Footers = <>
           PopupMenu = subGroupsPopupMenu
-          Title.Caption = #1050#1086#1076
+          Title.Caption = #202#238#228
           Title.TitleButton = True
         end
         item
           EditButtons = <>
           FieldName = 'DESCRIPTION'
           Footers = <>
-          Title.Caption = #1053#1072#1080#1084#1077#1085#1086#1074#1072#1085#1080#1077
+          Title.Caption = #205#224#232#236#229#237#238#226#224#237#232#229
           Title.Font.Charset = DEFAULT_CHARSET
           Title.Font.Color = clBlack
           Title.Font.Height = -11
@@ -1118,21 +1118,21 @@ object PriceForm: TPriceForm
           EditButtons = <>
           FieldName = 'UnitMeasuring'
           Footers = <>
-          Title.Caption = #1045#1076'. '#1080#1079#1084'.'
+          Title.Caption = #197#228'. '#232#231#236'.'
           Width = 49
         end
         item
           EditButtons = <>
           FieldName = 'PACK_NUM'
           Footers = <>
-          Title.Caption = #1059#1087#1072#1082#1086#1074#1082#1072
+          Title.Caption = #211#239#224#234#238#226#234#224
           Width = 57
         end
         item
           EditButtons = <>
           FieldName = 'COST_PURCH'
           Footers = <>
-          Title.Caption = #1047#1072#1082#1091#1087#1082#1072' ($)'
+          Title.Caption = #199#224#234#243#239#234#224' ($)'
           Width = 66
         end
         item
@@ -1140,21 +1140,21 @@ object PriceForm: TPriceForm
           EditButtons = <>
           FieldName = 'COST_WHS1'
           Footers = <>
-          Title.Caption = #1054#1055#1058'1 ($)'
+          Title.Caption = #206#207#210'1 ($)'
         end
         item
           Color = 16245198
           EditButtons = <>
           FieldName = 'COST_WHS2'
           Footers = <>
-          Title.Caption = #1054#1055#1058'2 ($)'
+          Title.Caption = #206#207#210'2 ($)'
         end
         item
           Color = 16245198
           EditButtons = <>
           FieldName = 'COST_WHS3'
           Footers = <>
-          Title.Caption = #1054#1055#1058'3 ($)'
+          Title.Caption = #206#207#210'3 ($)'
         end
         item
           AlwaysShowEditButton = True
@@ -1163,7 +1163,7 @@ object PriceForm: TPriceForm
           FieldName = 'GroupName'
           Footers = <>
           ReadOnly = True
-          Title.Caption = #1043#1088#1091#1087#1087#1072
+          Title.Caption = #195#240#243#239#239#224
         end
         item
           AutoDropDown = True
@@ -1172,7 +1172,7 @@ object PriceForm: TPriceForm
           FieldName = 'SubgroupName'
           Footers = <>
           ReadOnly = True
-          Title.Caption = #1055#1086#1076#1075#1088#1091#1087#1087#1072
+          Title.Caption = #207#238#228#227#240#243#239#239#224
         end>
     end
     object goodsControlsPanel: TPanel
@@ -1189,8 +1189,8 @@ object PriceForm: TPriceForm
         Top = 1
         Width = 95
         Height = 21
-        Hint = #1044#1086#1073#1072#1074#1080#1090#1100' '#1085#1086#1074#1099#1081' '#1090#1086#1074#1072#1088
-        Caption = #1044#1086#1073#1072#1074#1080#1090#1100
+        Hint = #196#238#225#224#226#232#242#252' '#237#238#226#243#254' '#239#238#231#232#246#232#254' '#226' '#239#238#228#227#240#243#239#239#243
+        Caption = #196#238#225#224#226#232#242#252
         Glyph.Data = {
           76010000424D7601000000000000760000002800000020000000100000000100
           04000000000000010000130B0000130B00001000000000000000000000000000
@@ -1214,8 +1214,8 @@ object PriceForm: TPriceForm
         Top = 1
         Width = 95
         Height = 21
-        Hint = #1059#1076#1072#1083#1080#1090#1100' '#1074#1099#1073#1088#1072#1085#1085#1099#1081' '#1090#1086#1074#1072#1088
-        Caption = #1059#1076#1072#1083#1080#1090#1100
+        Hint = #211#228#224#235#232#242#252' '#226#251#225#240#224#237#237#243#254' '#239#238#231#232#246#232#254
+        Caption = #211#228#224#235#232#242#252
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clRed
         Font.Height = -11
@@ -1245,7 +1245,7 @@ object PriceForm: TPriceForm
         Top = 1
         Width = 95
         Height = 21
-        Hint = #1054#1095#1080#1089#1090#1080#1090#1100' '#1087#1088#1072#1081#1089' '#1086#1090' '#1087#1086#1074#1088#1077#1078#1076#1077#1085#1085#1099#1093' '#1080#1079#1086#1073#1088#1072#1078#1077#1085#1080#1081
+        Hint = #206#247#232#241#242#232#242#252' '#193#196' '#238#242' '#239#238#226#240#229#230#228#229#237#237#251#245' '#232#231#238#225#240#224#230#229#237#232#233
         Caption = 'BLOB'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clRed
@@ -1276,8 +1276,8 @@ object PriceForm: TPriceForm
         Top = 1
         Width = 95
         Height = 21
-        Hint = #1047#1072#1076#1072#1090#1100' '#1087#1072#1088#1072#1084#1077#1090#1088#1099' '#1089#1082#1080#1076#1086#1082
-        Caption = #1057#1082#1080#1076#1082#1080
+        Hint = #206#242#234#240#251#242#252' '#244#238#240#236#243' '#241#234#232#228#238#234
+        Caption = #209#234#232#228#234#232
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clGreen
         Font.Height = -11
@@ -1317,7 +1317,7 @@ object PriceForm: TPriceForm
         Top = 6
         Width = 51
         Height = 13
-        Caption = #1087#1086' '#1050#1086#1076#1091':'
+        Caption = #239#238' '#202#238#228#243':'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Height = -11
@@ -1329,9 +1329,9 @@ object PriceForm: TPriceForm
       object Label3: TLabel
         Left = 184
         Top = 6
-        Width = 83
+        Width = 113
         Height = 13
-        Caption = #1087#1086' '#1053#1072#1079#1074#1072#1085#1080#1102':'
+        Caption = #239#238' '#205#224#232#236#229#237#238#226#224#237#232#254':'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Height = -11
@@ -1345,7 +1345,7 @@ object PriceForm: TPriceForm
         Top = 6
         Width = 56
         Height = 13
-        Caption = #1055#1086#1080#1089#1082' >>'
+        Caption = #207#238#232#241#234' >>'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlue
         Font.Height = -11
@@ -1354,11 +1354,11 @@ object PriceForm: TPriceForm
         ParentFont = False
       end
       object Label8: TLabel
-        Left = 485
+        Left = 511
         Top = 6
         Width = 194
         Height = 13
-        Caption = '('#1087#1086' '#1079#1072#1074#1077#1088#1096#1077#1085#1080#1102' '#1074#1074#1086#1076#1072' '#1085#1072#1078#1084#1080#1090#1077' Enter)'
+        Caption = '('#239#238' '#231#224#226#229#240#248#229#237#232#254' '#226#226#238#228#224' '#237#224#230#236#232#242#229' Enter)'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clRed
         Font.Height = -11
@@ -1368,7 +1368,7 @@ object PriceForm: TPriceForm
         Layout = tlCenter
       end
       object DBEditEh1: TDBEditEh
-        Left = 272
+        Left = 298
         Top = 2
         Width = 201
         Height = 19
@@ -1412,8 +1412,8 @@ object PriceForm: TPriceForm
       Top = 2
       Width = 95
       Height = 21
-      Hint = #1054#1090#1087#1088#1072#1074#1080#1090#1100' '#1086#1073#1085#1086#1074#1083#1077#1085#1080#1103' '#1087#1088#1072#1081#1089#1072' '#1085#1072' '#1074#1077#1073'-'#1089#1072#1081#1090' altexweb.ru'
-      Caption = #1042#1077#1073'-'#1089#1072#1081#1090
+      Hint = #194#251#227#240#243#231#234#224' '#238#225#237#238#226#235#229#237#232#233' '#237#224' '#226#229#225'-'#241#224#233#242' altexweb.ru'
+      Caption = #194#229#225'-'#241#224#233#242
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clPurple
       Font.Height = -11
@@ -1443,8 +1443,8 @@ object PriceForm: TPriceForm
       Top = 2
       Width = 95
       Height = 21
-      Hint = #1055#1077#1095#1072#1090#1100' '#1087#1088#1072#1081#1089#1072
-      Caption = #1055#1077#1095#1072#1090#1100
+      Hint = #207#229#247#224#242#252' '#239#240#224#233#241#224
+      Caption = #207#229#247#224#242#252
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clPurple
       Font.Height = -11
@@ -1474,8 +1474,8 @@ object PriceForm: TPriceForm
       Top = 2
       Width = 95
       Height = 21
-      Hint = #1055#1088#1077#1076#1074#1072#1088#1080#1090#1077#1083#1100#1085#1099#1081' '#1087#1088#1086#1089#1084#1086#1090#1088' '#1087#1088#1072#1081#1089#1072
-      Caption = #1055#1088#1086#1089#1084#1086#1090#1088
+      Hint = #207#240#229#228#226#224#240#232#242#229#235#252#237#251#233' '#239#240#238#241#236#238#242#240' '#239#240#224#233#241#224
+      Caption = #207#240#238#241#236#238#242#240
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clPurple
       Font.Height = -11
@@ -1505,7 +1505,7 @@ object PriceForm: TPriceForm
       Top = 2
       Width = 95
       Height = 21
-      Hint = #1057#1086#1093#1088#1072#1085#1080#1090#1100' '#1087#1088#1072#1081#1089' '#1074' '#1092#1086#1088#1084#1072#1090#1077' Excel'
+      Hint = #194#251#227#240#243#231#234#224' '#239#240#224#233#241#224' '#226' Excel'
       Caption = 'Excel'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clPurple
@@ -1537,15 +1537,15 @@ object PriceForm: TPriceForm
     Left = 257
     Top = 96
     object popupItemViewPicture: TMenuItem
-      Caption = #1055#1088#1086#1089#1089#1084#1086#1090#1088#1077#1090#1100' (F3)'
+      Caption = #207#240#238#241#236#238#242#240' '#232#231#238#225#240#224#230#229#237#232#255' (F3)'
       OnClick = popupItemViewPictureClick
     end
     object popupItemSetPicture: TMenuItem
-      Caption = #1047#1072#1076#1072#1090#1100' '#1082#1072#1088#1090#1080#1085#1082#1091' (F3)'
+      Caption = #211#241#242#224#237#238#226#232#242#252' '#232#231#238#225#240#224#230#229#237#232#229' (F3)'
       OnClick = popupItemSetPictureClick
     end
     object popupItemClearPicture: TMenuItem
-      Caption = #1054#1095#1080#1089#1090#1080#1090#1100' (F8)'
+      Caption = #211#228#224#235#232#242#252' '#232#231#238#225#240#224#230#229#237#232#229' (F8)'
       OnClick = popupItemClearPictureClick
     end
     object N1: TMenuItem
@@ -1553,7 +1553,7 @@ object PriceForm: TPriceForm
       GroupIndex = 1
     end
     object popupItemStore: TMenuItem
-      Caption = #1055#1088#1080#1093#1086#1076'/'#1054#1089#1090#1072#1090#1086#1082' (F10)'
+      Caption = #207#229#240#229#233#242#232' '#237#224' '#241#234#235#224#228' (F10)'
       GroupIndex = 1
       OnClick = popupItemStoreClick
     end

@@ -3,7 +3,7 @@ object NaklForm: TNaklForm
   Top = 206
   Width = 1024
   Height = 540
-  Caption = #1053#1072#1082#1083#1072#1076#1085#1099#1077
+  Caption = #199#224#234#224#231#251
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -73,14 +73,14 @@ object NaklForm: TNaklForm
             EditButtons = <>
             FieldName = 'Company'
             Footers = <>
-            Title.Caption = #1050#1083#1080#1077#1085#1090
+            Title.Caption = #205#224#232#236#229#237#238#226#224#237#232#229
             Width = 164
           end
           item
             EditButtons = <>
             FieldName = 'ProfitPercentage'
             Footers = <>
-            Title.Caption = #1053#1072#1082#1088#1091#1090#1082#1072' (%)'
+            Title.Caption = #205#224#234#240#243#242#234#224' (%)'
             Title.Font.Charset = DEFAULT_CHARSET
             Title.Font.Color = clGreen
             Title.Font.Height = -11
@@ -93,21 +93,21 @@ object NaklForm: TNaklForm
             EditButtons = <>
             FieldName = 'Address'
             Footers = <>
-            Title.Caption = #1040#1076#1088#1077#1089
+            Title.Caption = #192#228#240#229#241
             Width = 203
           end
           item
             EditButtons = <>
             FieldName = 'INN'
             Footers = <>
-            Title.Caption = #1048#1053#1053
+            Title.Caption = #200#205#205
             Width = 109
           end
           item
             EditButtons = <>
             FieldName = 'Phone'
             Footers = <>
-            Title.Caption = #1058#1077#1083#1077#1092#1086#1085
+            Title.Caption = #210#229#235#229#244#238#237
             Width = 250
           end
           item
@@ -120,7 +120,7 @@ object NaklForm: TNaklForm
             EditButtons = <>
             FieldName = 'ContactName'
             Footers = <>
-            Title.Caption = #1050#1086#1085#1090#1072#1082#1090#1085#1086#1077' '#1083#1080#1094#1086
+            Title.Caption = #202#238#237#242#224#234#242#237#238#229' '#235#232#246#238
             Width = 145
           end>
       end
@@ -138,8 +138,8 @@ object NaklForm: TNaklForm
         Top = 1
         Width = 95
         Height = 21
-        Hint = #1055#1088#1080#1084#1077#1085#1080#1090#1100' '#1087#1088#1072#1074#1082#1080
-        Caption = #1055#1088#1080#1084#1077#1085#1080#1090#1100
+        Hint = #209#238#245#240#224#237#232#242#252' '#232#231#236#229#237#229#237#232#255
+        Caption = #209#238#245#240#224#237#232#242#252
         Enabled = False
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clGreen
@@ -170,8 +170,8 @@ object NaklForm: TNaklForm
         Top = 1
         Width = 95
         Height = 21
-        Hint = #1059#1076#1072#1083#1080#1090#1100' '#1082#1083#1080#1077#1085#1090#1072
-        Caption = #1059#1076#1072#1083#1080#1090#1100
+        Hint = #211#228#224#235#232#242#252' '#226#251#225#240#224#237#237#238#227#238' '#234#235#232#229#237#242#224
+        Caption = #211#228#224#235#232#242#252
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clRed
         Font.Height = -11
@@ -201,7 +201,8 @@ object NaklForm: TNaklForm
         Top = 1
         Width = 160
         Height = 21
-        Caption = #1048#1084#1087#1086#1088#1090' '#1074#1077#1073'-'#1079#1072#1082#1072#1079#1086#1074
+        Hint = #200#236#239#238#240#242#232#240#238#226#224#242#252' '#231#224#234#224#231' '#234#235#232#229#237#242#224' '#241' '#226#229#225'-'#241#224#233#242#224
+        Caption = #200#236#239#238#240#242' '#241' '#226#229#225'-'#241#224#233#242#224
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Height = -11
@@ -231,8 +232,8 @@ object NaklForm: TNaklForm
         Top = 1
         Width = 95
         Height = 21
-        Hint = #1044#1086#1073#1072#1074#1080#1090#1100' '#1085#1086#1074#1086#1075#1086' '#1082#1083#1080#1077#1085#1090#1072
-        Caption = #1044#1086#1073#1072#1074#1080#1090#1100
+        Hint = #196#238#225#224#226#232#242#252' '#237#238#226#238#227#238' '#234#235#232#229#237#242#224
+        Caption = #196#238#225#224#226#232#242#252
         Glyph.Data = {
           76010000424D7601000000000000760000002800000020000000100000000100
           04000000000000010000130B0000130B00001000000000000000000000000000
@@ -264,9 +265,9 @@ object NaklForm: TNaklForm
       object Label7: TLabel
         Left = 66
         Top = 6
-        Width = 71
+        Width = 79
         Height = 13
-        Caption = #1087#1086' '#1050#1083#1080#1077#1085#1090#1091':'
+        Caption = #239#238' '#205#224#231#226#224#237#232#254
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Height = -11
@@ -280,7 +281,7 @@ object NaklForm: TNaklForm
         Top = 6
         Width = 56
         Height = 13
-        Caption = #1055#1086#1080#1089#1082' >>'
+        Caption = #207#238#232#241#234' >>'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlue
         Font.Height = -11
@@ -289,11 +290,11 @@ object NaklForm: TNaklForm
         ParentFont = False
       end
       object Label8: TLabel
-        Left = 313
+        Left = 315
         Top = 6
         Width = 194
         Height = 13
-        Caption = '('#1087#1086' '#1079#1072#1074#1077#1088#1096#1077#1085#1080#1102' '#1074#1074#1086#1076#1072' '#1085#1072#1078#1084#1080#1090#1077' Enter)'
+        Caption = '('#239#238' '#231#224#226#229#240#248#229#237#232#254' '#226#226#238#228#224' '#237#224#230#236#232#242#229' Enter)'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clRed
         Font.Height = -11
@@ -303,7 +304,7 @@ object NaklForm: TNaklForm
         Layout = tlCenter
       end
       object DBEditEh1: TDBEditEh
-        Left = 142
+        Left = 147
         Top = 2
         Width = 163
         Height = 19
@@ -333,7 +334,7 @@ object NaklForm: TNaklForm
       Top = 6
       Width = 56
       Height = 13
-      Caption = #1055#1086#1080#1089#1082' >>'
+      Caption = #207#238#232#241#234' >>'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clBlue
       Font.Height = -11
@@ -344,9 +345,9 @@ object NaklForm: TNaklForm
     object Label5: TLabel
       Left = 63
       Top = 6
-      Width = 51
+      Width = 47
       Height = 13
-      Caption = #1087#1086' '#1050#1086#1076#1091':'
+      Caption = #239#238' '#202#238#228#243
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clBlack
       Font.Height = -11
@@ -410,7 +411,7 @@ object NaklForm: TNaklForm
           FieldName = 'ID_GDS_DTL'
           Footers = <>
           ReadOnly = True
-          Title.Caption = #1050#1086#1076
+          Title.Caption = #202#238#228
           Title.Font.Charset = DEFAULT_CHARSET
           Title.Font.Color = clPurple
           Title.Font.Height = -11
@@ -423,7 +424,7 @@ object NaklForm: TNaklForm
           FieldName = 'Title'
           Footers = <>
           ReadOnly = True
-          Title.Caption = #1053#1072#1080#1084#1077#1085#1086#1074#1072#1085#1080#1077
+          Title.Caption = #205#224#232#236#229#237#238#226#224#237#232#229
           Title.Font.Charset = DEFAULT_CHARSET
           Title.Font.Color = clPurple
           Title.Font.Height = -11
@@ -435,7 +436,7 @@ object NaklForm: TNaklForm
           EditButtons = <>
           FieldName = 'GDS_COST_NDS'
           Footers = <>
-          Title.Caption = #1062#1077#1085#1072' '#1089' '#1053#1044#1057
+          Title.Caption = #214#229#237#224' '#241' '#205#196#209
           Title.Font.Charset = DEFAULT_CHARSET
           Title.Font.Color = clPurple
           Title.Font.Height = -11
@@ -447,7 +448,7 @@ object NaklForm: TNaklForm
           EditButtons = <>
           FieldName = 'GDS_NUMB'
           Footers = <>
-          Title.Caption = #1050#1086#1083#1080#1095#1077#1089#1090#1074#1086
+          Title.Caption = #202#238#235#232#247#229#241#242#226#238
           Title.Font.Charset = DEFAULT_CHARSET
           Title.Font.Color = clPurple
           Title.Font.Height = -11
@@ -461,7 +462,7 @@ object NaklForm: TNaklForm
           FieldName = 'Comment'
           Footers = <>
           ReadOnly = True
-          Title.Caption = #1050#1086#1084#1077#1085#1090#1072#1088#1080#1081' '#1082' '#1079#1072#1082#1072#1079#1091
+          Title.Caption = #202#238#236#236#229#237#242#224#240#232#233' '#234' '#231#224#234#224#231#243
           Title.Font.Charset = DEFAULT_CHARSET
           Title.Font.Color = clPurple
           Title.Font.Height = -11
@@ -475,7 +476,7 @@ object NaklForm: TNaklForm
           FieldName = 'GDS_COST_CLR'
           Footers = <>
           ReadOnly = True
-          Title.Caption = #1062#1077#1085#1072' '#1073#1077#1079' '#1053#1044#1057
+          Title.Caption = #214#229#237#224' '#225#229#231' '#205#196#209
           Title.Font.Charset = RUSSIAN_CHARSET
           Title.Font.Color = clGray
           Title.Font.Height = -11
@@ -493,41 +494,13 @@ object NaklForm: TNaklForm
       BevelInner = bvRaised
       BevelOuter = bvLowered
       TabOrder = 1
-      object exportExcelButton: TSpeedButton
-        Left = 386
-        Top = 2
-        Width = 146
-        Height = 21
-        Caption = #1053#1072#1082#1083#1072#1076#1085#1072#1103' Excel'
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = clPurple
-        Font.Height = -11
-        Font.Name = 'MS Sans Serif'
-        Font.Style = [fsBold]
-        Glyph.Data = {
-          76010000424D7601000000000000760000002800000020000000100000000100
-          04000000000000010000130B0000130B00001000000000000000000000000000
-          800000800000008080008000000080008000808000007F7F7F00BFBFBF000000
-          FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF00333333333303
-          333333333333337FF3333333333333903333333333333377FF33333333333399
-          03333FFFFFFFFF777FF3000000999999903377777777777777FF0FFFF0999999
-          99037F3337777777777F0FFFF099999999907F3FF777777777770F00F0999999
-          99037F773777777777730FFFF099999990337F3FF777777777330F00FFFFF099
-          03337F773333377773330FFFFFFFF09033337F3FF3FFF77733330F00F0000003
-          33337F773777777333330FFFF0FF033333337F3FF7F3733333330F08F0F03333
-          33337F7737F7333333330FFFF003333333337FFFF77333333333000000333333
-          3333777777333333333333333333333333333333333333333333}
-        NumGlyphs = 2
-        ParentFont = False
-        Visible = False
-        OnClick = exportExcelButtonClick
-      end
       object previewButton: TSpeedButton
         Left = 191
         Top = 2
         Width = 95
         Height = 21
-        Caption = #1055#1088#1086#1089#1084#1086#1090#1088
+        Hint = #207#240#229#228#226#224#240#232#242#229#235#252#237#251#233' '#239#240#238#241#236#238#242#240' '#231#224#234#224#231#224
+        Caption = #207#240#238#241#236#238#242#240
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clPurple
         Font.Height = -11
@@ -555,7 +528,8 @@ object NaklForm: TNaklForm
         Top = 2
         Width = 95
         Height = 21
-        Caption = #1055#1077#1095#1072#1090#1100
+        Hint = #207#229#247#224#242#252' '#226#251#225#240#224#237#237#227#238' '#231#224#234#224#231#224
+        Caption = #207#229#247#224#242#252
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clPurple
         Font.Height = -11
@@ -583,8 +557,8 @@ object NaklForm: TNaklForm
         Top = 2
         Width = 95
         Height = 21
-        Hint = #1059#1076#1072#1083#1080#1090#1100' '#1090#1086#1074#1072#1088' '#1080#1079' '#1079#1072#1082#1072#1079#1072
-        Caption = #1059#1076#1072#1083#1080#1090#1100
+        Hint = #211#228#224#235#232#242#252' '#226#251#225#240#224#237#237#251#233' '#231#224#234#224#231
+        Caption = #211#228#224#235#232#242#252
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clRed
         Font.Height = -11
@@ -614,7 +588,8 @@ object NaklForm: TNaklForm
         Top = 2
         Width = 99
         Height = 21
-        Caption = #1057#1095#1105#1090' Excel'
+        Hint = #194#251#227#240#243#231#232#242#252' '#226#251#225#240#224#237#237#251#233' '#231#224#234#224#231' '#226' Excel'
+        Caption = #209#247#229#242' Excel'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clPurple
         Font.Height = -11
@@ -637,6 +612,111 @@ object NaklForm: TNaklForm
         ParentFont = False
         OnClick = btExportAccountExcelClick
       end
+      object profitCalcButton: TSpeedButton
+        Left = 385
+        Top = 2
+        Width = 95
+        Height = 21
+        Hint = #208#224#241#247#232#242#224#242#252' '#239#240#232#225#251#235#252' '#239#238' '#226#251#225#240#224#237#237#238#236#243' '#231#224#234#224#231#243
+        Caption = #207#240#232#225#251#235#252
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clTeal
+        Font.Height = -11
+        Font.Name = 'MS Sans Serif'
+        Font.Style = [fsBold]
+        Glyph.Data = {
+          76010000424D7601000000000000760000002800000020000000100000000100
+          04000000000000010000120B0000120B00001000000000000000000000000000
+          800000800000008080008000000080008000808000007F7F7F00BFBFBF000000
+          FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF00337333733373
+          3373337F3F7F3F7F3F7F33737373737373733F7F7F7F7F7F7F7F770000000000
+          000077777777777777773303333333333333337FF333333F33333709333333C3
+          333337773F3FF373F333330393993C3C33333F7F7F77F7F7FFFF77079797977C
+          77777777777777777777330339339333C333337FF73373F37F33370C333C3933
+          933337773F3737F37FF33303C3C33939C9333F7F7F7FF7F777FF7707C7C77797
+          7C97777777777777777733033C3333333C33337F37F33333373F37033C333333
+          33C3377F37333333337333033333333333333F7FFFFFFFFFFFFF770777777777
+          7777777777777777777733333333333333333333333333333333}
+        NumGlyphs = 2
+        ParentFont = False
+        ParentShowHint = False
+        ShowHint = True
+        OnClick = profitCalcButtonClick
+      end
+      object applyCashlessButton: TSpeedButton
+        Left = 480
+        Top = 2
+        Width = 95
+        Height = 21
+        Hint = #207#240#232#236#229#237#232#242#252' '#225#229#231#237#224#235#232#247#237#243#254' '#238#239#235#224#242#243' '#234' '#226#251#225#240#224#237#237#238#236#243' '#231#224#234#224#231#243
+        Caption = #193#229#231#237#224#235
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clBlack
+        Font.Height = -11
+        Font.Name = 'MS Sans Serif'
+        Font.Style = [fsBold]
+        Glyph.Data = {
+          F6060000424DF606000000000000360000002800000018000000180000000100
+          180000000000C0060000130B0000130B00000000000000000000FFFFFFFFFFFF
+          FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+          FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+          FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+          FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+          FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+          FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+          FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+          FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+          FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+          FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+          FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+          FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+          FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+          FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+          FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+          FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEC06BFEBB
+          60FDBA5FFCBA5EFCB95DFCB95DFCB85CFCCD8EFFFFFFFFFFFFC5DCFE9DC4FDFF
+          FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+          FFFFFFFF990FFF9400FF9400FF9400FF9400FF9400FDA62FFFF7EBFFFFFFCADF
+          FD0E71FE026AFE99C3FDFFFFFFFFFFFFFFFFFFFFFFFFFCFDFFFFFFFFFFFFFFFF
+          FFFFFFFFFFFFFFFFFFFFFFFF990FFF9400FF9400FF9400FF9400FDA62EFFF7EB
+          FFFFFFD5E5FD1575FD006AFF006AFF026AFE9AC3FDFFFFFFFFFFFFF3F7FD4D95
+          FDFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF990FFF9400FF9400FF9400FF
+          9400FEA326FEF3E3FFFFFFE2EDFE237DFE006AFF006AFF006AFF026AFD9AC3FD
+          F3F7FD3E8DFD0F72FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF990FFF94
+          00FF9400FF9400FF9400FF9400FEA325FEF3E3FFFFFFE1EDFF237DFE006AFF00
+          6AFF006AFF026AFE2880FD006AFF0F72FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+          FFFFFFFF990FFF9400FD9F1EFE9301FF9400FF9400FF9400FEA224FEF2E3FFFF
+          FFE2EDFE237DFE006AFF006AFF006AFF006AFF006AFF0F72FFFFFFFFFFFFFFFF
+          FFFFFFFFFFFFFFFFFFFFFFFF990FFEA72FFFF7EBFCD197FD9301FF9400FF9400
+          FF9400FEA224FEF2E3FFFFFFE2EDFE247EFE006AFF006AFF006AFF006AFF0F72
+          FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFAD3FFFF7EBFFFFFFFFFFFFFC
+          D197FE9301FF9400FF9400FD9B15FDECD5FFFFFFF3F7FF3C8CFD006AFF006AFF
+          006AFF006AFF0F72FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFDFBF9FFFF
+          FFFFFFFFFFFFFFFFFFFFFCD298FD9301FE990EFEE9CEFFFFFFF3F7FF3D8CFD00
+          6AFF006AFF006AFF006AFF006AFF0F72FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+          FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFDD49CFEE6C5FFFFFFFFFF
+          FF97BFF8569AFA569AFA569AFA569AFA569AFA569AFA62A1FBFFFFFFFFFFFFFF
+          FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+          FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+          FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+          FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+          FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+          FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+          FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+          FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+          FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+          FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+          FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+          FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+          FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+          FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+          FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+          FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
+        ParentFont = False
+        ParentShowHint = False
+        ShowHint = True
+        OnClick = applyCashlessButtonClick
+      end
     end
     object invoiceManagementPanel: TPanel
       Left = 2
@@ -652,7 +732,7 @@ object NaklForm: TNaklForm
         Top = 2
         Width = 20
         Height = 21
-        Hint = #1057#1086#1079#1076#1072#1090#1100' '#1085#1086#1074#1099#1081' '#1079#1072#1082#1072#1079
+        Hint = #209#238#231#228#224#242#252' '#237#238#226#251#233' '#231#224#234#224#231
         Font.Charset = RUSSIAN_CHARSET
         Font.Color = clGreen
         Font.Height = -19
@@ -682,7 +762,7 @@ object NaklForm: TNaklForm
         Top = 2
         Width = 20
         Height = 21
-        Hint = #1059#1076#1072#1083#1080#1090#1100' '#1074#1099#1073#1088#1072#1085#1085#1099#1081' '#1079#1072#1082#1072#1079
+        Hint = #211#228#224#235#232#242#252' '#226#251#225#240#224#237#237#251#233' '#231#224#234#224#231
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clGreen
         Font.Height = -11
@@ -712,7 +792,7 @@ object NaklForm: TNaklForm
         Top = 5
         Width = 59
         Height = 13
-        Caption = #8470' '#1079#1072#1082#1072#1079#1072
+        Caption = #185' '#231#224#234#224#231#224
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Height = -11
@@ -725,7 +805,7 @@ object NaklForm: TNaklForm
         Top = 5
         Width = 26
         Height = 13
-        Caption = '/ '#1054#1090
+        Caption = '/ '#206#242
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Height = -11
@@ -738,7 +818,7 @@ object NaklForm: TNaklForm
         Top = 5
         Width = 76
         Height = 13
-        Caption = '/ Web-'#1079#1072#1082#1072#1079
+        Caption = '/ Web-'#231#224#234#224#231
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Height = -11

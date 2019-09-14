@@ -2,7 +2,7 @@ object DPickUpForm: TDPickUpForm
   Left = 319
   Top = 158
   BorderStyle = bsDialog
-  Caption = #1044#1086#1073#1072#1074#1083#1077#1085#1080#1077' '#1085#1072#1082#1083#1072#1076#1085#1086#1081
+  Caption = #194#251#225#238#240' '#228#224#242#251
   ClientHeight = 283
   ClientWidth = 265
   Color = clBtnFace
@@ -19,9 +19,9 @@ object DPickUpForm: TDPickUpForm
   object Label1: TLabel
     Left = 16
     Top = 8
-    Width = 93
+    Width = 135
     Height = 13
-    Caption = #1042#1099#1073#1077#1088#1080#1090#1077' '#1076#1072#1090#1091':'
+    Caption = #194#251#225#229#240#232#242#229' '#228#224#242#243' '#231#224#234#224#231#224
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
     Font.Height = -11
@@ -34,7 +34,7 @@ object DPickUpForm: TDPickUpForm
     Top = 24
     Width = 225
     Height = 177
-    Date = 38286.780507650470000000
+    Date = 38286.558412905090000000
     TabOrder = 0
   end
   object BitBtn1: TBitBtn
@@ -58,7 +58,7 @@ object DPickUpForm: TDPickUpForm
     Top = 216
     Width = 209
     Height = 17
-    Caption = #1059#1095#1080#1090#1099#1074#1072#1090#1100' '#1086#1089#1090#1072#1090#1082#1080' '#1087#1086' '#1089#1082#1083#1072#1076#1091
+    Caption = #207#240#238#226#229#240#234#224'?'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
     Font.Height = -11

@@ -1,6 +1,9 @@
-﻿using Altech.Core.Models;
-using Altech.WebSite.Consts;
-using Altech.WebSite.Models;
+﻿using Altech.Core.Interfaces;
+using Altech.Core.Models;
+using Altech.DAL;
+using Altech.DAL.Consts;
+using Altech.DAL.Interfaces;
+using Altech.DAL.Services;
 using Altech.WebSite.Tests.Mocks;
 using NSubstitute;
 using NUnit.Framework;
@@ -8,20 +11,13 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Altech.Core.Interfaces;
-using Altech.DAL.Consts;
-using Altech.DAL.Services;
-using Altech.DAL.Interfaces;
-using Altech.DAL;
 
 namespace Altech.WebSite.Tests
 {
     [TestFixture]
     public class OrderTest
     {
-        EnumerableQuery<Discount> discounts = new EnumerableQuery<Discount>(new List<Discount>() 
+        EnumerableQuery<Discount> discounts = new EnumerableQuery<Discount>(new List<Discount>()
             {
                 new Discount { ID = 1, StartSumm = 0 },
                 new Discount { ID = 2, StartSumm = 30000 },
@@ -113,9 +109,9 @@ namespace Altech.WebSite.Tests
             Assert.AreEqual(sum, realSum);
             Assert.AreEqual(discount, realSumDiscount);
         }
-       
+
         [Test]
-        [Ignore]
+        [Ignore("NA")]
         public void OrderModel_AddSameMerchandiseToOrder_Success()
         {
             // Arrange
@@ -136,7 +132,7 @@ namespace Altech.WebSite.Tests
         }
 
         [Test]
-        [Ignore]
+        [Ignore("NA")]
         public void OrderModel_AddNewMerchandiseToNewOrder_Success()
         {
             // Arrange
@@ -241,7 +237,7 @@ namespace Altech.WebSite.Tests
                 () => response = orderModel.DeleteMerchandiseFromOrder(customerId, merchandiseId),
                 String.Format(ExceptionNames.NoActiveOrder, "07E4E230-7F80-482D-9B1A-CB37C078A025"));
         }
-        
+
         [Test]
         public void OrderModel_DeleteMerchandiseFromOrder_UnknownMerchandise_Fail()
         {
@@ -290,7 +286,7 @@ namespace Altech.WebSite.Tests
         }
 
         [Test]
-        [Ignore]
+        [Ignore("NA")]
         public void OrderModel_CancelActiveOrder_Success()
         {
             // Arrange
@@ -362,14 +358,14 @@ namespace Altech.WebSite.Tests
             string email = "sergeyv@hoskom.ru";
             string address = "г. Москва, Новокуркинское шоссе, 35-1";
             string inn = "";
-            
+
             var orderId = orderModel.GetActiveOrderId(customerId);
 
             var mockNotifier = new FakeNewOrderNotifier();
-            
+
             orderModel.NewOrderNotifier = mockNotifier;
             orderModel.ConfirmOrder(customerId, company, contactName, phoneNumber, email, address, inn);
-            
+
             var testOrderId = orderModel.GetActiveOrderId(customerId);
 
             // Assert
@@ -394,7 +390,7 @@ namespace Altech.WebSite.Tests
 
             var orderId = orderModel.GetActiveOrderId(customerId);
 
-            var mockNotifier = Substitute.For<FakeNewOrderNotifier>();            
+            var mockNotifier = Substitute.For<FakeNewOrderNotifier>();
             orderModel.NewOrderNotifier = mockNotifier;
 
             orderModel.ConfirmOrder(customerId, company, contactName, phoneNumber, email, address, inn);
@@ -438,7 +434,7 @@ namespace Altech.WebSite.Tests
                 new Order { ID = 5, CustomerID = "70FCF05A-ACC2-4CEB-A5D0-C19B40D6533E", Completed = false, Created = DateTime.Now }
             });
 
-            var customers = new EnumerableQuery<Customer>(new List<Customer>() 
+            var customers = new EnumerableQuery<Customer>(new List<Customer>()
             {
                 new Customer { ID = "9F8B3A4C-A2ED-4CD1-BD83-3739BCFBA5AA", Address = "г. Москва, Новокуркинское шоссе, 35-1", Company = "ЗАО Хозком", ContactName = "Сергей", EmailAddress = "sergeyv@hoskom.ru", PhoneNumber = "+79045634899", INN="", Orders =  orders.Where(o => o.CustomerID.Equals("9F8B3A4C-A2ED-4CD1-BD83-3739BCFBA5AA")).ToArray() },
                 new Customer { ID = "70FCF05A-ACC2-4CEB-A5D0-C19B40D6533E", Address = "г. Москва, Пятницкая улица, 11/2", Company = "ОАО Луна", ContactName = "Георгий", EmailAddress = "georges@luna.com", PhoneNumber = "+79155634190", INN="", Orders =  orders.Where(o => o.CustomerID.Equals("70FCF05A-ACC2-4CEB-A5D0-C19B40D6533E")).ToArray() },

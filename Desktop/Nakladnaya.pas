@@ -25,7 +25,6 @@ type
     importWebOrderButton: TSpeedButton;
     importOrdersDialog: TOpenDialog;
     Panel6: TPanel;
-    exportExcelButton: TSpeedButton;
     previewButton: TSpeedButton;
     printButton: TSpeedButton;
     deleteGoodsItemButton: TSpeedButton;
@@ -46,6 +45,8 @@ type
     Label8: TLabel;
     DBEditEh1: TDBEditEh;
     btExportAccountExcel: TSpeedButton;
+    profitCalcButton: TSpeedButton;
+    applyCashlessButton: TSpeedButton;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure deleteCustomerButtonClick(Sender: TObject);
     procedure deleteOrderButtonClick(Sender: TObject);
@@ -64,7 +65,6 @@ type
     procedure printButtonClick(Sender: TObject);
     procedure previewButtonClick(Sender: TObject);
     procedure orderNoComboBoxKeyValueChanged(Sender: TObject);
-    procedure exportExcelButtonClick(Sender: TObject);
     procedure DBEditEh2Click(Sender: TObject);
     procedure DBEditEh2Change(Sender: TObject);
     procedure importWebOrderButtonClick(Sender: TObject);
@@ -73,9 +73,10 @@ type
     procedure addCustomerButtonClick(Sender: TObject);
     procedure DBEditEh1KeyPress(Sender: TObject; var Key: Char);
     procedure btExportAccountExcelClick(Sender: TObject);
+    procedure profitCalcButtonClick(Sender: TObject);
+    procedure applyCashlessButtonClick(Sender: TObject);
   private
     { Private declarations }
-    procedure PrepareExcelHeader(sheet: TSheet);
     function ImportCustomerFromWebOrder(customer: IXMLNode): Boolean;
     function ImportOrderDetailsFromWebOrder(webOrderId: integer; created: TDateTime; details: IXMLNode): Boolean;
     function GetNextOrderId(): integer;
@@ -145,8 +146,6 @@ begin
    end
    else
       orderNoComboBox.KeyValue := null;
-
-   //Refresh_SLSTable();
 end;
 
 procedure TNaklForm.Refresh_SLSTable();
@@ -157,6 +156,11 @@ begin
    begin
       saleDateTextBox.Text := DBmod.TSLS_GRPSDATE.AsString;
       webOrderNoTextBox.Text := DBMod.TSLS_GRPID_WEB.AsString;
+
+      if (DBMod.TSLS_GRPCashlessPayment.Value = 0) then
+        applyCashlessButton.Visible := true
+      else
+        applyCashlessButton.Visible := false;
    end
    else begin
       saleDateTextBox.Text := '';
@@ -230,7 +234,6 @@ end;
 procedure TNaklForm.FormShow(Sender: TObject);
 begin
    Refresh_CSTTable();
-   //Refresh_SLSTable();
    DBGridEh1.SetFocus;
 end;
 
@@ -518,66 +521,6 @@ procedure TNaklForm.orderNoComboBoxKeyValueChanged(Sender: TObject);
 begin
    Refresh_SLSTable();
 end;
-
-procedure TNaklForm.exportExcelButtonClick(Sender: TObject);
-var fileName, excelDir: string;
-begin
-    DbMod.ExportPriceExcelFile.Workbook.Clear;
-
-    // переименовываем первый лист
-    DbMod.ExportNakladnayaExcelFile.Workbook.Sheets[0].Name := 'Счёт';
-
-    // Заголовок отчета каталог цен.
-    PrepareExcelHeader(DbMod.ExportNakladnayaExcelFile.Workbook.Sheets[0]);
-
-    // содержимое отчета каталог цен.
-    // Подготовить данные по заказу
-    DBmod.QNakladnayaExcel.Close();
-    DBmod.QNakladnayaExcel.ParamByName('C').Value := DBmod.TCST.FieldByName('ID_CST').Value;
-    DBmod.QNakladnayaExcel.ParamByName('O').Value := DBmod.TSLS_GRPID_SAL_GRP.Value;
-    DBmod.QNakladnayaExcel.Open();
-
-    DbMod.XLSExportNakladnayaDataSource.ExportData(0, 5, 0);
-
-    // исключить синхронизацию Dropbox
-    //excelDir := 'D:\Temp\Ag\Excel';
-    excelDir := GetSettingsParam(Self, 'TempDir') + '\AG\Excel';
-    if (NOT DirectoryExists(excelDir)) then
-        //CreateDir(excelDir);
-        ForceDirectories(excelDir);
-
-    // Экспортируем в формат Excel (подкаталог \Excel)
-    fileName := excelDir + '\Nakladnaya_' + DateToStr(Date()) + '.xls';
-    DbMod.ExportNakladnayaExcelFile.SaveToFile(fileName);
-
-    // Открыть папку в которой будет располагаться архив
-    { Procedure uses OS shell to open and view XLS file }
-    ShellExecute(0, 'open', PChar(excelDir), nil, nil, SW_SHOW);
-
-end;
-
-procedure TNaklForm.PrepareExcelHeader(sheet: TSheet);
-begin
-    // Подготовка шапки отчета
-    with sheet do
-    begin
-        Cells[0, 0].Value := 'AlexTechnologies';
-        Cells[0, 0].FontBold := True;
-        Cells[0, 0].FontColorIndex:= TXLColorIndex(23);
-        Cells[0, 0].FontHeight := 24;
-
-        Cells[1, 0].Value := 'Алексей';
-        Cells[1, 0].FontBold := True;
-
-        Cells[2, 0].Value := 'моб. +7 (910) 911-3877';
-        Cells[2, 0].FontBold := True;
-
-        Cells[3, 0].Value := 'e-mail: AlexTechnologies@gmail.com';
-        Cells[3, 0].FontBold := True;
-    end;
-end;
-
-
 
 procedure TNaklForm.DBEditEh2Click(Sender: TObject);
 begin
@@ -1137,6 +1080,55 @@ end;
 function TNaklForm.CalculateTax(sum: Double; taxValue: integer): Double;
 begin
     Result := (sum * taxValue)/(100 + taxValue);
+end;
+
+procedure TNaklForm.profitCalcButtonClick(Sender: TObject);
+var sum: real;
+  i: integer;
+begin
+   // Расчитать сумму прибыли
+   sum := 0;
+
+   DBMod.TSLS_DTL.First;
+   for i := 1 to DBMod.TSLS_DTL.RecordCount do
+   begin
+      if (DBMod.TGDS_DTL.Locate('ID_GDS_DTL', DBMod.TSLS_DTLID_GDS_DTL.Value, [])) then
+      begin
+        sum := sum + DBMod.TSLS_DTLGDS_NUMB.Value * (DBMod.TSLS_DTLGDS_COST_NDS.Value - DBMod.TGDS_DTLCOST_PURCH.Value);
+      end;
+
+      DBMod.TSLS_DTL.Next;
+   end;
+
+   MessageDlg('Прибыль составляет: ' + FormatFloat('#,##.00', sum) + ' руб.',
+      mtInformation, [mbOK], 0);
+end;
+
+procedure TNaklForm.applyCashlessButtonClick(Sender: TObject);
+var i: integer;
+begin
+  if MessageDlg('Стоимость каждой позиции будет увеличена на 6%. Данная операция не может быть отменена после применения.' + AnsiString(#13#10) +
+    'Подтвердите выполнение?', mtConfirmation, [mbYes, mbNo], 0) <> mrYes
+  then exit;
+
+  // Add extra 6% to cost
+  DBMod.TSLS_DTL.First;
+  for i := 1 to DBMod.TSLS_DTL.RecordCount do
+  begin
+    DBmod.TSLS_DTL.Edit;
+
+    DBmod.TSLS_DTLGDS_COST_NDS.Value := DBmod.TSLS_DTLGDS_COST_NDS.Value +
+      DBmod.TSLS_DTLGDS_COST_NDS.Value * 6 / 100;
+
+    DBmod.TSLS_DTL.Post;
+
+    DBmod.TSLS_DTL.Next;
+  end;
+
+  // Apply flag that order has Cashless payment applied
+  DBMod.TSLS_GRP.Edit;
+  DBMod.TSLS_GRPCashlessPayment.Value := 1;
+  DBMod.TSLS_GRP.Post;
 end;
 
 end.

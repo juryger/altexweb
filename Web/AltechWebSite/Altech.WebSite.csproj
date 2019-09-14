@@ -204,10 +204,12 @@
     <Content Include="Images\bell.png" />
     <Content Include="Images\breadcrumb.png" />
     <Content Include="Images\close.png" />
+    <Content Include="Images\exclamation-24.png" />
     <Content Include="Images\Map\map2.jpg" />
     <Content Include="Images\navigation-hide.png" />
     <Content Include="Images\magnifier.png" />
     <Content Include="Images\Map\Map.jpg" />
+    <Content Include="Images\noimage.png" />
     <Content Include="Images\progress.gif" />
     <Content Include="Images\remove-cart.png" />
     <Content Include="Images\navigation-show.png" />
@@ -278,6 +280,7 @@
       <DependentUpon>Web.config.sample</DependentUpon>
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Views\Shared\CashlessPayment.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

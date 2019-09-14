@@ -6,7 +6,7 @@
 <div class="merchandise">
     <div id="merchandise-image">
         <a href="https://altechstorage.blob.core.windows.net/images/@(ViewBag.MerchandiseId).jpg" data-lighter>
-            <img src="https://altechstorage.blob.core.windows.net/thumbnail-images/@(ViewBag.MerchandiseId).jpg" alt="@ViewBag.Title" />
+            <img src="https://altechstorage.blob.core.windows.net/thumbnail-images/@(ViewBag.MerchandiseId).jpg" onerror="imgError(this);"  alt=""/>
         </a>
     </div>
     <div id="merchandise-details">
@@ -225,5 +225,11 @@
     function CloseNotification(id) {
         var notification = document.getElementById('notification-' + id);
         notification.style.display = 'none';
+    }
+
+    function imgError(image) {
+        image.onerror = "";
+        image.src = '/Images/noimage.png';
+        return true;
     }
 </script>

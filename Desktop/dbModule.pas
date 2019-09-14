@@ -238,6 +238,7 @@ type
     QPriceExcelCOST_WHS2: TCurrencyField;
     QPriceExcelCOST_WHS3: TCurrencyField;
     TSLS_DTLTitle: TStringField;
+    TSLS_GRPCashlessPayment: TIntegerField;
     procedure DataModuleCreate(Sender: TObject);
     procedure DataModuleDestroy(Sender: TObject);
     procedure TGDS_DTLBeforePost(DataSet: TDataSet);

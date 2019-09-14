@@ -3,7 +3,7 @@ object StoreForm: TStoreForm
   Top = 236
   Width = 753
   Height = 539
-  Caption = #1057#1082#1083#1072#1076
+  Caption = #209#234#235#224#228
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -21,13 +21,13 @@ object StoreForm: TStoreForm
   object Splitter1: TSplitter
     Left = 185
     Top = 0
-    Height = 501
+    Height = 500
   end
   object leftPanel: TPanel
     Left = 0
     Top = 0
     Width = 185
-    Height = 501
+    Height = 500
     Align = alLeft
     TabOrder = 0
     object Splitter2: TSplitter
@@ -42,7 +42,7 @@ object StoreForm: TStoreForm
       Left = 1
       Top = 188
       Width = 183
-      Height = 312
+      Height = 311
       Align = alClient
       DataSource = DBmod.DGDS_SGRP
       Flat = True
@@ -64,7 +64,7 @@ object StoreForm: TStoreForm
           EditButtons = <>
           FieldName = 'DESCRIPTION'
           Footers = <>
-          Title.Caption = #1055#1086#1076#1075#1088#1091#1087#1087#1072
+          Title.Caption = #200#236#255' '#239#238#228#227#240#243#239#251
         end>
     end
     object groupGrid: TDBGridEh
@@ -93,7 +93,7 @@ object StoreForm: TStoreForm
           EditButtons = <>
           FieldName = 'DESCRIPTION'
           Footers = <>
-          Title.Caption = #1043#1088#1091#1087#1087#1072
+          Title.Caption = #200#236#255' '#227#240#243#239#239#251
         end>
     end
   end
@@ -101,12 +101,12 @@ object StoreForm: TStoreForm
     Left = 188
     Top = 0
     Width = 549
-    Height = 501
+    Height = 500
     Align = alClient
     TabOrder = 1
     object controlPanel: TPanel
       Left = 1
-      Top = 476
+      Top = 475
       Width = 547
       Height = 24
       Align = alBottom
@@ -116,7 +116,7 @@ object StoreForm: TStoreForm
         Top = 0
         Width = 137
         Height = 23
-        Caption = #1055#1077#1095#1072#1090#1100
+        Caption = #207#229#247#224#242#252
         Flat = True
         Glyph.Data = {
           76010000424D7601000000000000760000002800000020000000100000000100
@@ -136,9 +136,9 @@ object StoreForm: TStoreForm
       object Label2: TLabel
         Left = 206
         Top = 6
-        Width = 27
+        Width = 51
         Height = 13
-        Caption = #1050#1086#1076':'
+        Caption = #239#238' '#202#238#228#243':'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Height = -11
@@ -148,11 +148,11 @@ object StoreForm: TStoreForm
         Layout = tlCenter
       end
       object Label3: TLabel
-        Left = 294
+        Left = 318
         Top = 6
-        Width = 63
+        Width = 113
         Height = 13
-        Caption = #1053#1072#1079#1074#1072#1085#1080#1077':'
+        Caption = #239#238' '#205#224#232#236#229#237#238#226#224#237#232#254':'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Height = -11
@@ -166,7 +166,7 @@ object StoreForm: TStoreForm
         Top = 6
         Width = 56
         Height = 13
-        Caption = #1055#1086#1080#1089#1082' >>'
+        Caption = #207#238#232#241#234' >>'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Height = -11
@@ -175,7 +175,7 @@ object StoreForm: TStoreForm
         ParentFont = False
       end
       object DBEditEh2: TDBEditEh
-        Left = 234
+        Left = 258
         Top = 3
         Width = 50
         Height = 19
@@ -189,7 +189,7 @@ object StoreForm: TStoreForm
         OnClick = DBEditEh2Click
       end
       object DBEditEh1: TDBEditEh
-        Left = 358
+        Left = 435
         Top = 3
         Width = 161
         Height = 19
@@ -207,7 +207,7 @@ object StoreForm: TStoreForm
       Left = 1
       Top = 1
       Width = 547
-      Height = 475
+      Height = 474
       Align = alClient
       DataSource = DBmod.DSTR
       Flat = True
@@ -229,19 +229,19 @@ object StoreForm: TStoreForm
           EditButtons = <>
           FieldName = 'ID_GDS_DTL'
           Footers = <>
-          Title.Caption = #1050#1086#1076
+          Title.Caption = #202#238#228
         end
         item
           EditButtons = <>
           FieldName = 'DESCRIPTION'
           Footers = <>
-          Title.Caption = #1053#1072#1080#1084#1077#1085#1086#1074#1072#1085#1080#1077
+          Title.Caption = #205#224#232#236#229#237#238#226#224#237#232#229
         end
         item
           EditButtons = <>
           FieldName = 'NUM'
           Footers = <>
-          Title.Caption = #1050#1086#1083'-'#1074#1086
+          Title.Caption = #202#238#235'-'#226#238
         end>
     end
   end

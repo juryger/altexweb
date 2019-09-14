@@ -122,10 +122,6 @@
     float: left;
 }
 
-#attention-icon {
-    float: left;
-}
-
 #notification-close {
     float: left;
 }
@@ -135,8 +131,17 @@
     margin-left: 20px;
 }
 
+.attention {
+    margin-top: 10px;
+    clear: both;
+}
+
+#attention-icon {
+    float: left;
+}
+
 #attention-message {
-    margin-left: 20px;
+    margin-left: 30px;
 }
 
 .info-message {

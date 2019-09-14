@@ -1,9 +1,9 @@
 object SkladForm: TSkladForm
-  Left = 184
-  Top = 170
-  Width = 689
-  Height = 473
-  Caption = #1057#1082#1083#1072#1076#1099
+  Left = 430
+  Top = 308
+  Width = 1028
+  Height = 629
+  Caption = '??????'
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -21,21 +21,21 @@ object SkladForm: TSkladForm
   object Splitter1: TSplitter
     Left = 166
     Top = 0
-    Height = 435
+    Height = 590
   end
   object Panel1: TPanel
     Left = 169
     Top = 0
-    Width = 504
-    Height = 435
+    Width = 843
+    Height = 590
     Align = alClient
     BevelInner = bvRaised
     BevelOuter = bvLowered
     TabOrder = 0
     object Panel3: TPanel
       Left = 2
-      Top = 408
-      Width = 500
+      Top = 563
+      Width = 839
       Height = 25
       Align = alBottom
       BevelInner = bvRaised
@@ -46,7 +46,7 @@ object SkladForm: TSkladForm
         Top = 2
         Width = 134
         Height = 21
-        Caption = #1059#1076#1072#1083#1080#1090#1100' '#1087#1086#1079#1080#1094#1080#1102
+        Caption = '??????? ???????'
         Flat = True
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clGreen
@@ -73,9 +73,9 @@ object SkladForm: TSkladForm
       object Label1: TLabel
         Left = 619
         Top = 5
-        Width = 94
+        Width = 93
         Height = 13
-        Caption = '< '#1055#1086#1080#1089#1082' '#1090#1086#1074#1072#1088#1072
+        Caption = '< ????? ??????'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clGreen
         Font.Height = -11
@@ -88,7 +88,7 @@ object SkladForm: TSkladForm
         Top = 2
         Width = 134
         Height = 21
-        Caption = #1056#1072#1089#1087#1077#1095#1072#1090#1072#1090#1100' '#1074#1089#1077
+        Caption = '??????????? ???'
         Flat = True
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clPurple
@@ -129,7 +129,7 @@ object SkladForm: TSkladForm
     object Panel5: TPanel
       Left = 2
       Top = 2
-      Width = 500
+      Width = 839
       Height = 22
       Align = alTop
       BevelInner = bvRaised
@@ -139,11 +139,11 @@ object SkladForm: TSkladForm
       object Label3: TLabel
         Left = 2
         Top = 2
-        Width = 166
+        Width = 149
         Height = 18
         Align = alLeft
         Alignment = taCenter
-        Caption = ' '#1060#1080#1083#1100#1090#1088' '#1086#1090#1086#1073#1088#1072#1078#1077#1085#1080#1103':'
+        Caption = ' ?????? ???????????:'
         Font.Charset = RUSSIAN_CHARSET
         Font.Color = clWhite
         Font.Height = -13
@@ -165,14 +165,14 @@ object SkladForm: TSkladForm
         Font.Style = []
         Flat = True
         Items.Strings = (
-          #1074#1089#1077' '#1090#1086#1074#1072#1088#1099)
+          '??? ??????')
         ParentFont = False
         TabOrder = 0
         Visible = True
         OnChange = DBComboBoxEh1Change
       end
       object Panel7: TPanel
-        Left = 474
+        Left = 813
         Top = 2
         Width = 24
         Height = 18
@@ -184,7 +184,7 @@ object SkladForm: TSkladForm
           Top = 0
           Width = 23
           Height = 18
-          Hint = #1044#1086#1073#1072#1074#1080#1090#1100' '#1074#1089#1077' '#1090#1086#1088#1074#1072#1088#1099
+          Hint = '???????? ??? ???????'
           Flat = True
           Glyph.Data = {
             76010000424D7601000000000000760000002800000020000000100000000100
@@ -209,8 +209,8 @@ object SkladForm: TSkladForm
     object DBGridEh2: TDBGridEh
       Left = 2
       Top = 24
-      Width = 500
-      Height = 384
+      Width = 839
+      Height = 539
       Align = alClient
       DataSource = DBmod.DSKD_DTL
       Flat = True
@@ -233,14 +233,14 @@ object SkladForm: TSkladForm
           EditButtons = <>
           FieldName = 'GDS_DESCR'
           Footers = <>
-          Title.Caption = #1053#1072#1080#1084#1077#1085#1086#1074#1072#1085#1080#1077
+          Title.Caption = '????????????'
           Width = 406
         end
         item
           EditButtons = <>
           FieldName = 'NUMBER'
           Footers = <>
-          Title.Caption = #1050#1086#1083#1080#1095#1077#1089#1090#1074#1086
+          Title.Caption = '??????????'
         end>
     end
   end
@@ -248,14 +248,14 @@ object SkladForm: TSkladForm
     Left = 0
     Top = 0
     Width = 166
-    Height = 435
+    Height = 590
     Align = alLeft
     BevelInner = bvRaised
     BevelOuter = bvLowered
     TabOrder = 1
     object Panel4: TPanel
       Left = 2
-      Top = 408
+      Top = 563
       Width = 162
       Height = 25
       Align = alBottom
@@ -267,7 +267,7 @@ object SkladForm: TSkladForm
         Top = 2
         Width = 159
         Height = 21
-        Caption = #1059#1076#1072#1083#1080#1090#1100' '#1089#1082#1083#1072#1076
+        Caption = '??????? ?????'
         Flat = True
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clNavy
@@ -296,7 +296,7 @@ object SkladForm: TSkladForm
       Left = 2
       Top = 24
       Width = 162
-      Height = 384
+      Height = 539
       Align = alClient
       DataSource = DBmod.DSKD_GRP
       Flat = True
@@ -323,7 +323,7 @@ object SkladForm: TSkladForm
           EditButtons = <>
           FieldName = 'DESCRIPRION'
           Footers = <>
-          Title.Caption = #1057#1082#1083#1072#1076
+          Title.Caption = '?????'
           Width = 134
         end>
     end
@@ -346,9 +346,9 @@ object SkladForm: TSkladForm
       object Label4: TLabel
         Left = 619
         Top = 5
-        Width = 94
+        Width = 93
         Height = 13
-        Caption = '< '#1055#1086#1080#1089#1082' '#1090#1086#1074#1072#1088#1072
+        Caption = '< ????? ??????'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clGreen
         Font.Height = -11
@@ -361,10 +361,10 @@ object SkladForm: TSkladForm
         Top = 2
         Width = 158
         Height = 16
-        Hint = #1055#1086#1089#1083#1077#1076#1085#1077#1077' '#1086#1073#1085#1086#1074#1083#1077#1085#1080#1077
+        Hint = '????????? ??????????'
         Align = alTop
         Alignment = taCenter
-        Caption = #1044#1072#1090#1072' '#1084#1086#1076#1080#1092#1080#1082#1072#1094#1080#1080
+        Caption = '???? ???????????'
         Color = 8454016
         Font.Charset = RUSSIAN_CHARSET
         Font.Color = clWhite

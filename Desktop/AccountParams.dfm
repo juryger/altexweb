@@ -3,7 +3,7 @@ object frmAccountParams: TfrmAccountParams
   Top = 315
   Width = 370
   Height = 205
-  Caption = #1055#1072#1088#1072#1084#1077#1090#1088#1099' '#1089#1095#1077#1090#1072
+  Caption = #207#224#240#224#236#229#242#240#251' '#241#247#229#242#224
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -19,7 +19,7 @@ object frmAccountParams: TfrmAccountParams
     Top = 16
     Width = 57
     Height = 13
-    Caption = #1044#1072#1090#1072' '#1089#1095#1105#1090#1072
+    Caption = #196#224#242#224' '#241#247#229#242#224
   end
   object Label2: TLabel
     Left = 133
@@ -33,14 +33,14 @@ object frmAccountParams: TfrmAccountParams
     Top = 64
     Width = 99
     Height = 13
-    Caption = #1055#1088#1086#1094#1077#1085#1090#1085#1072#1103' '#1089#1090#1072#1074#1082#1072
+    Caption = #207#240#238#246#229#237#242#237#224#255' '#241#242#224#226#234#224
   end
   object Label4: TLabel
     Left = 16
     Top = 16
     Width = 65
     Height = 13
-    Caption = #1053#1086#1084#1077#1088' '#1089#1095#1105#1090#1072
+    Caption = #205#238#236#229#240' '#241#247#229#242#224
   end
   object dtpAccountDate: TDateTimePicker
     Left = 152
