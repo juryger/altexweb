@@ -1,8 +1,8 @@
 object ImageEditorForm: TImageEditorForm
-  Left = 155
-  Top = 669
+  Left = 256
+  Top = 271
   BorderStyle = bsDialog
-  Caption = #1055#1086#1076#1075#1086#1090#1086#1074#1082#1072' '#1080#1079#1086#1073#1088#1072#1078#1077#1085#1080#1103' '#1076#1083#1103' '#1094#1074#1077#1090#1085#1086#1075#1086' '#1082#1072#1090#1072#1083#1086#1075#1072
+  Caption = '?????????? ??????????? ??? ???????? ????????'
   ClientHeight = 506
   ClientWidth = 833
   Color = clBtnFace
@@ -20,9 +20,9 @@ object ImageEditorForm: TImageEditorForm
   object Label1: TLabel
     Left = 8
     Top = 8
-    Width = 78
+    Width = 66
     Height = 26
-    Caption = #1048#1089#1093#1086#1076#1085#1086#1077' '#1080#1079#1086#1073#1088#1072#1078#1077#1085#1080#1077
+    Caption = '???????? ???????????'
     Font.Charset = RUSSIAN_CHARSET
     Font.Color = clWindowText
     Font.Height = -11
@@ -34,9 +34,9 @@ object ImageEditorForm: TImageEditorForm
   object Label2: TLabel
     Left = 424
     Top = 8
-    Width = 109
+    Width = 90
     Height = 26
-    Caption = #1048#1079#1086#1073#1088#1072#1078#1077#1085#1080#1077' '#1076#1083#1103' '#1082#1072#1090#1072#1083#1086#1075#1072
+    Caption = '??????????? ??? ????????'
     Font.Charset = RUSSIAN_CHARSET
     Font.Color = clWindowText
     Font.Height = -11

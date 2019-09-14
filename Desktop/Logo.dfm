@@ -3,7 +3,7 @@ object LogoForm: TLogoForm
   Top = 405
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
-  Caption = #1041#1099#1089#1090#1088#1099#1081' '#1087#1077#1088#1077#1093#1086#1076
+  Caption = '??????? ???????'
   ClientHeight = 150
   ClientWidth = 141
   Color = 12615680
@@ -147,8 +147,8 @@ object LogoForm: TLogoForm
     object Label1: TLabel
       Left = 4
       Top = 128
-      Width = 151
-      Height = 14
+      Width = 126
+      Height = 13
       Caption = '(c) 2004 JuraVLik Softgroup'
       Color = 12615680
       Font.Charset = RUSSIAN_CHARSET
@@ -166,7 +166,7 @@ object LogoForm: TLogoForm
       Height = 15
       Alignment = taLeftJustify
       BevelOuter = bvNone
-      Caption = #1053#1072#1074#1080#1075#1072#1094#1080#1103
+      Caption = #205#224#226#232#227#224#246#232#255
       Color = clWhite
       Font.Charset = RUSSIAN_CHARSET
       Font.Color = clBlue
@@ -184,7 +184,7 @@ object LogoForm: TLogoForm
       Height = 15
       Cursor = crHandPoint
       BevelOuter = bvNone
-      Caption = #1055#1088#1072#1081#1089'-'#1051#1080#1089#1090
+      Caption = #207#240#224#233#241'-'#235#232#241#242
       Color = 8454143
       Font.Charset = RUSSIAN_CHARSET
       Font.Color = clGreen
@@ -203,7 +203,7 @@ object LogoForm: TLogoForm
       Height = 15
       Cursor = crHandPoint
       BevelOuter = bvNone
-      Caption = #1053#1072#1082#1083#1072#1076#1085#1099#1077
+      Caption = #199#224#234#224#231#251
       Color = 8454143
       Font.Charset = RUSSIAN_CHARSET
       Font.Color = clGreen
@@ -222,7 +222,7 @@ object LogoForm: TLogoForm
       Height = 15
       Cursor = crHandPoint
       BevelOuter = bvNone
-      Caption = #1057#1082#1083#1072#1076
+      Caption = #211#247#229#242
       Color = 8454143
       Font.Charset = RUSSIAN_CHARSET
       Font.Color = clGreen
@@ -241,7 +241,7 @@ object LogoForm: TLogoForm
       Height = 15
       Cursor = crHandPoint
       BevelOuter = bvNone
-      Caption = #1059#1095#1077#1090
+      Caption = #209#234#235#224#228
       Color = 8454143
       Font.Charset = RUSSIAN_CHARSET
       Font.Color = clGreen
@@ -259,7 +259,7 @@ object LogoForm: TLogoForm
       Height = 15
       Cursor = crHandPoint
       BevelOuter = bvNone
-      Caption = #1056#1077#1082#1074#1080#1079#1080#1090#1099
+      Caption = #208#229#234#226#232#231#232#242#251
       Color = 8454143
       Font.Charset = RUSSIAN_CHARSET
       Font.Color = clGreen

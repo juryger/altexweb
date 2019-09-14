@@ -20,13 +20,14 @@ uses
   AppSettingsHelper in 'AppSettingsHelper.pas',
   FixBDE4GbBug in 'FixBDE4GbBug.pas',
   Discounts in 'Discounts.pas' {DiscountsForm},
-  AccountParams in 'AccountParams.pas' {frmAccountParams};
+  AccountParams in 'AccountParams.pas' {frmAccountParams},
+  About in 'about.pas' {AboutBox};
 
 {$R *.RES}
 
 begin
   Application.Initialize;
-  Application.Title := 'AG Light';
+  Application.Title := 'Алтех Хозтовары';
   Application.CreateForm(TMainForm, MainForm);
   Application.CreateForm(TDBmod, DBmod);
   Application.CreateForm(TDPickUpForm, DPickUpForm);
@@ -36,6 +37,7 @@ begin
   Application.CreateForm(TBeforPricePrintForm, BeforPricePrintForm);
   Application.CreateForm(TDiscountsForm, DiscountsForm);
   Application.CreateForm(TfrmAccountParams, frmAccountParams);
+  Application.CreateForm(TAboutBox, AboutBox);
   //Application.CreateForm(TSkladForm, SkladForm);
   Application.Run;
 end.

@@ -90,7 +90,7 @@ MaxStackSize=1048576
 ImageBase=4194304
 ExeDescription=
 [Directories]
-OutputDir=C:\Users\juryger\Dropbox\AG\AgLight
+OutputDir=c:\temp
 UnitOutputDir=
 PackageDLLOutputDir=
 PackageDCPOutputDir=
@@ -143,7 +143,9 @@ Item0=$(DELPHI)\Source\EHLIB\Common;$(DELPHI)\Source\EHLIB\Delphi5;$(DELPHI)\Sou
 Item1=$(DELPHI)\Source\EHLIB\Common;$(DELPHI)\Source\EHLIB\Delphi5;$(DELPHI)\Source\frp\source;C:\Program Files\Borland\Delphi7\Controls\EHLIB\DataService
 Item2=$(DELPHI)\Source\EHLIB\Common;$(DELPHI)\Source\EHLIB\Delphi5;$(DELPHI)\Source\frp\source
 [HistoryLists\hlOutputDirectorry]
-Count=3
-Item0=C:\Users\juryger\Dropbox\AG\AgLight
-Item1=C:\Users\IEUser\Dropbox\AG\AgLight
-Item2=D:\!DropBoxSync\Dropbox\AG\AgLight
+Count=5
+Item0=c:\temp
+Item1=C:\Users\juryg\Dropbox\AG\AgLight
+Item2=C:\Users\juryger\Dropbox\AG\AgLight
+Item3=C:\Users\IEUser\Dropbox\AG\AgLight
+Item4=D:\!DropBoxSync\Dropbox\AG\AgLight

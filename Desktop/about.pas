@@ -8,11 +8,11 @@ uses Windows, Classes, Graphics, Forms, Controls, StdCtrls,
 type
   TAboutBox = class(TForm)
     Panel1: TPanel;
-    OKButton: TButton;
     ProgramIcon: TImage;
     ProductName: TLabel;
     Version: TLabel;
     Copyright: TLabel;
+    BitBtn1: TBitBtn;
     Comments: TLabel;
   private
     { Private declarations }

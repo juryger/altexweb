@@ -6,7 +6,6 @@ uses Windows, SysUtils, Classes, Graphics, Forms, Controls, Menus,
   StdCtrls, Dialogs, Buttons, Messages, ExtCtrls, ComCtrls, StdActns,
   ActnList, ToolWin, ImgList, jpeg, EhLibBDE, AppSettingsHelper, FixBDE4GbBug;
 
-
 type
   TMainForm = class(TForm)
     MainMenu1: TMainMenu;
@@ -24,7 +23,6 @@ type
     N10: TMenuItem;
     StatusBar1: TStatusBar;
     procedure FileNew1Execute(Sender: TObject);
-    procedure HelpAbout1Execute(Sender: TObject);
     procedure FileExit1Execute(Sender: TObject);
     procedure FormResize(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
@@ -34,6 +32,7 @@ type
     procedure N7Click(Sender: TObject);
     procedure N10Click(Sender: TObject);
     procedure N9Click(Sender: TObject);
+    procedure N4Click(Sender: TObject);
   private
     { Private declarations }
     procedure CreateMDIChild(const Name: string);
@@ -69,11 +68,6 @@ end;
 procedure TMainForm.FileNew1Execute(Sender: TObject);
 begin
   CreateMDIChild('NONAME' + IntToStr(MDIChildCount + 1));
-end;
-
-procedure TMainForm.HelpAbout1Execute(Sender: TObject);
-begin
-  AboutBox.ShowModal;
 end;
 
 procedure TMainForm.FileExit1Execute(Sender: TObject);
@@ -272,6 +266,11 @@ begin
     DeleteFile(workDir + '\' + sr.Name);
   until FindNext(SR) <> 0;
   FindClose(sr);
+end;
+
+procedure TMainForm.N4Click(Sender: TObject);
+begin
+  AboutBox.ShowModal;
 end;
 
 end.
