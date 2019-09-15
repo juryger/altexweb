@@ -3,7 +3,7 @@ object NaklForm: TNaklForm
   Top = 206
   Width = 1024
   Height = 540
-  Caption = #199#224#234#224#231#251
+  Caption = 'Zakazi'
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -73,14 +73,14 @@ object NaklForm: TNaklForm
             EditButtons = <>
             FieldName = 'Company'
             Footers = <>
-            Title.Caption = #205#224#232#236#229#237#238#226#224#237#232#229
+            Title.Caption = 'Naimenovanie'
             Width = 164
           end
           item
             EditButtons = <>
             FieldName = 'ProfitPercentage'
             Footers = <>
-            Title.Caption = #205#224#234#240#243#242#234#224' (%)'
+            Title.Caption = 'Nakrutka (%)'
             Title.Font.Charset = DEFAULT_CHARSET
             Title.Font.Color = clGreen
             Title.Font.Height = -11
@@ -93,21 +93,19 @@ object NaklForm: TNaklForm
             EditButtons = <>
             FieldName = 'Address'
             Footers = <>
-            Title.Caption = #192#228#240#229#241
             Width = 203
           end
           item
             EditButtons = <>
             FieldName = 'INN'
             Footers = <>
-            Title.Caption = #200#205#205
             Width = 109
           end
           item
             EditButtons = <>
             FieldName = 'Phone'
             Footers = <>
-            Title.Caption = #210#229#235#229#244#238#237
+            Title.Caption = 'Telephone'
             Width = 250
           end
           item
@@ -120,7 +118,7 @@ object NaklForm: TNaklForm
             EditButtons = <>
             FieldName = 'ContactName'
             Footers = <>
-            Title.Caption = #202#238#237#242#224#234#242#237#238#229' '#235#232#246#238
+            Title.Caption = 'Contaktnoe litso'
             Width = 145
           end>
       end
@@ -134,12 +132,11 @@ object NaklForm: TNaklForm
       BevelOuter = bvNone
       TabOrder = 1
       object applyCustomerChangesButton: TSpeedButton
-        Left = 96
+        Left = 86
         Top = 1
-        Width = 95
+        Width = 85
         Height = 21
-        Hint = #209#238#245#240#224#237#232#242#252' '#232#231#236#229#237#229#237#232#255
-        Caption = #209#238#245#240#224#237#232#242#252
+        Caption = 'Sohranit'#39
         Enabled = False
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clGreen
@@ -166,12 +163,11 @@ object NaklForm: TNaklForm
         OnClick = applyCustomerChangesButtonClick
       end
       object deleteCustomerButton: TSpeedButton
-        Left = 191
+        Left = 171
         Top = 1
-        Width = 95
+        Width = 85
         Height = 21
-        Hint = #211#228#224#235#232#242#252' '#226#251#225#240#224#237#237#238#227#238' '#234#235#232#229#237#242#224
-        Caption = #211#228#224#235#232#242#252
+        Caption = 'Udalit'#39
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clRed
         Font.Height = -11
@@ -197,12 +193,12 @@ object NaklForm: TNaklForm
         OnClick = deleteCustomerButtonClick
       end
       object importWebOrderButton: TSpeedButton
-        Left = 287
+        Left = 256
         Top = 1
-        Width = 160
+        Width = 130
         Height = 21
         Hint = #200#236#239#238#240#242#232#240#238#226#224#242#252' '#231#224#234#224#231' '#234#235#232#229#237#242#224' '#241' '#226#229#225'-'#241#224#233#242#224
-        Caption = #200#236#239#238#240#242' '#241' '#226#229#225'-'#241#224#233#242#224
+        Caption = 'Improt s web-saita'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Height = -11
@@ -230,10 +226,9 @@ object NaklForm: TNaklForm
       object addCustomerButton: TSpeedButton
         Left = 1
         Top = 1
-        Width = 95
+        Width = 85
         Height = 21
-        Hint = #196#238#225#224#226#232#242#252' '#237#238#226#238#227#238' '#234#235#232#229#237#242#224
-        Caption = #196#238#225#224#226#232#242#252
+        Caption = 'Dobavit'#39
         Glyph.Data = {
           76010000424D7601000000000000760000002800000020000000100000000100
           04000000000000010000130B0000130B00001000000000000000000000000000
@@ -265,9 +260,9 @@ object NaklForm: TNaklForm
       object Label7: TLabel
         Left = 66
         Top = 6
-        Width = 79
+        Width = 82
         Height = 13
-        Caption = #239#238' '#205#224#231#226#224#237#232#254
+        Caption = 'po Nazvaniyu:'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Height = -11
@@ -279,9 +274,9 @@ object NaklForm: TNaklForm
       object Label4: TLabel
         Left = 3
         Top = 6
-        Width = 56
+        Width = 50
         Height = 13
-        Caption = #207#238#232#241#234' >>'
+        Caption = 'Poisk >>'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlue
         Font.Height = -11
@@ -290,11 +285,11 @@ object NaklForm: TNaklForm
         ParentFont = False
       end
       object Label8: TLabel
-        Left = 315
+        Left = 319
         Top = 6
-        Width = 194
+        Width = 150
         Height = 13
-        Caption = '('#239#238' '#231#224#226#229#240#248#229#237#232#254' '#226#226#238#228#224' '#237#224#230#236#232#242#229' Enter)'
+        Caption = '(po zaversheniyu nazmite Enter)'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clRed
         Font.Height = -11
@@ -304,7 +299,7 @@ object NaklForm: TNaklForm
         Layout = tlCenter
       end
       object DBEditEh1: TDBEditEh
-        Left = 147
+        Left = 151
         Top = 2
         Width = 163
         Height = 19
@@ -332,9 +327,9 @@ object NaklForm: TNaklForm
     object Label1: TLabel
       Left = 3
       Top = 6
-      Width = 56
+      Width = 50
       Height = 13
-      Caption = #207#238#232#241#234' >>'
+      Caption = 'Poisk >>'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clBlue
       Font.Height = -11
@@ -345,9 +340,9 @@ object NaklForm: TNaklForm
     object Label5: TLabel
       Left = 63
       Top = 6
-      Width = 47
+      Width = 52
       Height = 13
-      Caption = #239#238' '#202#238#228#243
+      Caption = 'po Kodu:'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clBlack
       Font.Height = -11
@@ -356,8 +351,22 @@ object NaklForm: TNaklForm
       ParentFont = False
       Layout = tlCenter
     end
+    object Label9: TLabel
+      Left = 214
+      Top = 6
+      Width = 150
+      Height = 13
+      Caption = '(po zaversheniyu nazmite Enter)'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clRed
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = []
+      ParentFont = False
+      Layout = tlCenter
+    end
     object DBEditEh2: TDBEditEh
-      Left = 115
+      Left = 118
       Top = 2
       Width = 89
       Height = 19
@@ -411,7 +420,7 @@ object NaklForm: TNaklForm
           FieldName = 'ID_GDS_DTL'
           Footers = <>
           ReadOnly = True
-          Title.Caption = #202#238#228
+          Title.Caption = 'Kod'
           Title.Font.Charset = DEFAULT_CHARSET
           Title.Font.Color = clPurple
           Title.Font.Height = -11
@@ -424,7 +433,7 @@ object NaklForm: TNaklForm
           FieldName = 'Title'
           Footers = <>
           ReadOnly = True
-          Title.Caption = #205#224#232#236#229#237#238#226#224#237#232#229
+          Title.Caption = 'Naimenovanie'
           Title.Font.Charset = DEFAULT_CHARSET
           Title.Font.Color = clPurple
           Title.Font.Height = -11
@@ -436,7 +445,7 @@ object NaklForm: TNaklForm
           EditButtons = <>
           FieldName = 'GDS_COST_NDS'
           Footers = <>
-          Title.Caption = #214#229#237#224' '#241' '#205#196#209
+          Title.Caption = 'Price NDS'
           Title.Font.Charset = DEFAULT_CHARSET
           Title.Font.Color = clPurple
           Title.Font.Height = -11
@@ -448,7 +457,7 @@ object NaklForm: TNaklForm
           EditButtons = <>
           FieldName = 'GDS_NUMB'
           Footers = <>
-          Title.Caption = #202#238#235#232#247#229#241#242#226#238
+          Title.Caption = 'Kolichestvo'
           Title.Font.Charset = DEFAULT_CHARSET
           Title.Font.Color = clPurple
           Title.Font.Height = -11
@@ -462,7 +471,7 @@ object NaklForm: TNaklForm
           FieldName = 'Comment'
           Footers = <>
           ReadOnly = True
-          Title.Caption = #202#238#236#236#229#237#242#224#240#232#233' '#234' '#231#224#234#224#231#243
+          Title.Caption = 'Kommentarii k zakazu'
           Title.Font.Charset = DEFAULT_CHARSET
           Title.Font.Color = clPurple
           Title.Font.Height = -11
@@ -476,7 +485,7 @@ object NaklForm: TNaklForm
           FieldName = 'GDS_COST_CLR'
           Footers = <>
           ReadOnly = True
-          Title.Caption = #214#229#237#224' '#225#229#231' '#205#196#209
+          Title.Caption = 'Price bez NDS'
           Title.Font.Charset = RUSSIAN_CHARSET
           Title.Font.Color = clGray
           Title.Font.Height = -11
@@ -495,12 +504,12 @@ object NaklForm: TNaklForm
       BevelOuter = bvLowered
       TabOrder = 1
       object previewButton: TSpeedButton
-        Left = 191
+        Left = 172
         Top = 2
-        Width = 95
+        Width = 85
         Height = 21
         Hint = #207#240#229#228#226#224#240#232#242#229#235#252#237#251#233' '#239#240#238#241#236#238#242#240' '#231#224#234#224#231#224
-        Caption = #207#240#238#241#236#238#242#240
+        Caption = 'Prosmotr'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clPurple
         Font.Height = -11
@@ -524,12 +533,12 @@ object NaklForm: TNaklForm
         OnClick = previewButtonClick
       end
       object printButton: TSpeedButton
-        Left = 96
+        Left = 87
         Top = 2
-        Width = 95
+        Width = 85
         Height = 21
         Hint = #207#229#247#224#242#252' '#226#251#225#240#224#237#237#227#238' '#231#224#234#224#231#224
-        Caption = #207#229#247#224#242#252
+        Caption = 'Pechat'#39
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clPurple
         Font.Height = -11
@@ -555,10 +564,9 @@ object NaklForm: TNaklForm
       object deleteGoodsItemButton: TSpeedButton
         Left = 1
         Top = 2
-        Width = 95
+        Width = 85
         Height = 21
-        Hint = #211#228#224#235#232#242#252' '#226#251#225#240#224#237#237#251#233' '#231#224#234#224#231
-        Caption = #211#228#224#235#232#242#252
+        Caption = 'Udalit'#39
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clRed
         Font.Height = -11
@@ -584,12 +592,12 @@ object NaklForm: TNaklForm
         OnClick = deleteGoodsItemButtonClick
       end
       object btExportAccountExcel: TSpeedButton
-        Left = 286
+        Left = 257
         Top = 2
-        Width = 99
+        Width = 75
         Height = 21
         Hint = #194#251#227#240#243#231#232#242#252' '#226#251#225#240#224#237#237#251#233' '#231#224#234#224#231' '#226' Excel'
-        Caption = #209#247#229#242' Excel'
+        Caption = 'Excel'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clPurple
         Font.Height = -11
@@ -613,12 +621,12 @@ object NaklForm: TNaklForm
         OnClick = btExportAccountExcelClick
       end
       object profitCalcButton: TSpeedButton
-        Left = 385
+        Left = 332
         Top = 2
-        Width = 95
+        Width = 75
         Height = 21
         Hint = #208#224#241#247#232#242#224#242#252' '#239#240#232#225#251#235#252' '#239#238' '#226#251#225#240#224#237#237#238#236#243' '#231#224#234#224#231#243
-        Caption = #207#240#232#225#251#235#252
+        Caption = 'Pribil'#39
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clTeal
         Font.Height = -11
@@ -644,12 +652,12 @@ object NaklForm: TNaklForm
         OnClick = profitCalcButtonClick
       end
       object applyCashlessButton: TSpeedButton
-        Left = 480
+        Left = 407
         Top = 2
-        Width = 95
+        Width = 75
         Height = 21
         Hint = #207#240#232#236#229#237#232#242#252' '#225#229#231#237#224#235#232#247#237#243#254' '#238#239#235#224#242#243' '#234' '#226#251#225#240#224#237#237#238#236#243' '#231#224#234#224#231#243
-        Caption = #193#229#231#237#224#235
+        Caption = 'Beznal'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Height = -11
@@ -732,7 +740,7 @@ object NaklForm: TNaklForm
         Top = 2
         Width = 20
         Height = 21
-        Hint = #209#238#231#228#224#242#252' '#237#238#226#251#233' '#231#224#234#224#231
+        Hint = 'Sozdat'#39' noviy zakaz'
         Font.Charset = RUSSIAN_CHARSET
         Font.Color = clGreen
         Font.Height = -19
@@ -762,7 +770,7 @@ object NaklForm: TNaklForm
         Top = 2
         Width = 20
         Height = 21
-        Hint = #211#228#224#235#232#242#252' '#226#251#225#240#224#237#237#251#233' '#231#224#234#224#231
+        Hint = 'Udalit'#39' vibranniy zakaz'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clGreen
         Font.Height = -11
@@ -790,9 +798,9 @@ object NaklForm: TNaklForm
       object Label3: TLabel
         Left = 3
         Top = 5
-        Width = 59
+        Width = 47
         Height = 13
-        Caption = #185' '#231#224#234#224#231#224
+        Caption = 'N zkaza'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Height = -11
@@ -803,9 +811,9 @@ object NaklForm: TNaklForm
       object Label6: TLabel
         Left = 204
         Top = 5
-        Width = 26
+        Width = 24
         Height = 13
-        Caption = '/ '#206#242
+        Caption = '/ Ot'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Height = -11

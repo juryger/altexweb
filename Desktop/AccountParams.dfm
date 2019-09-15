@@ -3,7 +3,7 @@ object frmAccountParams: TfrmAccountParams
   Top = 315
   Width = 370
   Height = 205
-  Caption = #207#224#240#224#236#229#242#240#251' '#241#247#229#242#224
+  Caption = 'Parametri nakladnoy'
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -17,9 +17,9 @@ object frmAccountParams: TfrmAccountParams
   object Label1: TLabel
     Left = 152
     Top = 16
-    Width = 57
+    Width = 58
     Height = 13
-    Caption = #196#224#242#224' '#241#247#229#242#224
+    Caption = 'Data scheta'
   end
   object Label2: TLabel
     Left = 133
@@ -31,16 +31,16 @@ object frmAccountParams: TfrmAccountParams
   object Label3: TLabel
     Left = 16
     Top = 64
-    Width = 99
+    Width = 52
     Height = 13
-    Caption = #207#240#238#246#229#237#242#237#224#255' '#241#242#224#226#234#224
+    Caption = 'NDS value'
   end
   object Label4: TLabel
     Left = 16
     Top = 16
-    Width = 65
+    Width = 66
     Height = 13
-    Caption = #205#238#236#229#240' '#241#247#229#242#224
+    Caption = 'Nomer scheta'
   end
   object dtpAccountDate: TDateTimePicker
     Left = 152
@@ -57,7 +57,7 @@ object frmAccountParams: TfrmAccountParams
     Width = 113
     Height = 21
     TabOrder = 2
-    Text = '18'
+    Text = '20'
     OnKeyPress = tbAccNoKeyPress
   end
   object tbAccNo: TEdit

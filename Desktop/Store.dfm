@@ -3,7 +3,7 @@ object StoreForm: TStoreForm
   Top = 236
   Width = 753
   Height = 539
-  Caption = #209#234#235#224#228
+  Caption = 'Skad'
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -64,7 +64,7 @@ object StoreForm: TStoreForm
           EditButtons = <>
           FieldName = 'DESCRIPTION'
           Footers = <>
-          Title.Caption = #200#236#255' '#239#238#228#227#240#243#239#251
+          Title.Caption = 'Podgruppa'
         end>
     end
     object groupGrid: TDBGridEh
@@ -93,7 +93,7 @@ object StoreForm: TStoreForm
           EditButtons = <>
           FieldName = 'DESCRIPTION'
           Footers = <>
-          Title.Caption = #200#236#255' '#227#240#243#239#239#251
+          Title.Caption = 'Gruppa'
         end>
     end
   end
@@ -116,7 +116,7 @@ object StoreForm: TStoreForm
         Top = 0
         Width = 137
         Height = 23
-        Caption = #207#229#247#224#242#252
+        Caption = 'Pechat'#39
         Flat = True
         Glyph.Data = {
           76010000424D7601000000000000760000002800000020000000100000000100
@@ -136,9 +136,9 @@ object StoreForm: TStoreForm
       object Label2: TLabel
         Left = 206
         Top = 6
-        Width = 51
+        Width = 52
         Height = 13
-        Caption = #239#238' '#202#238#228#243':'
+        Caption = 'po Kodu:'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Height = -11
@@ -148,11 +148,11 @@ object StoreForm: TStoreForm
         Layout = tlCenter
       end
       object Label3: TLabel
-        Left = 318
+        Left = 327
         Top = 6
-        Width = 113
+        Width = 103
         Height = 13
-        Caption = #239#238' '#205#224#232#236#229#237#238#226#224#237#232#254':'
+        Caption = 'po Naimenovaniu:'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Height = -11
@@ -164,9 +164,9 @@ object StoreForm: TStoreForm
       object Label1: TLabel
         Left = 146
         Top = 6
-        Width = 56
+        Width = 50
         Height = 13
-        Caption = #207#238#232#241#234' >>'
+        Caption = 'Poisk >>'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Height = -11
@@ -175,7 +175,7 @@ object StoreForm: TStoreForm
         ParentFont = False
       end
       object DBEditEh2: TDBEditEh
-        Left = 258
+        Left = 259
         Top = 3
         Width = 50
         Height = 19
@@ -229,19 +229,19 @@ object StoreForm: TStoreForm
           EditButtons = <>
           FieldName = 'ID_GDS_DTL'
           Footers = <>
-          Title.Caption = #202#238#228
+          Title.Caption = 'Kod'
         end
         item
           EditButtons = <>
           FieldName = 'DESCRIPTION'
           Footers = <>
-          Title.Caption = #205#224#232#236#229#237#238#226#224#237#232#229
+          Title.Caption = 'Naimenovanie'
         end
         item
           EditButtons = <>
           FieldName = 'NUM'
           Footers = <>
-          Title.Caption = #202#238#235'-'#226#238
+          Title.Caption = 'Kol-vo'
         end>
     end
   end

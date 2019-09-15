@@ -2,7 +2,7 @@ object BeforPricePrintForm: TBeforPricePrintForm
   Left = 366
   Top = 468
   BorderStyle = bsDialog
-  Caption = 'ѕечать прайса'
+  Caption = 'Price list print options'
   ClientHeight = 139
   ClientWidth = 263
   Color = clBtnFace
@@ -17,9 +17,9 @@ object BeforPricePrintForm: TBeforPricePrintForm
   object Label1: TLabel
     Left = 12
     Top = 8
-    Width = 244
-    Height = 28
-    Caption = '”кажите документы, которые необходимо вывести на печать:'
+    Width = 237
+    Height = 25
+    Caption = 'Ukazite price list dlya pechati'
     Font.Charset = RUSSIAN_CHARSET
     Font.Color = clWindowText
     Font.Height = -11
@@ -33,7 +33,7 @@ object BeforPricePrintForm: TBeforPricePrintForm
     Top = 48
     Width = 145
     Height = 17
-    Caption = 'ќбычный прайс-лист'
+    Caption = 'Obichniy price-list (bez photos)'
     Checked = True
     Font.Charset = RUSSIAN_CHARSET
     Font.Color = clWindowText
@@ -49,7 +49,7 @@ object BeforPricePrintForm: TBeforPricePrintForm
     Top = 72
     Width = 137
     Height = 17
-    Caption = '÷ветной каталог'
+    Caption = 'Tsvetnoi price s photos'
     Checked = True
     Font.Charset = RUSSIAN_CHARSET
     Font.Color = clWindowText

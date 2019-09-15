@@ -204,6 +204,7 @@
     <Content Include="Images\bell.png" />
     <Content Include="Images\breadcrumb.png" />
     <Content Include="Images\close.png" />
+    <Content Include="Images\divbg.png" />
     <Content Include="Images\exclamation-24.png" />
     <Content Include="Images\Map\map2.jpg" />
     <Content Include="Images\navigation-hide.png" />

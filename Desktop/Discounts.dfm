@@ -2,7 +2,7 @@ object DiscountsForm: TDiscountsForm
   Left = 612
   Top = 319
   BorderStyle = bsDialog
-  Caption = #209#232#241#242#229#236#224' '#241#234#232#228#238#234' ('#244#238#240#236#232#240#238#226#224#237#232#229' '#238#239#242#238#226#251#245' '#246#229#237')'
+  Caption = 'Discount settings (wholesale prices)'
   ClientHeight = 281
   ClientWidth = 456
   Color = clBtnFace
@@ -44,21 +44,21 @@ object DiscountsForm: TDiscountsForm
         FieldName = 'ID_COST_DCT'
         Footers = <>
         ReadOnly = True
-        Title.Caption = #207#238#240#255#228#234#238#226#251#233' '#237#238#236#229#240
+        Title.Caption = 'Nomer'
         Width = 105
       end
       item
         EditButtons = <>
         FieldName = 'START_SUMM'
         Footers = <>
-        Title.Caption = #209#243#236#236#224' '#231#224#234#224#231#224' '#238#242' ($)'
+        Title.Caption = 'Summa zakaza ot ($)'
         Width = 132
       end
       item
         EditButtons = <>
         FieldName = 'PROFIT_PERCENTAGE'
         Footers = <>
-        Title.Caption = #205#224#234#240#243#242#234#224' (%)'
+        Title.Caption = 'Nakrutka (%)'
         Width = 158
       end>
   end
@@ -76,8 +76,7 @@ object DiscountsForm: TDiscountsForm
       Top = 2
       Width = 95
       Height = 21
-      Hint = #196#238#225#224#226#232#242#252' '#237#238#226#243#254' '#231#224#239#232#241#252
-      Caption = #196#238#225#224#226#232#242#252
+      Caption = 'Dobavit'#39
       Glyph.Data = {
         76010000424D7601000000000000760000002800000020000000100000000100
         04000000000000010000130B0000130B00001000000000000000000000000000
@@ -101,8 +100,7 @@ object DiscountsForm: TDiscountsForm
       Top = 2
       Width = 95
       Height = 21
-      Hint = #211#228#224#235#232#242#252' '#226#251#225#240#224#237#237#243#254' '#231#224#239#232#241#252
-      Caption = #211#228#224#235#232#242#252
+      Caption = 'Udalit'#39
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clRed
       Font.Height = -11

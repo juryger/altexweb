@@ -2,7 +2,7 @@ object RekForm: TRekForm
   Left = 284
   Top = 282
   BorderStyle = bsToolWindow
-  Caption = 'Реквизиты'
+  Caption = 'Rekviziti'
   ClientHeight = 202
   ClientWidth = 300
   Color = clBtnFace
@@ -17,12 +17,12 @@ object RekForm: TRekForm
   PixelsPerInch = 96
   TextHeight = 13
   object Label1: TLabel
-    Left = 7
+    Left = 8
     Top = 15
-    Width = 73
+    Width = 72
     Height = 16
     Alignment = taRightJustify
-    Caption = 'Продавец:'
+    Caption = 'Prodavets:'
     Font.Charset = RUSSIAN_CHARSET
     Font.Color = clWindowText
     Font.Height = -13
@@ -37,12 +37,12 @@ object RekForm: TRekForm
     Height = 22
   end
   object Label2: TLabel
-    Left = 33
+    Left = 21
     Top = 39
-    Width = 47
+    Width = 59
     Height = 16
     Alignment = taRightJustify
-    Caption = 'Адрес:'
+    Caption = 'Address:'
     Font.Charset = RUSSIAN_CHARSET
     Font.Color = clWindowText
     Font.Height = -13
@@ -59,9 +59,9 @@ object RekForm: TRekForm
   object Label3: TLabel
     Left = 49
     Top = 63
-    Width = 31
+    Width = 26
     Height = 16
-    Caption = 'ИНН:'
+    Caption = 'INN:'
     Font.Charset = RUSSIAN_CHARSET
     Font.Color = clWindowText
     Font.Height = -13
@@ -76,12 +76,12 @@ object RekForm: TRekForm
     Height = 22
   end
   object Label4: TLabel
-    Left = 39
+    Left = 50
     Top = 87
-    Width = 43
+    Width = 32
     Height = 16
     Alignment = taRightJustify
-    Caption = 'р/счт:'
+    Caption = 'r/ct:'
     Font.Charset = RUSSIAN_CHARSET
     Font.Color = clWindowText
     Font.Height = -13
@@ -96,12 +96,12 @@ object RekForm: TRekForm
     Height = 22
   end
   object Label5: TLabel
-    Left = 51
+    Left = 54
     Top = 111
-    Width = 29
+    Width = 26
     Height = 16
     Alignment = taRightJustify
-    Caption = 'БИК:'
+    Caption = 'BIK:'
     Font.Charset = RUSSIAN_CHARSET
     Font.Color = clWindowText
     Font.Height = -13
@@ -116,12 +116,12 @@ object RekForm: TRekForm
     Height = 22
   end
   object Label6: TLabel
-    Left = 21
+    Left = 33
     Top = 135
-    Width = 59
+    Width = 47
     Height = 16
     Alignment = taRightJustify
-    Caption = 'кор/счт:'
+    Caption = 'kor/ct:'
     Font.Charset = RUSSIAN_CHARSET
     Font.Color = clWindowText
     Font.Height = -13
@@ -227,7 +227,7 @@ object RekForm: TRekForm
     Cursor = crHandPoint
     BevelInner = bvRaised
     BevelOuter = bvLowered
-    Caption = 'Сохранить'
+    Caption = 'Sohranit'#39
     Color = 16693417
     Font.Charset = RUSSIAN_CHARSET
     Font.Color = clBlack
@@ -246,7 +246,7 @@ object RekForm: TRekForm
     Cursor = crHandPoint
     BevelInner = bvRaised
     BevelOuter = bvLowered
-    Caption = 'Отменить'
+    Caption = 'Otmenit'#39
     Color = 16693417
     Font.Charset = RUSSIAN_CHARSET
     Font.Color = clBlack

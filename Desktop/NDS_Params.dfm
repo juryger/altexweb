@@ -2,7 +2,7 @@ object NdsParamsForm: TNdsParamsForm
   Left = 355
   Top = 335
   BorderStyle = bsToolWindow
-  Caption = #207#224#240#224#236#229#242#240#251' '#205#196#209
+  Caption = 'Parametri NDS'
   ClientHeight = 235
   ClientWidth = 246
   Color = clBtnFace
@@ -20,14 +20,14 @@ object NdsParamsForm: TNdsParamsForm
     Top = 6
     Width = 225
     Height = 187
-    Caption = #194#232#228' '#237#224#234#235#224#228#237#238#233
+    Caption = 'Nakldanaya'
     TabOrder = 0
     object simpleViewRadioButton: TRadioButton
       Left = 16
       Top = 24
       Width = 201
       Height = 17
-      Caption = #206#225#249#232#233' '#226#232#228' ('#243#239#240#238#249#229#237#237#224#255')'
+      Caption = 'Obchiy vid (uprochenniy)'
       Checked = True
       TabOrder = 0
       TabStop = True
@@ -38,7 +38,7 @@ object NdsParamsForm: TNdsParamsForm
       Top = 72
       Width = 201
       Height = 17
-      Caption = #209' '#243#247#229#242#238#236' '#239#240#238#246#229#237#242#237#238#233' '#241#242#224#226#234#232
+      Caption = 'NDS'
       TabOrder = 2
       OnClick = ndsViewRadioButtonClick
     end
@@ -47,7 +47,7 @@ object NdsParamsForm: TNdsParamsForm
       Top = 96
       Width = 193
       Height = 49
-      Caption = #205#196#209
+      Caption = 'NDS znachenie'
       TabOrder = 3
       object Label1: TLabel
         Left = 125
@@ -63,7 +63,7 @@ object NdsParamsForm: TNdsParamsForm
         Height = 21
         Color = clBtnFace
         TabOrder = 0
-        Text = '18'
+        Text = '20'
       end
     end
     object noNdsViewRadioButton: TRadioButton
@@ -71,7 +71,7 @@ object NdsParamsForm: TNdsParamsForm
       Top = 48
       Width = 201
       Height = 17
-      Caption = #193#229#231' '#239#240#238#246#229#237#242#237#238#233' '#241#242#224#226#234#232
+      Caption = 'Bez NDS'
       TabOrder = 1
       OnClick = noNdsViewRadioButtonClick
     end
@@ -80,7 +80,7 @@ object NdsParamsForm: TNdsParamsForm
       Top = 165
       Width = 201
       Height = 17
-      Caption = #194#234#235#254#247#232#242#252' '#234#224#241#241#238#226#251#233' '#238#240#228#229#240
+      Caption = 'Dobavit'#39' kassoviy order'
       Enabled = False
       TabOrder = 4
     end
@@ -89,7 +89,7 @@ object NdsParamsForm: TNdsParamsForm
       Top = 148
       Width = 201
       Height = 17
-      Caption = #194#234#235#254#247#232#242#252' '#241#247#229#242'-'#244#224#234#242#243#240#243
+      Caption = 'Dobavit'#39' schet-factura'
       Enabled = False
       TabOrder = 5
     end

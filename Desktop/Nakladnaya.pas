@@ -47,6 +47,7 @@ type
     btExportAccountExcel: TSpeedButton;
     profitCalcButton: TSpeedButton;
     applyCashlessButton: TSpeedButton;
+    Label9: TLabel;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure deleteCustomerButtonClick(Sender: TObject);
     procedure deleteOrderButtonClick(Sender: TObject);
@@ -872,7 +873,7 @@ begin
         end;
 
         // Ёкспортируем в формат Excel (подкаталог \Excel)
-        fileName := excelDir + '\—чЄт_' + DBMod.TCSTCompany.Value + '_' + DateToStr(Now) + '_' + billNo + '.xls';
+        fileName := excelDir + '\—чЄт_' + fileName + '_' + IntToStr(GetTickCount()) + '_' + billNo + '.xls';
         xf.SaveAs(fileName);
     finally
         xf.Destroy;
@@ -971,7 +972,7 @@ begin
         end;
 
         // Ёкспортируем в формат Excel (подкаталог \Excel)
-        fileName := excelDir + '\Ќакладна€_' + DBMod.TCSTCompany.Value + '_' + DateToStr(Now) + '_' + billNo + '.xls';
+        fileName := excelDir + '\Ќакладна€_' + fileName + '_' + IntToStr(GetTickCount()) + '_' + billNo + '.xls';
         xf.SaveAs(fileName);
     finally
         xf.Destroy;
@@ -1065,7 +1066,7 @@ begin
         end;
 
         // Ёкспортируем в формат Excel (подкаталог \Excel)
-        fileName := excelDir + '\—чет-фактура_' + DBMod.TCSTCompany.Value + '_' + DateToStr(Now) + '_' + billNo + '.xls';
+        fileName := excelDir + '\—чет-фактура_' + fileName + '_' + IntToStr(GetTickCount()) + '_' + billNo + '.xls';
         xf.SaveAs(fileName);
     finally
         xf.Destroy;

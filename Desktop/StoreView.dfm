@@ -1,8 +1,8 @@
 object StoreViewForm: TStoreViewForm
-  Left = 809
-  Top = 129
+  Left = 751
+  Top = 347
   BorderStyle = bsDialog
-  Caption = #1057#1082#1083#1072#1076': '#1055#1088#1080#1093#1086#1076'/'#1057#1087#1080#1089#1072#1085#1080#1077
+  Caption = '?????: ??????/????????'
   ClientHeight = 149
   ClientWidth = 333
   Color = clBtnFace
@@ -22,21 +22,21 @@ object StoreViewForm: TStoreViewForm
     Top = 23
     Width = 45
     Height = 13
-    Caption = #1054#1089#1090#1072#1090#1086#1082':'
+    Caption = '???????:'
   end
   object Label2: TLabel
     Left = 16
     Top = 50
-    Width = 40
+    Width = 39
     Height = 13
-    Caption = #1055#1088#1080#1093#1086#1076':'
+    Caption = '??????:'
   end
   object Label3: TLabel
     Left = 176
     Top = 50
-    Width = 52
+    Width = 51
     Height = 13
-    Caption = #1057#1087#1080#1089#1072#1085#1080#1077':'
+    Caption = '????????:'
   end
   object BalanceBox: TEdit
     Left = 80

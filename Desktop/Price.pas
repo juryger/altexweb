@@ -669,7 +669,7 @@ begin
     //AddLinksToImagesOnPriceSheet(DbMod.ExportPriceExcelFile.Workbook.Sheets[0]);
 
     // Ёкспортируем в формат Excel (подкаталог \Excel)
-    fileName := excelDir + '\Price_' + DateToStr(Date()) + '.xls';
+    fileName := excelDir + '\Price_' + IntToStr(GetTickCount()) + '.xls';
     DbMod.ExportPriceExcelFile.SaveToFile(fileName);
 
     // ќчистить временную папку с изображени€ми

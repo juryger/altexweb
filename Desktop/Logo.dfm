@@ -3,7 +3,7 @@ object LogoForm: TLogoForm
   Top = 405
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
-  Caption = '??????? ???????'
+  Caption = 'Navigatsia'
   ClientHeight = 150
   ClientWidth = 141
   Color = 12615680
@@ -166,7 +166,7 @@ object LogoForm: TLogoForm
       Height = 15
       Alignment = taLeftJustify
       BevelOuter = bvNone
-      Caption = #205#224#226#232#227#224#246#232#255
+      Caption = 'Navigatsia'
       Color = clWhite
       Font.Charset = RUSSIAN_CHARSET
       Font.Color = clBlue
@@ -184,7 +184,7 @@ object LogoForm: TLogoForm
       Height = 15
       Cursor = crHandPoint
       BevelOuter = bvNone
-      Caption = #207#240#224#233#241'-'#235#232#241#242
+      Caption = 'Price-list'
       Color = 8454143
       Font.Charset = RUSSIAN_CHARSET
       Font.Color = clGreen
@@ -203,7 +203,7 @@ object LogoForm: TLogoForm
       Height = 15
       Cursor = crHandPoint
       BevelOuter = bvNone
-      Caption = #199#224#234#224#231#251
+      Caption = 'Zakazi'
       Color = 8454143
       Font.Charset = RUSSIAN_CHARSET
       Font.Color = clGreen
@@ -222,7 +222,7 @@ object LogoForm: TLogoForm
       Height = 15
       Cursor = crHandPoint
       BevelOuter = bvNone
-      Caption = #211#247#229#242
+      Caption = 'Uchet'
       Color = 8454143
       Font.Charset = RUSSIAN_CHARSET
       Font.Color = clGreen
@@ -241,7 +241,7 @@ object LogoForm: TLogoForm
       Height = 15
       Cursor = crHandPoint
       BevelOuter = bvNone
-      Caption = #209#234#235#224#228
+      Caption = 'Sklad'
       Color = 8454143
       Font.Charset = RUSSIAN_CHARSET
       Font.Color = clGreen
@@ -259,7 +259,7 @@ object LogoForm: TLogoForm
       Height = 15
       Cursor = crHandPoint
       BevelOuter = bvNone
-      Caption = #208#229#234#226#232#231#232#242#251
+      Caption = 'Rekviziti'
       Color = 8454143
       Font.Charset = RUSSIAN_CHARSET
       Font.Color = clGreen

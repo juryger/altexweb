@@ -253,10 +253,13 @@
 
 /*----------TopNavigationBar-------------*/
 .navbar-logo {
-  padding: 25px 0 10px 0;
-  font-size: 20px;
-  line-height: 20px;
-  color: #55adf8;
+    padding: 25px 0 10px 0;
+    font-size: 20px;
+    line-height: 20px;
+}
+
+.navbar-logo > a {
+    color: #004c8e
 }
 
 .navbar-logo > a:hover,
@@ -266,10 +269,11 @@
 }
 
 .navbar-contacts {
-    float:right;
-    color: #ffffff;
+    float: right;
+    color: #151515;
     font-size: 14px;
     margin-top: -20px;
+    font-weight: 600;
 }
 
 .navbar-links {
@@ -277,12 +281,13 @@
 }
 
 .navbar-links > span > a {
-  color: #fff;
+    color: #151515;
+    font-weight: 600;
 }
 
 .navbar-links > span > a:hover,
 .navbar-links > span > a:focus {
-  color: #55adf8;
+  color: #ffffff;
   text-decoration: none;
   background-color: transparent;
 }
