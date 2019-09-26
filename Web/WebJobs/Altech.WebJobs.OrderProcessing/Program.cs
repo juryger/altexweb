@@ -479,11 +479,12 @@ namespace Altech.WebJobs.OrderProcessing
             var client = new SendGridClient(apiKey);
 
             string subject = String.Format("Новый заказ на сайте АЛТЕХ Хозтовары от {0}", customer.Company);
-            var from = new EmailAddress(customer.EmailAddress);
+            var from = new EmailAddress("admin@altexweb.ru", "Altex Web");
             var to = new EmailAddress("AlexTechnologies@gmail.com", "Altex Web");
 
             var plainTextContent = "Содержимое письма может быть прочитано только в HTML формате.";
             var msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent, html);
+            msg.ReplyTo = new EmailAddress(customer.EmailAddress);
 
             #region attachment preparation 
 

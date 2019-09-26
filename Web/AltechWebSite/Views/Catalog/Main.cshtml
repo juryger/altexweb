@@ -317,10 +317,6 @@
             }
             else
             {
-                Html.RenderPartial("CashlessPayment",
-                    new ViewDataDictionary {
-                        { "CashlessPayment", null }});
-
                 Html.RenderPartial("Discounts",
                     new ViewDataDictionary {
                         { "Discounts", ViewBag.Discounts }});

@@ -270,7 +270,8 @@
 
 .navbar-contacts {
     float: right;
-    color: #151515;
+    color: #ab310c;
+    background-color: rgba(128, 222, 234, 0.4588235294117647);
     font-size: 14px;
     margin-top: -20px;
     font-weight: 600;
