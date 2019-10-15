@@ -81,9 +81,9 @@ type
     function ImportCustomerFromWebOrder(customer: IXMLNode): Boolean;
     function ImportOrderDetailsFromWebOrder(webOrderId: integer; created: TDateTime; details: IXMLNode): Boolean;
     function GetNextOrderId(): integer;
-    procedure ExportBillToExcel(excelDir: string; taxValue: integer; billNo: string; billDate: TDateTime);
-    procedure ExportDeliveryNoteToExcel(excelDir: string; taxValue: integer; billNo: string; billDate: TDateTime; orderNo: integer);
-    procedure ExportInvoiceToExcel(excelDir: string; taxValue: integer; billNo: string; billDate: TDateTime; orderNo: integer);
+    procedure ExportBillToExcel(excelDir: string; hasTax: boolean; taxValue: integer; billNo: string; billDate: TDateTime);
+    procedure ExportDeliveryNoteToExcel(excelDir: string; hasTax: boolean; taxValue: integer; billNo: string; billDate: TDateTime; orderNo: integer);
+    procedure ExportInvoiceToExcel(excelDir: string; hasTax: boolean; taxValue: integer; billNo: string; billDate: TDateTime; orderNo: integer);
     function CalculateSumWithoutTax(sum: Double; taxValue: integer): Double;
     function CalculateTax(sum: Double; taxValue: integer): Double;
   public
@@ -745,7 +745,8 @@ end;
 procedure TNaklForm.btExportAccountExcelClick(Sender: TObject);
 var
     excelDir, billNo: string;
-    taxValue, orderNo: integer;
+    hasTax: boolean;
+    i, taxValue, orderNo: integer;
     billDate: TDateTime;
 begin
     if (DBMod.TSLS_DTL.RecordCount = 0) then
@@ -761,9 +762,26 @@ begin
     if (frmAccountParams.ShowModal() = mrCancel) then
         exit;
 
+    hasTax := frmAccountParams.HasNDS;
     taxValue := StrToInt(frmAccountParams.tbPercentageValue.Text);
     billNo := frmAccountParams.tbAccNo.Text;
     billDate := frmAccountParams.dtpAccountDate.Date;
+
+    // Пересчитать сумму с учетом НДС
+    DBmod.TSLS_DTL.First;
+    for i:=1 to DBmod.TSLS_DTL.RecordCount do
+    begin
+        // Расчет цены без НДС по текущей позиции
+        DBmod.TSLS_DTL.Edit;
+        if hasTax then
+            DBmod.TSLS_DTL.FieldByName('GDS_COST_CLR').AsString :=
+                FormatFloat('#,##.00',(DBmod.TSLS_DTL.FieldByName('GDS_COST_NDS').AsFloat * 100) / (100 + taxValue))
+        else
+            DBmod.TSLS_DTL.FieldByName('GDS_COST_CLR').AsFloat :=
+                DBmod.TSLS_DTL.FieldByName('GDS_COST_NDS').AsFloat;
+        DBmod.TSLS_DTL.Post;
+        DBmod.TSLS_DTL.Next;
+    end;
 
     excelDir := GetSettingsParam(Self, 'TempDir') + '\AG\Excel';
 
@@ -773,9 +791,9 @@ begin
         orderNo := Dbmod.TSLS_GRPOrderNo.Value;
     end;
 
-    ExportBillToExcel(excelDir, taxValue, billNo, billDate);
-    ExportDeliveryNoteToExcel(excelDir, taxValue, billNo, billDate, orderNo);
-    ExportInvoiceToExcel(excelDir, taxValue, billNo, billDate, orderNo);
+    ExportBillToExcel(excelDir, hasTax, taxValue, billNo, billDate);
+    ExportDeliveryNoteToExcel(excelDir, hasTax, taxValue, billNo, billDate, orderNo);
+    ExportInvoiceToExcel(excelDir, hasTax, taxValue, billNo, billDate, orderNo);
 
     DBMod.TSLS_DTL.First;
 
@@ -783,7 +801,7 @@ begin
     ShellExecute(0, 'open', PChar(excelDir), nil, nil, SW_SHOW);
 end;
 
-procedure TNaklForm.ExportBillToExcel(excelDir: string; taxValue: integer; billNo: string; billDate: TDateTime);
+procedure TNaklForm.ExportBillToExcel(excelDir: string; hasTax: boolean; taxValue: integer; billNo: string; billDate: TDateTime);
 var
     billTitle, fileName, customerInfo, sumItemsText, strBuff1, strBuff2, strBuff3: string;
     xf: TXLSFile;
@@ -837,14 +855,24 @@ begin
                 Cells.CellByA1Ref['Y' + IntToStr(20 + i)].Value := DBMod.TSLS_DTLGDS_NUMB.Value;
 
                 Cells.CellByA1Ref['AD' + IntToStr(20 + i)].Clear();
-                Cells.CellByA1Ref['AD' + IntToStr(20 + i)].Value := DBMod.TSLS_DTLGDS_COST_NDS.Value;
+                if (hasTax) then
+                  Cells.CellByA1Ref['AD' + IntToStr(20 + i)].Value := DBMod.TSLS_DTLGDS_COST_NDS.Value
+                else
+                  Cells.CellByA1Ref['AD' + IntToStr(20 + i)].Value := DBMod.TSLS_DTLGDS_COST_CLR.Value;
                 Cells.CellByA1Ref['AD' + IntToStr(20 + i)].FormatStringIndex := 2;
 
                 Cells.CellByA1Ref['AH' + IntToStr(20 + i)].Clear();
-                Cells.CellByA1Ref['AH' + IntToStr(20 + i)].Value := DBMod.TSLS_DTLGDS_NUMB.Value * DBMod.TSLS_DTLGDS_COST_NDS.Value;
+                if (hasTax) then
+                  Cells.CellByA1Ref['AH' + IntToStr(20 + i)].Value := DBMod.TSLS_DTLGDS_NUMB.Value * DBMod.TSLS_DTLGDS_COST_NDS.Value
+                else
+                  Cells.CellByA1Ref['AH' + IntToStr(20 + i)].Value := DBMod.TSLS_DTLGDS_NUMB.Value * DBMod.TSLS_DTLGDS_COST_CLR.Value;
                 Cells.CellByA1Ref['AH' + IntToStr(20 + i)].FormatStringIndex := 2;
 
-                sum := sum + DBMod.TSLS_DTLGDS_NUMB.Value * DBMod.TSLS_DTLGDS_COST_NDS.Value;
+                if (hasTax) then
+                  sum := sum + DBMod.TSLS_DTLGDS_NUMB.Value * DBMod.TSLS_DTLGDS_COST_NDS.Value
+                else
+                  sum := sum + DBMod.TSLS_DTLGDS_NUMB.Value * DBMod.TSLS_DTLGDS_COST_CLR.Value;
+
                 DBMod.TSLS_DTL.Next;
             end;
 
@@ -853,12 +881,18 @@ begin
             Cells.CellByA1Ref['AH' + IntToStr(21 + itemsCount)].Value := sum;
             Cells.CellByA1Ref['AH' + IntToStr(21 + itemsCount)].FormatStringIndex := 2;
 
-            Cells.CellByA1Ref['Z' + IntToStr(22 + itemsCount)].Value :=
+            if (hasTax) then
+              Cells.CellByA1Ref['Z' + IntToStr(22 + itemsCount)].Value :=
                 StringReplace(Cells.CellByA1Ref['Z' + IntToStr(22 + itemsCount)].Value,
-                    '{0}', frmAccountParams.tbPercentageValue.Text, [rfReplaceAll, rfIgnoreCase]);
+                  '{0}', frmAccountParams.tbPercentageValue.Text, [rfReplaceAll, rfIgnoreCase])
+            else
+              Cells.CellByA1Ref['Z' + IntToStr(22 + itemsCount)].Value := 'Без НДС';
 
             Cells.CellByA1Ref['AH' + IntToStr(22 + itemsCount)].Clear();
-            Cells.CellByA1Ref['AH' + IntToStr(22 + itemsCount)].Value := (sum * taxValue)/(100 + taxValue);
+            if (hasTax) then
+              Cells.CellByA1Ref['AH' + IntToStr(22 + itemsCount)].Value := (sum * taxValue)/(100 + taxValue)
+            else
+              Cells.CellByA1Ref['AH' + IntToStr(22 + itemsCount)].Value := '';
             Cells.CellByA1Ref['AH' + IntToStr(22 + itemsCount)].FormatStringIndex := 2;
 
             // overall sum with item num
@@ -880,7 +914,7 @@ begin
     end;
 end;
 
-procedure TNaklForm.ExportDeliveryNoteToExcel(excelDir: string; taxValue: integer; billNo: string; billDate: TDateTime; orderNo: integer);
+procedure TNaklForm.ExportDeliveryNoteToExcel(excelDir: string; hasTax: boolean; taxValue: integer; billNo: string; billDate: TDateTime; orderNo: integer);
 var
     billTitle, fileName, customerInfo, customerInfo2, sumItemsText, strBuff1, strBuff2, strBuff3: string;
     xf: TXLSFile;
@@ -928,26 +962,47 @@ begin
                 Cells.CellByA1Ref['K' + IntToStr(18 + i)].Value := DBMod.TSLS_DTLGDS_NUMB.Value;
 
                 Cells.CellByA1Ref['L' + IntToStr(18 + i)].Clear();
-                Cells.CellByA1Ref['L' + IntToStr(18 + i)].Value :=
-                    CalculateSumWithoutTax(DBMod.TSLS_DTLGDS_COST_NDS.Value, taxValue);
+                if hasTax then
+                  Cells.CellByA1Ref['L' + IntToStr(18 + i)].Value :=
+                      CalculateSumWithoutTax(DBMod.TSLS_DTLGDS_COST_NDS.Value, taxValue)
+                else
+                  Cells.CellByA1Ref['L' + IntToStr(18 + i)].Value :=
+                      DBMod.TSLS_DTLGDS_COST_CLR.Value;
                 Cells.CellByA1Ref['L' + IntToStr(18 + i)].FormatStringIndex := 2;
 
                 Cells.CellByA1Ref['M' + IntToStr(18 + i)].Clear();
-                Cells.CellByA1Ref['M' + IntToStr(18 + i)].Value :=
-                    CalculateSumWithoutTax(DBMod.TSLS_DTLGDS_NUMB.Value * DBMod.TSLS_DTLGDS_COST_NDS.Value, taxValue);
+                if hasTax then
+                  Cells.CellByA1Ref['M' + IntToStr(18 + i)].Value :=
+                      CalculateSumWithoutTax(DBMod.TSLS_DTLGDS_NUMB.Value * DBMod.TSLS_DTLGDS_COST_NDS.Value, taxValue)
+                else
+                  Cells.CellByA1Ref['M' + IntToStr(18 + i)].Value := DBMod.TSLS_DTLGDS_NUMB.Value * DBMod.TSLS_DTLGDS_COST_CLR.Value;
                 Cells.CellByA1Ref['M' + IntToStr(18 + i)].FormatStringIndex := 2;
 
-                Cells.CellByA1Ref['N' + IntToStr(18 + i)].Value := taxValue;
+                if hasTax then
+                  Cells.CellByA1Ref['N' + IntToStr(18 + i)].Value := taxValue
+                else
+                  Cells.CellByA1Ref['N' + IntToStr(18 + i)].Value := 'X';
+
                 Cells.CellByA1Ref['O' + IntToStr(18 + i)].Clear();
-                Cells.CellByA1Ref['O' + IntToStr(18 + i)].Value :=
-                    CalculateTax(DBMod.TSLS_DTLGDS_NUMB.Value * DBMod.TSLS_DTLGDS_COST_NDS.Value, taxValue);
+                if hasTax then
+                  Cells.CellByA1Ref['O' + IntToStr(18 + i)].Value :=
+                    CalculateTax(DBMod.TSLS_DTLGDS_NUMB.Value * DBMod.TSLS_DTLGDS_COST_NDS.Value, taxValue)
+                else
+                  Cells.CellByA1Ref['O' + IntToStr(18 + i)].Value := 'X';
                 Cells.CellByA1Ref['O' + IntToStr(18 + i)].FormatStringIndex := 2;
 
                 Cells.CellByA1Ref['P' + IntToStr(18 + i)].Clear();
-                Cells.CellByA1Ref['P' + IntToStr(18 + i)].Value := DBMod.TSLS_DTLGDS_NUMB.Value * DBMod.TSLS_DTLGDS_COST_NDS.Value;
+                if hasTax then
+                  Cells.CellByA1Ref['P' + IntToStr(18 + i)].Value := DBMod.TSLS_DTLGDS_NUMB.Value * DBMod.TSLS_DTLGDS_COST_NDS.Value
+                else
+                  Cells.CellByA1Ref['P' + IntToStr(18 + i)].Value := DBMod.TSLS_DTLGDS_NUMB.Value * DBMod.TSLS_DTLGDS_COST_CLR.Value;
                 Cells.CellByA1Ref['P' + IntToStr(18 + i)].FormatStringIndex := 2;
 
-                sum := sum + DBMod.TSLS_DTLGDS_NUMB.Value * DBMod.TSLS_DTLGDS_COST_NDS.Value;
+                if hasTax then
+                  sum := sum + DBMod.TSLS_DTLGDS_NUMB.Value * DBMod.TSLS_DTLGDS_COST_NDS.Value
+                else
+                  sum := sum + DBMod.TSLS_DTLGDS_NUMB.Value * DBMod.TSLS_DTLGDS_COST_CLR.Value;
+
                 DBMod.TSLS_DTL.Next;
             end;
 
@@ -979,7 +1034,7 @@ begin
     end;
 end;
 
-procedure TNaklForm.ExportInvoiceToExcel(excelDir: string; taxValue: integer; billNo: string; billDate: TDateTime; orderNo: integer);
+procedure TNaklForm.ExportInvoiceToExcel(excelDir: string; hasTax: boolean; taxValue: integer; billNo: string; billDate: TDateTime; orderNo: integer);
 var
     billTitle, invoiceTitle, fileName, customerInfo, sumItemsText, strBuff1, strBuff2, strBuff3: string;
     xf: TXLSFile;
@@ -1033,27 +1088,46 @@ begin
                 Cells.CellByA1Ref['E' + IntToStr(21 + i)].Value := DBMod.TSLS_DTLGDS_NUMB.Value;
 
                 Cells.CellByA1Ref['F' + IntToStr(21 + i)].Clear();
-                Cells.CellByA1Ref['F' + IntToStr(21 + i)].Value :=
-                    CalculateSumWithoutTax(DBMod.TSLS_DTLGDS_COST_NDS.Value, taxValue);
+                if hasTax then
+                  Cells.CellByA1Ref['F' + IntToStr(21 + i)].Value :=
+                    CalculateSumWithoutTax(DBMod.TSLS_DTLGDS_COST_NDS.Value, taxValue)
+                else
+                  Cells.CellByA1Ref['F' + IntToStr(21 + i)].Value := DBMod.TSLS_DTLGDS_COST_CLR.Value;
                 Cells.CellByA1Ref['F' + IntToStr(21 + i)].FormatStringIndex := 2;
 
                 Cells.CellByA1Ref['G' + IntToStr(21 + i)].Clear();
-                Cells.CellByA1Ref['G' + IntToStr(21 + i)].Value :=
-                    CalculateSumWithoutTax(DBMod.TSLS_DTLGDS_NUMB.Value * DBMod.TSLS_DTLGDS_COST_NDS.Value, taxValue);
+                if hasTax then
+                  Cells.CellByA1Ref['G' + IntToStr(21 + i)].Value :=
+                    CalculateSumWithoutTax(DBMod.TSLS_DTLGDS_NUMB.Value * DBMod.TSLS_DTLGDS_COST_NDS.Value, taxValue)
+                else
+                  Cells.CellByA1Ref['G' + IntToStr(21 + i)].Value := DBMod.TSLS_DTLGDS_NUMB.Value * DBMod.TSLS_DTLGDS_COST_CLR.Value;
                 Cells.CellByA1Ref['G' + IntToStr(21 + i)].FormatStringIndex := 2;
 
-                Cells.CellByA1Ref['I' + IntToStr(21 + i)].Value := taxValue;
+                if hasTax then
+                  Cells.CellByA1Ref['I' + IntToStr(21 + i)].Value := taxValue
+                else
+                  Cells.CellByA1Ref['I' + IntToStr(21 + i)].Value := 'X';
 
                 Cells.CellByA1Ref['J' + IntToStr(21 + i)].Clear();
-                Cells.CellByA1Ref['J' + IntToStr(21 + i)].Value :=
-                    CalculateTax(DBMod.TSLS_DTLGDS_NUMB.Value * DBMod.TSLS_DTLGDS_COST_NDS.Value, taxValue);
+                if hasTax then
+                  Cells.CellByA1Ref['J' + IntToStr(21 + i)].Value :=
+                    CalculateTax(DBMod.TSLS_DTLGDS_NUMB.Value * DBMod.TSLS_DTLGDS_COST_NDS.Value, taxValue)
+                else
+                  Cells.CellByA1Ref['J' + IntToStr(21 + i)].Value := 'X';
                 Cells.CellByA1Ref['J' + IntToStr(21 + i)].FormatStringIndex := 2;
 
                 Cells.CellByA1Ref['K' + IntToStr(21 + i)].Clear();
-                Cells.CellByA1Ref['K' + IntToStr(21 + i)].Value := DBMod.TSLS_DTLGDS_NUMB.Value * DBMod.TSLS_DTLGDS_COST_NDS.Value;
+                if hasTax then
+                  Cells.CellByA1Ref['K' + IntToStr(21 + i)].Value := DBMod.TSLS_DTLGDS_NUMB.Value * DBMod.TSLS_DTLGDS_COST_NDS.Value
+                else
+                  Cells.CellByA1Ref['K' + IntToStr(21 + i)].Value := DBMod.TSLS_DTLGDS_NUMB.Value * DBMod.TSLS_DTLGDS_COST_CLR.Value;
                 Cells.CellByA1Ref['K' + IntToStr(21 + i)].FormatStringIndex := 2;
 
-                sum := sum + DBMod.TSLS_DTLGDS_NUMB.Value * DBMod.TSLS_DTLGDS_COST_NDS.Value;
+                if hasTax then
+                  sum := sum + DBMod.TSLS_DTLGDS_NUMB.Value * DBMod.TSLS_DTLGDS_COST_NDS.Value
+                else
+                  sum := sum + DBMod.TSLS_DTLGDS_NUMB.Value * DBMod.TSLS_DTLGDS_COST_CLR.Value;
+                  
                 DBMod.TSLS_DTL.Next;
             end;
 

@@ -197,7 +197,7 @@ object NaklForm: TNaklForm
         Top = 1
         Width = 130
         Height = 21
-        Hint = #200#236#239#238#240#242#232#240#238#226#224#242#252' '#231#224#234#224#231' '#234#235#232#229#237#242#224' '#241' '#226#229#225'-'#241#224#233#242#224
+        Hint = 'Eiii?oe?iaaou caeac eeeaioa n aaa-naeoa'
         Caption = 'Improt s web-saita'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -508,7 +508,7 @@ object NaklForm: TNaklForm
         Top = 2
         Width = 85
         Height = 21
-        Hint = #207#240#229#228#226#224#240#232#242#229#235#252#237#251#233' '#239#240#238#241#236#238#242#240' '#231#224#234#224#231#224
+        Hint = 'I?aaaa?eoaeuiue i?iniio? caeaca'
         Caption = 'Prosmotr'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clPurple
@@ -537,7 +537,7 @@ object NaklForm: TNaklForm
         Top = 2
         Width = 85
         Height = 21
-        Hint = #207#229#247#224#242#252' '#226#251#225#240#224#237#237#227#238' '#231#224#234#224#231#224
+        Hint = 'Ia?aou aua?aiiai caeaca'
         Caption = 'Pechat'#39
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clPurple
@@ -596,7 +596,7 @@ object NaklForm: TNaklForm
         Top = 2
         Width = 75
         Height = 21
-        Hint = #194#251#227#240#243#231#232#242#252' '#226#251#225#240#224#237#237#251#233' '#231#224#234#224#231' '#226' Excel'
+        Hint = 'Aua?oceou aua?aiiue caeac a Excel'
         Caption = 'Excel'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clPurple
@@ -625,7 +625,7 @@ object NaklForm: TNaklForm
         Top = 2
         Width = 75
         Height = 21
-        Hint = #208#224#241#247#232#242#224#242#252' '#239#240#232#225#251#235#252' '#239#238' '#226#251#225#240#224#237#237#238#236#243' '#231#224#234#224#231#243
+        Hint = '?an?eoaou i?eaueu ii aua?aiiiio caeaco'
         Caption = 'Pribil'#39
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clTeal
@@ -656,7 +656,7 @@ object NaklForm: TNaklForm
         Top = 2
         Width = 75
         Height = 21
-        Hint = #207#240#232#236#229#237#232#242#252' '#225#229#231#237#224#235#232#247#237#243#254' '#238#239#235#224#242#243' '#234' '#226#251#225#240#224#237#237#238#236#243' '#231#224#234#224#231#243
+        Hint = 'I?eiaieou aaciaee?io? iieaoo e aua?aiiiio caeaco'
         Caption = 'Beznal'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -826,7 +826,7 @@ object NaklForm: TNaklForm
         Top = 5
         Width = 76
         Height = 13
-        Caption = '/ Web-'#231#224#234#224#231
+        Caption = '/ Web-caeac'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Height = -11
