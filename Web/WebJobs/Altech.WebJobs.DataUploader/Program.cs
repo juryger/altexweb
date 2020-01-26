@@ -219,7 +219,7 @@ namespace Altech.WebJobs.DataUploader
             int id;
             string title;
             string measureUnits;
-            int pack;
+            int pack, minPack;
             double costWhs1, costWhs2, costWhs3;
             string imageFileName;
             bool isDeleted;
@@ -244,20 +244,25 @@ namespace Altech.WebJobs.DataUploader
                 throw new ApplicationException(
                     String.Format("Не удалось привести значение поля Упаковка к типу int. Исходное строковое значение: {0}. XML({1},{2})", testValue, xr.LineNumber, xr.LinePosition));
 
-            testValue = xr.GetAttribute("costWhs1").Replace(',', '.');
+            testValue = xr.GetAttribute("pack_min");
+            if (!int.TryParse(testValue, out minPack))
+                throw new ApplicationException(
+                    String.Format("Не удалось привести значение поля Мин. упаковка к типу int. Исходное строковое значение: {0}. XML({1},{2})", testValue, xr.LineNumber, xr.LinePosition));
+
+            testValue = xr.GetAttribute("cost_whs1").Replace(',', '.');
             if (!double.TryParse(testValue, NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out costWhs1))
                 throw new ApplicationException(
-                    String.Format("Не удалось привести значение поля Опт1 к типу double. Исходное строковое значение: {0}. XML({1},{2})", testValue, xr.LineNumber, xr.LinePosition));
+                    String.Format("Не удалось привести значение поля Цена к типу double. Исходное строковое значение: {0}. XML({1},{2})", testValue, xr.LineNumber, xr.LinePosition));
 
-            testValue = xr.GetAttribute("costWhs2").Replace(',', '.');
+            testValue = xr.GetAttribute("cost_whs2").Replace(',', '.');
             if (!double.TryParse(testValue, NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out costWhs2))
                 throw new ApplicationException(
-                    String.Format("Не удалось привести значение поля Опт2 к типу double. Исходное строковое значение: {0}. XML({1},{2})", testValue, xr.LineNumber, xr.LinePosition));
+                    String.Format("Не удалось привести значение поля Опт к типу double. Исходное строковое значение: {0}. XML({1},{2})", testValue, xr.LineNumber, xr.LinePosition));
 
-            testValue = xr.GetAttribute("costWhs3").Replace(',', '.');
+            testValue = xr.GetAttribute("cost_whs3").Replace(',', '.');
             if (!double.TryParse(testValue, NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out costWhs3))
                 throw new ApplicationException(
-                    String.Format("Не удалось привести значение поля Опт3 к типу double. Исходное строковое значение: {0}. XML({1},{2})", testValue, xr.LineNumber, xr.LinePosition));
+                    String.Format("Не удалось привести значение поля Опт к типу double. Исходное строковое значение: {0}. XML({1},{2})", testValue, xr.LineNumber, xr.LinePosition));
 
             imageFileName = xr.GetAttribute("img");
 
@@ -280,6 +285,7 @@ namespace Altech.WebJobs.DataUploader
                     Title = title,
                     UnitMeasure = measureUnits,
                     Pack = pack,
+                    PackMin = minPack,
                     CostWhs1 = costWhs1,
                     CostWhs2 = costWhs2,
                     CostWhs3 = costWhs3,

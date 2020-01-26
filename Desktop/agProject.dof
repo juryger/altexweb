@@ -90,11 +90,11 @@ MaxStackSize=1048576
 ImageBase=4194304
 ExeDescription=
 [Directories]
-OutputDir=c:\temp
+OutputDir=c:\temp\AG
 UnitOutputDir=
 PackageDLLOutputDir=
 PackageDCPOutputDir=
-SearchPath=$(DELPHI)\Source\EHLIB\Common;$(DELPHI)\Source\EHLIB\Delphi5;$(DELPHI)\Source\frp\source;C:\Program Files\Borland\Delphi7\Controls\EHLIB\DataService;C:\Program Files (x86)\Borland\Delphi7\3rdpc\EHLIB\Common;C:\Program Files (x86)\Borland\Delphi7\3rdpc\EHLIB\DataService
+SearchPath=C:\Program Files (x86)\Borland\Delphi7\Projects\EHLib26\Common;C:\Program Files (x86)\Borland\Delphi7\Projects\EHLib26\DataService;C:\Program Files (x86)\Borland\Delphi7\Projects\EHLib26\Delphi7;C:\Program Files (x86)\Borland\Delphi7\Projects\FR240;C:\Program Files (x86)\Borland\Delphi7\Projects\TXLSFile
 Packages=Vcl50;Vclx50;VclSmp50;Vcldb50;vclado50;ibevnt50;Vclbde50;vcldbx50;Qrpt50;TeeUI50;TeeDB50;Tee50;Dss50;TeeQR50;VCLIB50;Vclmid50;vclie50;Inetdb50;Inet50;NMFast50;webmid50;dclocx50;dclaxserver50;Fr5
 Conditionals=
 DebugSourceDirs=
@@ -138,14 +138,18 @@ Comments=
 Count=1
 Item0=WinTypes=Windows;WinProcs=Windows;DbiTypes=BDE;DbiProcs=BDE;DbiErrs=BDE;
 [HistoryLists\hlSearchPath]
-Count=3
-Item0=$(DELPHI)\Source\EHLIB\Common;$(DELPHI)\Source\EHLIB\Delphi5;$(DELPHI)\Source\frp\source;C:\Program Files\Borland\Delphi7\Controls\EHLIB\DataService;C:\Program Files (x86)\Borland\Delphi7\3rdpc\EHLIB\Common;C:\Program Files (x86)\Borland\Delphi7\3rdpc\EHLIB\DataService
-Item1=$(DELPHI)\Source\EHLIB\Common;$(DELPHI)\Source\EHLIB\Delphi5;$(DELPHI)\Source\frp\source;C:\Program Files\Borland\Delphi7\Controls\EHLIB\DataService
-Item2=$(DELPHI)\Source\EHLIB\Common;$(DELPHI)\Source\EHLIB\Delphi5;$(DELPHI)\Source\frp\source
+Count=6
+Item0=C:\Program Files (x86)\Borland\Delphi7\Projects\EHLib26\Common;C:\Program Files (x86)\Borland\Delphi7\Projects\EHLib26\DataService;C:\Program Files (x86)\Borland\Delphi7\Projects\EHLib26\Delphi7;C:\Program Files (x86)\Borland\Delphi7\Projects\FR240;C:\Program Files (x86)\Borland\Delphi7\Projects\TXLSFile
+Item1=C:\Program Files (x86)\Borland\Delphi7\Projects\EHLib26\Common;C:\Program Files (x86)\Borland\Delphi7\Projects\EHLib26\DataService;C:\Program Files (x86)\Borland\Delphi7\Projects\EHLib26\Delphi7
+Item2=C:\Program Files (x86)\Borland\Delphi7\Projects\EHLib26\Common
+Item3=$(DELPHI)\Source\EHLIB\Common;$(DELPHI)\Source\EHLIB\Delphi5;$(DELPHI)\Source\frp\source;C:\Program Files\Borland\Delphi7\Controls\EHLIB\DataService;C:\Program Files (x86)\Borland\Delphi7\3rdpc\EHLIB\Common;C:\Program Files (x86)\Borland\Delphi7\3rdpc\EHLIB\DataService
+Item4=$(DELPHI)\Source\EHLIB\Common;$(DELPHI)\Source\EHLIB\Delphi5;$(DELPHI)\Source\frp\source;C:\Program Files\Borland\Delphi7\Controls\EHLIB\DataService
+Item5=$(DELPHI)\Source\EHLIB\Common;$(DELPHI)\Source\EHLIB\Delphi5;$(DELPHI)\Source\frp\source
 [HistoryLists\hlOutputDirectorry]
-Count=5
-Item0=c:\temp
-Item1=C:\Users\juryg\Dropbox\AG\AgLight
-Item2=C:\Users\juryger\Dropbox\AG\AgLight
-Item3=C:\Users\IEUser\Dropbox\AG\AgLight
-Item4=D:\!DropBoxSync\Dropbox\AG\AgLight
+Count=6
+Item0=c:\temp\AG
+Item1=c:\temp
+Item2=C:\Users\juryg\Dropbox\AG\AgLight
+Item3=C:\Users\juryger\Dropbox\AG\AgLight
+Item4=C:\Users\IEUser\Dropbox\AG\AgLight
+Item5=D:\!DropBoxSync\Dropbox\AG\AgLight

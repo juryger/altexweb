@@ -946,7 +946,7 @@ object PriceForm: TPriceForm
           Top = 2
           Width = 95
           Height = 21
-          Hint = #211#228#224#235#232#242#252' '#226#251#225#240#224#237#237#243#254' '#239#238#228#227#240#243#239#239#243
+          Hint = 'Oaaeeou aua?aiio? iiaa?oiio'
           Caption = 'Udalit'#39
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clRed
@@ -1122,8 +1122,14 @@ object PriceForm: TPriceForm
           EditButtons = <>
           FieldName = 'PACK_NUM'
           Footers = <>
-          Title.Caption = 'Upakovka'
+          Title.Caption = #1059#1087#1072#1082'.'
           Width = 57
+        end
+        item
+          EditButtons = <>
+          FieldName = 'MIN_PACK'
+          Footers = <>
+          Title.Caption = #1052#1080#1085'. '#1059#1087#1072#1082'.'
         end
         item
           EditButtons = <>
@@ -1497,7 +1503,7 @@ object PriceForm: TPriceForm
       Top = 2
       Width = 95
       Height = 21
-      Hint = #194#251#227#240#243#231#234#224' '#239#240#224#233#241#224' '#226' Excel'
+      Hint = 'Aua?ocea i?aena a Excel'
       Caption = 'Excel'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clPurple
@@ -1529,15 +1535,15 @@ object PriceForm: TPriceForm
     Left = 257
     Top = 96
     object popupItemViewPicture: TMenuItem
-      Caption = #207#240#238#241#236#238#242#240' '#232#231#238#225#240#224#230#229#237#232#255' (F3)'
+      Caption = 'I?iniio? ecia?a?aiey (F3)'
       OnClick = popupItemViewPictureClick
     end
     object popupItemSetPicture: TMenuItem
-      Caption = #211#241#242#224#237#238#226#232#242#252' '#232#231#238#225#240#224#230#229#237#232#229' (F3)'
+      Caption = 'Onoaiiaeou ecia?a?aiea (F3)'
       OnClick = popupItemSetPictureClick
     end
     object popupItemClearPicture: TMenuItem
-      Caption = #211#228#224#235#232#242#252' '#232#231#238#225#240#224#230#229#237#232#229' (F8)'
+      Caption = 'Oaaeeou ecia?a?aiea (F8)'
       OnClick = popupItemClearPictureClick
     end
     object N1: TMenuItem
@@ -1545,7 +1551,7 @@ object PriceForm: TPriceForm
       GroupIndex = 1
     end
     object popupItemStore: TMenuItem
-      Caption = #207#229#240#229#233#242#232' '#237#224' '#241#234#235#224#228' (F10)'
+      Caption = 'Ia?aeoe ia neeaa (F10)'
       GroupIndex = 1
       OnClick = popupItemStoreClick
     end

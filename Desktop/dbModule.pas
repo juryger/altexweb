@@ -116,12 +116,7 @@ type
     TGDS_SGRPID_GDS_GRP: TIntegerField;
     QPriceExcelID_GDS_DTL: TIntegerField;
     QPriceExceldtl_description: TStringField;
-    QPriceID_GDS_DTL: TIntegerField;
-    QPriceIMAGE: TGraphicField;
-    QPricedtl_description: TStringField;
-    QPricesgrp_description: TStringField;
     TGDS_DTLPACK_NUM: TIntegerField;
-    QPricePACK_NUM: TIntegerField;
     QPriceExcelPACK_NUM: TIntegerField;
     QPriceExcelsgrp_description: TStringField;
     TSTR: TTable;
@@ -197,9 +192,6 @@ type
     TDiscountsPROFIT_PERCENTAGE: TFloatField;
     TDiscountsSTART_SUMM: TCurrencyField;
     DDiscounts: TDataSource;
-    QPriceCOST_WHS1: TCurrencyField;
-    QPriceCOST_WHS2: TCurrencyField;
-    QPriceCOST_WHS3: TCurrencyField;
     TINFOrderCounter: TIntegerField;
     TSLS_GRPOrderNo: TIntegerField;
     TGoods4Orders: TTable;
@@ -239,6 +231,17 @@ type
     QPriceExcelCOST_WHS3: TCurrencyField;
     TSLS_DTLTitle: TStringField;
     TSLS_GRPCashlessPayment: TIntegerField;
+    TGDS_DTLMIN_PACK: TIntegerField;
+    QPriceID_GDS_DTL: TIntegerField;
+    QPriceIMAGE: TGraphicField;
+    QPricedtl_description: TStringField;
+    QPriceCOST_WHS1: TCurrencyField;
+    QPriceCOST_WHS2: TCurrencyField;
+    QPriceCOST_WHS3: TCurrencyField;
+    QPricePACK_NUM: TIntegerField;
+    QPriceMIN_PACK: TIntegerField;
+    QPricesgrp_description: TStringField;
+    QGoodsWebMIN_PACK: TIntegerField;
     procedure DataModuleCreate(Sender: TObject);
     procedure DataModuleDestroy(Sender: TObject);
     procedure TGDS_DTLBeforePost(DataSet: TDataSet);
@@ -470,6 +473,7 @@ procedure TDBmod.frReport1UserFunction(const Name: String; p1, p2,
 var
    i: integer;
    sum: real;
+   result: string;
 begin
    sum := 0;
    if AnsiCompareText('Пропись', Name) = 0 then
@@ -505,25 +509,37 @@ begin
    begin
       // определение величины накрутки для цены Опт1
       if (TDiscounts.Locate('ID_COST_DCT',1,[])) then
-         Val := Format('%m', [TDiscounts.FieldByName('START_SUMM').AsFloat])
+      begin
+        result := Format('%m', [TDiscounts.FieldByName('START_SUMM').AsFloat]);
+        result := Copy(result, 1, LastDelimiter(' ', result) - 1) + ' руб.';
+        Val := result;
+      end
       else
-         Val := '30 000,00р.';
+        Val := '30 тыс. руб';
    end
    else if AnsiCompareText('Опт2', Name) = 0 then
    begin
       // определение величины накрутки для цены Опт2
       if (TDiscounts.Locate('ID_COST_DCT',2,[])) then
-         Val := Format('%m', [TDiscounts.FieldByName('START_SUMM').AsFloat])
+      begin
+        result := Format('%m', [TDiscounts.FieldByName('START_SUMM').AsFloat]);
+        result := Copy(result, 1, LastDelimiter(' ', result) - 1) + ' руб.';
+        Val := result;
+      end
       else
-         Val := '70 000,00р.';
+        Val := '50 тыс. руб.';
    end
    else if AnsiCompareText('Опт3', Name) = 0 then
    begin
       // определение величины накрутки для цены Опт3
       if (TDiscounts.Locate('ID_COST_DCT',3,[])) then
-         Val := Format('%m', [TDiscounts.FieldByName('START_SUMM').AsFloat])
+      begin
+        result := Format('%m', [TDiscounts.FieldByName('START_SUMM').AsFloat]);
+        result := Copy(result, 1, LastDelimiter(' ', result) - 1) + ' руб.';
+        Val := result;
+      end
       else
-         Val := '100 000,00р.';
+        Val := '100 тыс. руб.';
    end
 end;
 

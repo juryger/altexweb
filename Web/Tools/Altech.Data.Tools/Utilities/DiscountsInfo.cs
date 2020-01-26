@@ -16,10 +16,25 @@ namespace Altech.DAL.Utilities
                 throw new ArgumentNullException("discounts");
 
             var sb = new StringBuilder();
-            foreach (var item in discounts)
+
+            int counter = 0;
+
+            var sortedDiscounts = discounts.OrderBy(x => x.StartSumm);
+            foreach (var item in sortedDiscounts)
             {
+                counter += 1;
+
+                // Note: first discount is just normal price
+                if (counter == 1)
+                    continue;
+
                 var cost = item.StartSumm.ToString("C", CultureInfo.CreateSpecificCulture("ru-RU"));
-                sb.Append(String.Format(" Опт{0} - от {1} |", item.ID, cost.Substring(0, cost.Length - 1)));
+
+                // Note: last discount should be represent as Special price, not visible for public.
+                if (counter < sortedDiscounts.Count())
+                    sb.Append(string.Format(" Опт - от {0} |", cost.Substring(0, cost.Length - 1)));
+                else 
+                    sb.Append(string.Format(" Спеццена - от {0}", cost.Substring(0, cost.Length - 1)));
             }
 
             return sb.Length > 0 ? sb.ToString().Substring(0, sb.Length - 1).Trim() : "Информация о скидках в настоящий момент не доступна.";

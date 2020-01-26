@@ -1282,9 +1282,10 @@ begin
 	         	goodsItem.SetAttributeNS('title', '', DBmod.QGoodsWebDESCRIPTION.Value);
 	            goodsItem.SetAttributeNS('mu', '', DBmod.QGoodsWebMeasureUnits.Value);
 	            goodsItem.SetAttributeNS('pack', '', DBmod.QGoodsWebPACK_NUM.Value);
-	            goodsItem.SetAttributeNS('costWhs1', '', DBmod.QGoodsWebCOST_WHS1.Value);
-               goodsItem.SetAttributeNS('costWhs2', '', DBmod.QGoodsWebCOST_WHS2.Value);
-               goodsItem.SetAttributeNS('costWhs3', '', DBmod.QGoodsWebCOST_WHS3.Value);
+              goodsItem.SetAttributeNS('pack_min', '', DBmod.QGoodsWebMIN_PACK.Value);
+	            goodsItem.SetAttributeNS('cost_whs1', '', DBmod.QGoodsWebCOST_WHS1.Value);
+               goodsItem.SetAttributeNS('cost_whs2', '', DBmod.QGoodsWebCOST_WHS2.Value);
+               goodsItem.SetAttributeNS('cost_whs3', '', DBmod.QGoodsWebCOST_WHS3.Value);
 	         	goodsItem.SetAttributeNS('img', '', DBmod.QGoodsWebID_GDS_DTL.AsString + '.jpg');
 	            goodsItem.SetAttributeNS('deleted', '', deleted);
 

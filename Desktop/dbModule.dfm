@@ -2,10 +2,10 @@ object DBmod: TDBmod
   OldCreateOrder = False
   OnCreate = DataModuleCreate
   OnDestroy = DataModuleDestroy
-  Left = 636
+  Left = 380
   Top = 236
-  Height = 700
-  Width = 940
+  Height = 725
+  Width = 1192
   object TGDS_GRP: TTable
     BeforeInsert = TGDS_GRPBeforeInsert
     BeforeEdit = TGDS_GRPBeforeEdit
@@ -155,6 +155,10 @@ object DBmod: TDBmod
       item
         Name = 'IMAGE_SET'
         DataType = ftInteger
+      end
+      item
+        Name = 'MIN_PACK'
+        DataType = ftInteger
       end>
     IndexDefs = <
       item
@@ -171,16 +175,6 @@ object DBmod: TDBmod
         Name = 'description_asc'
         Fields = 'DESCRIPTION'
         Options = [ixCaseInsensitive]
-      end
-      item
-        Name = 'id_gds_dtl_asc'
-        Fields = 'ID_GDS_DTL'
-        Options = [ixCaseInsensitive]
-      end
-      item
-        Name = 'id_gds_dtl_desc'
-        Fields = 'ID_GDS_DTL'
-        Options = [ixDescending, ixCaseInsensitive]
       end>
     IndexFieldNames = 'DESCRIPTION'
     StoreDefs = True
@@ -279,6 +273,9 @@ object DBmod: TDBmod
     object TGDS_DTLIMAGE_SET: TIntegerField
       FieldName = 'IMAGE_SET'
     end
+    object TGDS_DTLMIN_PACK: TIntegerField
+      FieldName = 'MIN_PACK'
+    end
   end
   object DGDS_DTL: TDataSource
     DataSet = TGDS_DTL
@@ -309,8 +306,8 @@ object DBmod: TDBmod
         'SELECT Goods_detail.ID_GDS_DTL, Goods_detail.IMAGE, Goods_detail' +
         '.DESCRIPTION as dtl_description, Goods_detail.COST_WHS1, Goods_d' +
         'etail.COST_WHS2, Goods_detail.COST_WHS3, Goods_detail.PACK_NUM, ' +
-        'Goods_group.DESCRIPTION + " > " + Goods_subgroup.DESCRIPTION as ' +
-        'sgrp_description'
+        'Goods_detail.MIN_PACK, Goods_group.DESCRIPTION + " > " + Goods_s' +
+        'ubgroup.DESCRIPTION as sgrp_description'
       'FROM "Goods_detail.DB" Goods_detail'
       '   INNER JOIN "Goods_subgroup.db" Goods_subgroup'
       '   ON  (Goods_subgroup.ID_GDS_SGRP = Goods_detail.ID_GDS_SGRP)'
@@ -330,7 +327,7 @@ object DBmod: TDBmod
     end
     object QPricesgrp_description: TStringField
       FieldName = 'sgrp_description'
-      Size = 30
+      Size = 63
     end
     object QPricedtl_description: TStringField
       FieldName = 'dtl_description'
@@ -342,6 +339,9 @@ object DBmod: TDBmod
     end
     object QPricePACK_NUM: TIntegerField
       FieldName = 'PACK_NUM'
+    end
+    object QPriceMIN_PACK: TIntegerField
+      FieldName = 'MIN_PACK'
     end
     object QPriceCOST_WHS1: TCurrencyField
       FieldName = 'COST_WHS1'
@@ -535,7 +535,6 @@ object DBmod: TDBmod
   object TSLS_DTL: TTable
     BeforePost = TSLS_DTLBeforePost
     DatabaseName = 'AGCompound'
-    IndexName = 'ind_gds_id'
     TableName = 'Sales_detail.DB'
     Left = 400
     Top = 9
@@ -1177,8 +1176,8 @@ object DBmod: TDBmod
         'SELECT Goods_detail.ID_GDS_DTL, Goods_detail.ID_GDS_SGRP, Goods_' +
         'detail.DESCRIPTION, OkeyCodes.Name MeasureUnits, Goods_detail.CO' +
         'ST_WHS1, Goods_detail.COST_WHS2, Goods_detail.COST_WHS3, Goods_d' +
-        'etail.IMAGE, Goods_detail.PACK_NUM, Goods_detail.DEL, Goods_deta' +
-        'il.IMAGE_SET'
+        'etail.IMAGE, Goods_detail.PACK_NUM, Goods_detail.MIN_PACK, Goods' +
+        '_detail.DEL, Goods_detail.IMAGE_SET'
       'FROM "Goods_detail.DB" Goods_detail'
       '   INNER JOIN "OkeyCodes.db" OkeyCodes'
       '   ON  (Goods_detail.ID_OKEY = OkeyCodes.ID_OKEY)'
@@ -1221,6 +1220,10 @@ object DBmod: TDBmod
     object QGoodsWebPACK_NUM: TIntegerField
       FieldName = 'PACK_NUM'
       Origin = 'AGCOMPOUND."Goods_detail.DB".PACK_NUM'
+    end
+    object QGoodsWebMIN_PACK: TIntegerField
+      FieldName = 'MIN_PACK'
+      Origin = 'AGCOMPOUND."Goods_detail.DB".MIN_PACK'
     end
     object QGoodsWebDEL: TIntegerField
       FieldName = 'DEL'

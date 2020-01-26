@@ -16,9 +16,10 @@
             <br />
             Артикул:&nbsp;<strong>@ViewBag.MerchandiseId</strong>
             <br />
-            Упаковка:&nbsp;@ViewBag.Pack&nbsp;@ViewBag.UnitMeasure
+            Упаковка:&nbsp;@ViewBag.Pack<span>/</span>@ViewBag.PackMin&nbsp;@ViewBag.UnitMeasure
             <br />
-            <u>Опт1:</u>&nbsp;@ViewBag.CostWhs1<span class="rouble">e</span>&nbsp;|&nbsp;<u>Отп2:</u>&nbsp;@ViewBag.CostWhs2<span class="rouble">e</span>&nbsp;|&nbsp;<u>Отп3:</u>&nbsp;@ViewBag.CostWhs3<span class="rouble">e</span>
+            <u>Цена:</u>&nbsp;@ViewBag.CostWhs1<span class="rouble">e</span>&nbsp;|&nbsp;<u>Опт:</u>&nbsp;@ViewBag.CostWhs2<span class="rouble">e</span>
+            @*&nbsp;|&nbsp;<u>Опт3:</u>&nbsp;@ViewBag.CostWhs3<span class="rouble">e</span>*@
             <br />
             <input type="hidden" id="merchandise-id" name="merchandiseId" value="@ViewBag.MerchandiseId" />
             Количество&nbsp;<input type="text" id="order-amount" name="orderAmount" value="@ViewBag.OrderQuantity" />

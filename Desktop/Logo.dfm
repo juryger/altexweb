@@ -3,7 +3,7 @@ object LogoForm: TLogoForm
   Top = 405
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
-  Caption = 'Navigatsia'
+  Caption = #1053#1072#1074#1080#1075#1072#1094#1080#1103
   ClientHeight = 150
   ClientWidth = 141
   Color = 12615680
@@ -166,7 +166,7 @@ object LogoForm: TLogoForm
       Height = 15
       Alignment = taLeftJustify
       BevelOuter = bvNone
-      Caption = 'Navigatsia'
+      Caption = #1053#1072#1074#1080#1075#1072#1094#1080#1103
       Color = clWhite
       Font.Charset = RUSSIAN_CHARSET
       Font.Color = clBlue
@@ -184,7 +184,7 @@ object LogoForm: TLogoForm
       Height = 15
       Cursor = crHandPoint
       BevelOuter = bvNone
-      Caption = 'Price-list'
+      Caption = #1055#1088#1072#1081#1089'-'#1083#1080#1089#1090
       Color = 8454143
       Font.Charset = RUSSIAN_CHARSET
       Font.Color = clGreen
@@ -203,7 +203,7 @@ object LogoForm: TLogoForm
       Height = 15
       Cursor = crHandPoint
       BevelOuter = bvNone
-      Caption = 'Zakazi'
+      Caption = #1047#1072#1082#1072#1079#1099
       Color = 8454143
       Font.Charset = RUSSIAN_CHARSET
       Font.Color = clGreen
@@ -222,8 +222,9 @@ object LogoForm: TLogoForm
       Height = 15
       Cursor = crHandPoint
       BevelOuter = bvNone
-      Caption = 'Uchet'
+      Caption = #1059#1095#1077#1090
       Color = 8454143
+      Enabled = False
       Font.Charset = RUSSIAN_CHARSET
       Font.Color = clGreen
       Font.Height = -13
@@ -241,8 +242,9 @@ object LogoForm: TLogoForm
       Height = 15
       Cursor = crHandPoint
       BevelOuter = bvNone
-      Caption = 'Sklad'
+      Caption = #1057#1082#1083#1072#1076
       Color = 8454143
+      Enabled = False
       Font.Charset = RUSSIAN_CHARSET
       Font.Color = clGreen
       Font.Height = -13
@@ -259,7 +261,7 @@ object LogoForm: TLogoForm
       Height = 15
       Cursor = crHandPoint
       BevelOuter = bvNone
-      Caption = 'Rekviziti'
+      Caption = #1056#1077#1082#1074#1080#1079#1080#1090#1099
       Color = 8454143
       Font.Charset = RUSSIAN_CHARSET
       Font.Color = clGreen

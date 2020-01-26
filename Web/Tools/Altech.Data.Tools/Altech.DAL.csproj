@@ -81,21 +81,9 @@
     <Compile Include="Migrations\201410161017233_MerchandiseTitleIndex.Designer.cs">
       <DependentUpon>201410161017233_MerchandiseTitleIndex.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201504221221073_CommulativeChanges.cs" />
-    <Compile Include="Migrations\201504221221073_CommulativeChanges.Designer.cs">
-      <DependentUpon>201504221221073_CommulativeChanges.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\201504221526438_DiscountsAndCosts.cs" />
     <Compile Include="Migrations\201504221526438_DiscountsAndCosts.Designer.cs">
       <DependentUpon>201504221526438_DiscountsAndCosts.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201504221608438_MerchandisesCostWhsN.cs" />
-    <Compile Include="Migrations\201504221608438_MerchandisesCostWhsN.Designer.cs">
-      <DependentUpon>201504221608438_MerchandisesCostWhsN.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201504271712494_SeparateProjectEntities.cs" />
-    <Compile Include="Migrations\201504271712494_SeparateProjectEntities.Designer.cs">
-      <DependentUpon>201504271712494_SeparateProjectEntities.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\201504271718159_SeparateProjectEntities_Prod.cs" />
     <Compile Include="Migrations\201504271718159_SeparateProjectEntities_Prod.Designer.cs">
@@ -135,17 +123,8 @@
     <EmbeddedResource Include="Migrations\201410161017233_MerchandiseTitleIndex.resx">
       <DependentUpon>201410161017233_MerchandiseTitleIndex.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201504221221073_CommulativeChanges.resx">
-      <DependentUpon>201504221221073_CommulativeChanges.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201504221526438_DiscountsAndCosts.resx">
       <DependentUpon>201504221526438_DiscountsAndCosts.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201504221608438_MerchandisesCostWhsN.resx">
-      <DependentUpon>201504221608438_MerchandisesCostWhsN.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201504271712494_SeparateProjectEntities.resx">
-      <DependentUpon>201504271712494_SeparateProjectEntities.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201504271718159_SeparateProjectEntities_Prod.resx">
       <DependentUpon>201504271718159_SeparateProjectEntities_Prod.cs</DependentUpon>

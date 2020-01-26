@@ -22,6 +22,9 @@ namespace Altech.Core.Models
         // количество товара в упаковке
         public int Pack { get; set; }
 
+        // Минимальное количество товара в упаковке для заказа
+        public int PackMin { get; set; }
+
         // оптовая стоимость товара с учетом скидки 1
         public double CostWhs1 { get; set; }
 

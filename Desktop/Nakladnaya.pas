@@ -618,8 +618,8 @@ begin
    end;
 
    // обновление БД
-   if DBmod.TCST.Locate('Guid', customerGuid, [loPartialKey,loCaseInsensitive]) = True OR
-      DBmod.TCST.Locate('Company', company, [loPartialKey,loCaseInsensitive]) = True OR
+   // DBmod.TCST.Locate('Guid', customerGuid, [loPartialKey,loCaseInsensitive]) = True OR - not used at the moment
+   if DBmod.TCST.Locate('Company', company, [loPartialKey,loCaseInsensitive]) = True OR
       DBmod.TCST.Locate('INN', inn, [loPartialKey,loCaseInsensitive]) = True then
    begin
       DBmod.TCST.Edit;
