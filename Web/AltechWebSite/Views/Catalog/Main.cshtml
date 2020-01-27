@@ -233,7 +233,7 @@
                 @if (item.Subgroups != null && item.Subgroups.Count > 0)
                 {
                     <ul>
-                        @foreach (var sgItem in item.Subgroups.OrderBy(s => s.Title))
+                        @foreach (var sgItem in item.Subgroups.Where(sg => !sg.IsDeleted).OrderBy(s => s.Title))
                         {
                             <li data-jstree='{ "icon":"jstree-file" }' id="S-@sgItem.ID" class="subgroup">
                                 <a href="@ViewBag.CatalogPageUrl/@item.ID/@sgItem.ID?sortField=@ViewBag.SortField&sortOrder=@ViewBag.SortOrder&page=1">@sgItem.Title</a>

@@ -4,6 +4,7 @@ using Altech.DAL.Interfaces;
 using Altech.DAL.Utilities;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -52,7 +53,13 @@ namespace Altech.DAL
 
         public IEnumerable<Group> Groups
         {
-            get { return this.db.Groups.Where(g => !g.IsDeleted).ToList(); }
+            get 
+            { 
+                return this.db.Groups
+                    .Include(g => g.Subgroups)
+                    .Where(g => !g.IsDeleted)
+                    .ToList(); 
+            }
         }
 
         public void ClarifyGroupAndSubgroupIDs(int merchandiseId, out int groupId, out int subgroupId)
