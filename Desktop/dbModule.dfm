@@ -167,16 +167,10 @@ object DBmod: TDBmod
         Options = [ixPrimary, ixUnique]
       end
       item
-        Name = 'description_desc'
-        Fields = 'DESCRIPTION'
-        Options = [ixDescending, ixCaseInsensitive]
-      end
-      item
         Name = 'description_asc'
-        Fields = 'DESCRIPTION'
+        Fields = 'Description'
         Options = [ixCaseInsensitive]
       end>
-    IndexFieldNames = 'DESCRIPTION'
     StoreDefs = True
     TableName = 'Goods_detail.db'
     Left = 164

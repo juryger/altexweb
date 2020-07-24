@@ -1022,10 +1022,10 @@ begin
 
    for i:=0 to DBGridEh1.Columns.Count - 1  do begin
       // колонка Цена доступна для редактирования всегда
-      if (i = 6) then
+      if (i = 7) then
          DBGridEh1.Columns.Items[i].ReadOnly := false
       // колонки Группа/Подгруппа видны только когда выбрана группа '*'
-      else if (i = 10) OR (i = 11) then
+      else if (i = 11) OR (i = 12) then
          DBGridEh1.Columns.Items[i].Visible := flag
       else
          DBGridEh1.Columns.Items[i].ReadOnly := flag;

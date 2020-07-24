@@ -1,6 +1,6 @@
 object NaklForm: TNaklForm
-  Left = 272
-  Top = 206
+  Left = 759
+  Top = 322
   Width = 1024
   Height = 540
   Caption = 'Zakazi'
