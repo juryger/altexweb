@@ -1,0 +1,17 @@
+Microsoft Visual Studio Solution File, Format Version 8.00
+Project("{8BC9CEB9-8B4A-11D0-8D11-00A0C91BC942}") = "agProject.exe", "agProject.exe", "{4D21CBA8-D359-4EB9-AF9F-C7758979C13C}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfiguration) = preSolution
+		Debug = Debug
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{4D21CBA8-D359-4EB9-AF9F-C7758979C13C}.Debug.ActiveCfg = Debug
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal

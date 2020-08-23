@@ -1,0 +1,20 @@
+<Settings>
+	<host name="alex-pc">
+		<item name="TempDir" value="d:\Temp" />
+		<!-- All, InvoiceOnly, StoreOnly -->
+		<item name="AppFeautres" value="All"/>
+		<item name="ShowDeletedRecords" value="false" />
+	</host>
+	<host name="juryger-pc">
+		<item name="TempDir" value="C:\Temp" />
+		<!-- All, InvoiceOnly, StoreOnly -->
+		<item name="AppFeautres" value="All"/>
+		<item name="ShowDeletedRecords" value="false" />
+	</host>
+	<host name="LAPTOP-F1UUD94J">
+		<item name="TempDir" value="C:\Temp" />
+		<!-- All, InvoiceOnly, StoreOnly -->
+		<item name="AppFeautres" value="All"/>
+		<item name="ShowDeletedRecords" value="false" />
+	</host>
+</Settings>
