@@ -1238,19 +1238,20 @@ end;
 
 procedure TPriceForm.uploadWebButtonClick(Sender: TObject);
 var
-  	Xml: IXMLDocument;
-  	root, groupItem, subGroupItem, goodsItem, discounts: IXMLNode;
-  	i, j, k: integer;
-  	deleted: boolean;
-  	tempDir, exportDir, cloudUploaderExePath: string;
-  	exportDate: TDateTime;
-  	y, m, d, h, min, s, ms : Word;
-  	uniqueExportName: string;
-  	blobStream: TBlobStream;
-   errorCode: DWord;
-   groupIds4Update, subgroupIds4Update, goodIds4Update: String;
-   groups4Update, subgroups4Update, goods4Update: TStringList;
-   counter: integer;
+    Xml: IXMLDocument;
+    root, groupItem, subGroupItem, goodsItem, discounts: IXMLNode;
+    i, j, k: integer;
+    deleted: boolean;
+    tempDir, exportDir, cloudUploaderExePath: string;
+    exportDate: TDateTime;
+    y, m, d, h, min, s, ms : Word;
+    uniqueExportName: string;
+    blobStream: TBlobStream;
+    errorCode: DWord;
+    groupIds4Update, subgroupIds4Update, goodIds4Update: String;
+    groups4Update, subgroups4Update, goods4Update: TStringList;
+    counter: integer;
+    srcImageFile, dstImageFile: string;
 begin
     { Необходимо учесть:
       При обновлении подгруппы должен быть снят флаг Uploaded в таблице Групп.
@@ -1351,9 +1352,9 @@ begin
                     // save picture to file
                     if DBmod.QGoodsWebIMAGE_SET.Value = 1 then
                     begin
-                        CopyFile('..\images\' + DBmod.QGoodsWebID_GDS_DTL.AsString + '.jpg',
-                            exportDir + '\' + DBmod.QGoodsWebID_GDS_DTL.AsString + '.jpg',
-                            true);
+                        srcImageFile := '..\images\' + DBmod.QGoodsWebID_GDS_DTL.AsString + '.jpg';
+                        dstImageFile := exportDir + '\' + DBmod.QGoodsWebID_GDS_DTL.AsString + '.jpg';
+                        CopyFile(PChar(srcImageFile), PChar(dstImageFile), true);
                         //blobStream :=DBmod.QGoodsWeb.CreateBlobStream(
                         //    DBmod.QGoodsWeb.FieldByName('IMAGE'), bmRead) as TBlobStream;
                         //ExportImageToFile(exportDir + '\' + DBmod.QGoodsWebID_GDS_DTL.AsString + '.jpg', blobStream, true);

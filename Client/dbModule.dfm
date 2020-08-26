@@ -358,77 +358,7 @@ object DBmod: TDBmod
     AfterPost = TCSTAfterPost
     AfterCancel = TCSTAfterCancel
     DatabaseName = 'AGCompound'
-    FieldDefs = <
-      item
-        Name = 'ID_CST'
-        Attributes = [faReadonly]
-        DataType = ftAutoInc
-      end
-      item
-        Name = 'Company'
-        DataType = ftString
-        Size = 50
-      end
-      item
-        Name = 'ContactName'
-        DataType = ftString
-        Size = 50
-      end
-      item
-        Name = 'INN'
-        DataType = ftString
-        Size = 30
-      end
-      item
-        Name = 'Address'
-        DataType = ftString
-        Size = 100
-      end
-      item
-        Name = 'Del'
-        DataType = ftInteger
-      end
-      item
-        Name = 'Opt'
-        DataType = ftInteger
-      end
-      item
-        Name = 'Phone'
-        DataType = ftString
-        Size = 100
-      end
-      item
-        Name = 'Email'
-        DataType = ftString
-        Size = 50
-      end
-      item
-        Name = 'Guid'
-        DataType = ftString
-        Size = 36
-      end
-      item
-        Name = 'ID_COST_DCT'
-        DataType = ftInteger
-      end>
-    IndexDefs = <
-      item
-        Name = 'TCSTIndex1'
-        Fields = 'ID_CST'
-        Options = [ixPrimary, ixUnique]
-      end
-      item
-        Name = 'company_desc'
-        Fields = 'Company'
-        Options = [ixDescending, ixCaseInsensitive]
-      end
-      item
-        Name = 'company_asc'
-        Fields = 'Company'
-        Options = [ixCaseInsensitive]
-      end>
     IndexFieldNames = 'Company'
-    StoreDefs = True
     TableName = 'Customers.db'
     Left = 282
     Top = 9

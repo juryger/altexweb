@@ -762,9 +762,9 @@ begin
         sFilter := Copy(sFilter, 1, Length(sFilter)  - 4);
       end;
 
-      DBmod.TCST.Filtered := False;
+      DBmod.TCST.Filtered := false;
       DBmod.TCST.Filter := sFilter;
-      DBmod.TCST.Filtered := True;
+      DBmod.TCST.Filtered := true;
   end;
 end;
 
