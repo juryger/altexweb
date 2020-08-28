@@ -21,7 +21,7 @@ object PriceForm: TPriceForm
   TextHeight = 13
   object Splitter2: TSplitter
     Left = 0
-    Top = 374
+    Top = 223
     Width = 1008
     Height = 3
     Cursor = crVSplit
@@ -29,23 +29,23 @@ object PriceForm: TPriceForm
   end
   object goodsCategoriesPanel: TPanel
     Left = 0
-    Top = 24
+    Top = 23
     Width = 1008
-    Height = 350
+    Height = 200
     Align = alTop
     BevelInner = bvRaised
     BevelOuter = bvLowered
     TabOrder = 0
     object Splitter1: TSplitter
-      Left = 313
+      Left = 292
       Top = 2
-      Height = 346
+      Height = 196
     end
     object groupsMainPanel: TPanel
       Left = 2
       Top = 2
-      Width = 311
-      Height = 346
+      Width = 290
+      Height = 196
       Align = alLeft
       BevelInner = bvRaised
       BevelOuter = bvLowered
@@ -53,15 +53,15 @@ object PriceForm: TPriceForm
       object gControlsPanel: TPanel
         Left = 2
         Top = 2
-        Width = 307
-        Height = 24
+        Width = 286
+        Height = 23
         Align = alTop
         BevelInner = bvRaised
         BevelOuter = bvLowered
         TabOrder = 0
         object addGroupButton: TSpeedButton
           Left = 1
-          Top = 2
+          Top = 1
           Width = 95
           Height = 21
           Hint = #1057#1086#1079#1076#1072#1090#1100' '#1085#1086#1074#1091#1102' '#1075#1088#1091#1087#1087#1091
@@ -86,7 +86,7 @@ object PriceForm: TPriceForm
         end
         object deleteGroupButton: TSpeedButton
           Left = 95
-          Top = 2
+          Top = 1
           Width = 95
           Height = 21
           Hint = #1059#1076#1072#1083#1080#1090#1100' '#1074#1099#1073#1088#1072#1085#1085#1091#1102' '#1075#1088#1091#1087#1087#1091
@@ -118,9 +118,9 @@ object PriceForm: TPriceForm
       end
       object DBGridEh2: TDBGridEh
         Left = 2
-        Top = 26
-        Width = 307
-        Height = 318
+        Top = 25
+        Width = 286
+        Height = 169
         Align = alClient
         AllowedOperations = [alopUpdateEh]
         DataSource = DBmod.DGDS_GRP
@@ -156,10 +156,10 @@ object PriceForm: TPriceForm
       end
     end
     object subgroupsMainPanel: TPanel
-      Left = 316
+      Left = 295
       Top = 2
       Width = 340
-      Height = 346
+      Height = 196
       Align = alLeft
       BevelInner = bvRaised
       BevelOuter = bvLowered
@@ -168,14 +168,14 @@ object PriceForm: TPriceForm
         Left = 2
         Top = 2
         Width = 336
-        Height = 24
+        Height = 23
         Align = alTop
         BevelInner = bvRaised
         BevelOuter = bvLowered
         TabOrder = 0
         object addSubgroupButton: TSpeedButton
           Left = 1
-          Top = 2
+          Top = 1
           Width = 95
           Height = 21
           Hint = #1057#1086#1079#1076#1072#1090#1100' '#1085#1086#1074#1091#1102' '#1087#1086#1076#1075#1088#1091#1087#1087#1091
@@ -200,7 +200,7 @@ object PriceForm: TPriceForm
         end
         object deleteSubgroupButton: TSpeedButton
           Left = 95
-          Top = 2
+          Top = 1
           Width = 95
           Height = 21
           Hint = #1059#1076#1072#1083#1080#1090#1100' '#1074#1099#1073#1088#1072#1085#1085#1091#1102' '#1087#1086#1076#1075#1088#1091#1087#1087#1091
@@ -232,9 +232,9 @@ object PriceForm: TPriceForm
       end
       object DBGridEh3: TDBGridEh
         Left = 2
-        Top = 26
+        Top = 25
         Width = 336
-        Height = 318
+        Height = 169
         Align = alClient
         AllowedOperations = [alopUpdateEh]
         DataSource = DBmod.DGDS_SGRP
@@ -274,18 +274,18 @@ object PriceForm: TPriceForm
   end
   object goodsMainPanel: TPanel
     Left = 0
-    Top = 377
+    Top = 226
     Width = 1008
-    Height = 293
+    Height = 444
     Align = alClient
     BevelInner = bvRaised
     BevelOuter = bvLowered
     TabOrder = 1
     object DBGridEh1: TDBGridEh
       Left = 2
-      Top = 50
+      Top = 48
       Width = 1004
-      Height = 241
+      Height = 394
       Align = alClient
       AllowedOperations = [alopUpdateEh]
       DataSource = DBmod.DGDS_DTL
@@ -299,7 +299,6 @@ object PriceForm: TPriceForm
       FrozenCols = 3
       Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgMultiSelect]
       OptionsEh = [dghFixed3D, dghHighlightFocus, dghClearSelection, dghAutoSortMarking]
-      SortLocal = True
       TabOrder = 0
       TitleFont.Charset = DEFAULT_CHARSET
       TitleFont.Color = clWindowText
@@ -352,7 +351,6 @@ object PriceForm: TPriceForm
           Footers = <>
           PopupMenu = subGroupsPopupMenu
           Title.Caption = #1050#1086#1076
-          Title.TitleButton = True
         end
         item
           EditButtons = <>
@@ -364,7 +362,6 @@ object PriceForm: TPriceForm
           Title.Font.Height = -11
           Title.Font.Name = 'MS Sans Serif'
           Title.Font.Style = []
-          Title.TitleButton = True
           Width = 308
         end
         item
@@ -531,6 +528,7 @@ object PriceForm: TPriceForm
         ParentFont = False
         ParentShowHint = False
         ShowHint = True
+        Visible = False
         OnClick = deleteBadBlobClick
       end
       object discountsButton: TSpeedButton
@@ -569,7 +567,7 @@ object PriceForm: TPriceForm
       Left = 2
       Top = 25
       Width = 1004
-      Height = 25
+      Height = 23
       Align = alTop
       BevelInner = bvRaised
       BevelOuter = bvLowered
@@ -616,8 +614,8 @@ object PriceForm: TPriceForm
         ParentFont = False
       end
       object resetSearchButton: TSpeedButton
-        Left = 501
-        Top = 2
+        Left = 477
+        Top = 1
         Width = 21
         Height = 21
         Hint = #1057#1073#1088#1086#1089#1080#1090#1100' '#1087#1086#1080#1089#1082
@@ -639,8 +637,8 @@ object PriceForm: TPriceForm
       end
       object DBEditEh1: TDBEditEh
         Left = 298
-        Top = 2
-        Width = 201
+        Top = 1
+        Width = 175
         Height = 19
         Alignment = taLeftJustify
         AlwaysShowBorder = True
@@ -654,7 +652,7 @@ object PriceForm: TPriceForm
       end
       object DBEditEh2: TDBEditEh
         Left = 118
-        Top = 2
+        Top = 1
         Width = 99
         Height = 19
         Alignment = taLeftJustify
@@ -672,14 +670,14 @@ object PriceForm: TPriceForm
     Left = 0
     Top = 0
     Width = 1008
-    Height = 24
+    Height = 23
     Align = alTop
     BevelInner = bvRaised
     BevelOuter = bvLowered
     TabOrder = 2
     object uploadWebButton: TSpeedButton
       Left = 0
-      Top = 2
+      Top = 1
       Width = 95
       Height = 21
       Hint = #1057#1080#1085#1093#1088#1086#1085#1080#1079#1080#1088#1086#1074#1072#1090#1100' '#1076#1072#1085#1085#1099#1077' '#1089' '#1074#1077#1073'-'#1089#1072#1081#1090#1086#1084' altexweb.ru'
@@ -710,7 +708,7 @@ object PriceForm: TPriceForm
     end
     object printButton: TSpeedButton
       Left = 94
-      Top = 2
+      Top = 1
       Width = 95
       Height = 21
       Hint = #1055#1077#1095#1072#1090#1100' '#1087#1088#1072#1081#1089'-'#1083#1080#1089#1090#1072
@@ -741,7 +739,7 @@ object PriceForm: TPriceForm
     end
     object previewButton: TSpeedButton
       Left = 188
-      Top = 2
+      Top = 1
       Width = 95
       Height = 21
       Hint = #1055#1088#1077#1076#1074#1072#1088#1080#1090#1077#1083#1100#1085#1099#1081' '#1087#1088#1086#1089#1084#1086#1090#1088' '#1087#1088#1072#1081#1089'-'#1083#1080#1089#1090#1072
@@ -772,7 +770,7 @@ object PriceForm: TPriceForm
     end
     object exportButton: TSpeedButton
       Left = 282
-      Top = 2
+      Top = 1
       Width = 95
       Height = 21
       Hint = #1069#1082#1089#1087#1086#1088#1090' '#1087#1088#1072#1081#1089'-'#1083#1080#1089#1090#1072' '#1074' '#1092#1086#1088#1084#1072#1090#1077' Excel'

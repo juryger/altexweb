@@ -4,7 +4,7 @@ interface
 
 uses
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
-  ExtCtrls, StdCtrls, Buttons, ComCtrls;
+  ExtCtrls, StdCtrls, Buttons, ComCtrls, jpeg;
 
 type
   TImageEditorForm = class(TForm)
@@ -81,7 +81,7 @@ begin
    // Load Transformed Image
    startSelectionPoint := Point(0, 0);
    endSelectionPoint := Point(imageSrc.Width, imageSrc.Height);
-   TransformedImage;
+   TransformedImage();
 
    imgImage.Picture.Bitmap.FreeImage;
    imgImage.Picture.Assign(nil);
@@ -110,7 +110,7 @@ procedure TImageEditorForm.LoadOriginalImage(img: TImage);
 var
    bitMapTemp: TBitmap;
 begin
-   if (img.Height >= img.Width) then begin
+   if (img.Height = img.Width) then begin
       imageSrc.Height := ConstSourceImageSize;
       imageSrc.Width := MulDiv(imageSrc.Height,  img.Width, img.Height);
    end
@@ -119,7 +119,7 @@ begin
       imageSrc.Height := MulDiv(imageSrc.Width,  img.Height, img.Width);
    end;
 
-   with ImageSrc.Canvas.Pen do begin
+   with imageSrc.Canvas.Pen do begin
       Style := psDot;
       Mode := pmXor;
    end;
@@ -268,10 +268,10 @@ procedure TImageEditorForm.imageSrcMouseMove(Sender: TObject;
 begin
    if drawing then
    begin
-      DrawRectangle;
+      DrawRectangle();
       endSelectionPoint.x := X;
       endSelectionPoint.y := Y;
-      DrawRectangle;
+      DrawRectangle();
    end;
 end;
 
@@ -281,12 +281,12 @@ begin
    if Button = mbLeft then
    begin
       drawing := false;
-      DrawRectangle;
+      DrawRectangle();
       TransformedImage;
    end;
 end;
 
-procedure TImageEditorForm.DrawRectangle;
+procedure TImageEditorForm.DrawRectangle();
 var
     p: array [0..4] of TPoint;
 begin

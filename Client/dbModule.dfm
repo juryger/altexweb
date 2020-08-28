@@ -85,93 +85,7 @@ object DBmod: TDBmod
     AfterDelete = TGDS_DTLAfterDelete
     OnCalcFields = TGDS_DTLCalcFields
     DatabaseName = 'AGCompound'
-    FieldDefs = <
-      item
-        Name = 'ID_GDS_DTL'
-        Attributes = [faReadonly]
-        DataType = ftAutoInc
-      end
-      item
-        Name = 'ID_GDS_SGRP'
-        DataType = ftInteger
-      end
-      item
-        Name = 'ID_OKEY'
-        DataType = ftInteger
-      end
-      item
-        Name = 'DESCRIPTION'
-        DataType = ftString
-        Size = 100
-      end
-      item
-        Name = 'COST_OPT'
-        DataType = ftCurrency
-      end
-      item
-        Name = 'COST_ROZ'
-        DataType = ftCurrency
-      end
-      item
-        Name = 'COST_ZAK'
-        DataType = ftCurrency
-      end
-      item
-        Name = 'WARE_NUM'
-        DataType = ftInteger
-      end
-      item
-        Name = 'IMAGE'
-        DataType = ftGraphic
-      end
-      item
-        Name = 'DEL'
-        DataType = ftInteger
-      end
-      item
-        Name = 'PACK_NUM'
-        DataType = ftInteger
-      end
-      item
-        Name = 'UPLOADED'
-        DataType = ftInteger
-      end
-      item
-        Name = 'COST_PURCH'
-        DataType = ftCurrency
-      end
-      item
-        Name = 'COST_WHS1'
-        DataType = ftCurrency
-      end
-      item
-        Name = 'COST_WHS2'
-        DataType = ftCurrency
-      end
-      item
-        Name = 'COST_WHS3'
-        DataType = ftCurrency
-      end
-      item
-        Name = 'IMAGE_SET'
-        DataType = ftInteger
-      end
-      item
-        Name = 'MIN_PACK'
-        DataType = ftInteger
-      end>
-    IndexDefs = <
-      item
-        Name = 'TGDS_DTLIndex1'
-        Fields = 'ID_GDS_DTL'
-        Options = [ixPrimary, ixUnique]
-      end
-      item
-        Name = 'description_asc'
-        Fields = 'Description'
-        Options = [ixCaseInsensitive]
-      end>
-    StoreDefs = True
+    IndexFieldNames = 'DESCRIPTION'
     TableName = 'Goods_detail.db'
     Left = 164
     Top = 8
@@ -200,10 +114,6 @@ object DBmod: TDBmod
       LookupResultField = 'NAME'
       KeyFields = 'ID_OKEY'
       Lookup = True
-    end
-    object TGDS_DTLIMAGE: TGraphicField
-      FieldName = 'IMAGE'
-      BlobType = ftGraphic
     end
     object TGDS_DTLImageType: TIntegerField
       FieldKind = fkCalculated
@@ -1234,10 +1144,6 @@ object DBmod: TDBmod
     end
     object TGoodsWebUpdateWARE_NUM: TIntegerField
       FieldName = 'WARE_NUM'
-    end
-    object TGoodsWebUpdateIMAGE: TGraphicField
-      FieldName = 'IMAGE'
-      BlobType = ftGraphic
     end
     object TGoodsWebUpdateDEL: TIntegerField
       FieldName = 'DEL'

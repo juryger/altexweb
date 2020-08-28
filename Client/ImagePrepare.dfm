@@ -20,8 +20,8 @@ object ImageEditorForm: TImageEditorForm
   object Label1: TLabel
     Left = 8
     Top = 8
-    Width = 401
-    Height = 26
+    Width = 139
+    Height = 13
     Caption = #1048#1089#1093#1086#1076#1085#1086#1077' '#1080#1079#1086#1073#1088#1072#1078#1077#1085#1080#1077
     Font.Charset = RUSSIAN_CHARSET
     Font.Color = clWindowText
@@ -34,8 +34,8 @@ object ImageEditorForm: TImageEditorForm
   object Label2: TLabel
     Left = 424
     Top = 8
-    Width = 393
-    Height = 26
+    Width = 150
+    Height = 13
     Caption = #1055#1088#1077#1076#1087#1088#1086#1089#1084#1086#1090#1088' '#1080#1079#1084#1077#1085#1077#1085#1080#1081
     Font.Charset = RUSSIAN_CHARSET
     Font.Color = clWindowText

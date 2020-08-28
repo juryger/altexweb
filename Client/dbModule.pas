@@ -79,7 +79,6 @@ type
     TOKEYVALUE: TStringField;
     TGDS_DTLID_OKEY: TIntegerField;
     TGDS_DTLUnitMeasuring: TStringField;
-    TGDS_DTLIMAGE: TGraphicField;
     TGDS_DTLImageType: TIntegerField;
     QNaklCokey: TStringField;
     QNaklUnit: TStringField;
@@ -161,7 +160,6 @@ type
     TGoodsWebUpdateID_OKEY: TIntegerField;
     TGoodsWebUpdateDESCRIPTION: TStringField;
     TGoodsWebUpdateWARE_NUM: TIntegerField;
-    TGoodsWebUpdateIMAGE: TGraphicField;
     TGoodsWebUpdateDEL: TIntegerField;
     TGoodsWebUpdatePACK_NUM: TIntegerField;
     TGoodsWebUpdateUPLOADED: TIntegerField;
@@ -282,6 +280,7 @@ type
   private
     { Private declarations }
     function DefineImageHeight(): integer;
+    procedure DeleteImageFile();
   public
     { Public declarations }
     //id_cust: integer;
@@ -379,18 +378,18 @@ begin
          whsp3 := 20;
 
        // расчет оптовых цен на основе цены закупки и накруток
-       if (TGDS_DTL.FieldByName('COST_PURCH').Value > 0) then
-       begin
-         if (TGDS_DTL.FieldByName('COST_WHS1').Value = 0) then
+       //if (TGDS_DTL.FieldByName('COST_PURCH').Value > 0) then
+       //begin
+         //if (TGDS_DTL.FieldByName('COST_WHS1').Value = 0) then
             TGDS_DTL.FieldByName('COST_WHS1').Value :=
                TGDS_DTL.FieldByName('COST_PURCH').Value + TGDS_DTL.FieldByName('COST_PURCH').Value * whsp1 / 100;
-         if (TGDS_DTL.FieldByName('COST_WHS2').Value = 0) then
+         //if (TGDS_DTL.FieldByName('COST_WHS2').Value = 0) then
             TGDS_DTL.FieldByName('COST_WHS2').Value :=
                TGDS_DTL.FieldByName('COST_PURCH').Value + TGDS_DTL.FieldByName('COST_PURCH').Value * whsp2 / 100;
-         if (TGDS_DTL.FieldByName('COST_WHS3').Value = 0) then
+         //if (TGDS_DTL.FieldByName('COST_WHS3').Value = 0) then
             TGDS_DTL.FieldByName('COST_WHS3').Value :=
                TGDS_DTL.FieldByName('COST_PURCH').Value + TGDS_DTL.FieldByName('COST_PURCH').Value * whsp3 / 100;
-       end;
+       //end;
 
       TGDS_DTLUPLOADED.Value := 0;
 
@@ -410,9 +409,6 @@ begin
         end;
 
       end;
-      //TGDS_SGRP.Edit;
-      //TGDS_SGRPUPLOADED.Value := 0;
-      //TGDS_SGRP.Post;
    end;
 end;
 
@@ -610,9 +606,12 @@ begin
 end;
 
 procedure TDBmod.TGDS_DTLBeforeDelete(DataSet: TDataSet);
-var
-   blobStream: TBlobStream;
+//var
+   //blobStream: TBlobStream;
 begin
+    DeleteImageFile();
+    {
+    // NOTE: old implementaion based on storing images at database as blobs
     If (DBmod.TGDS_DTLIMAGE.BlobSize > 0) then
     begin
       DBmod.TGDS_DTL.Edit;
@@ -623,6 +622,24 @@ begin
       blobStream.Truncate;
       blobStream.Free;
       DBmod.TGDS_DTL.Post;
+    end;
+    }
+end;
+
+procedure TDBmod.DeleteImageFile();
+var
+    imageFile: string;
+begin
+    imageFile := '..\images\' + DBMod.TGDS_DTLID_GDS_DTL.AsString + '.jpg';
+    try
+        if FileExists(imageFile) then
+        begin
+            DeleteFile(imageFile);
+        end;
+    except
+        on E: Exception do
+            ShowMessage('При удалении изображения возникла ошибка = ' +
+                E.Message + ' Обратитесь к разработчику.');
     end;
 end;
 

@@ -90,7 +90,7 @@ begin
       begin
          PriceForm.Left := 0;
          PriceForm.Top := 0;
-         PriceForm.Width := 800;
+         PriceForm.Width := 500;
       end;
    end;
    if (not IsNaklClosed) then

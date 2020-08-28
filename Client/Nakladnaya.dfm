@@ -20,7 +20,7 @@ object NaklForm: TNaklForm
   TextHeight = 13
   object Splitter1: TSplitter
     Left = 0
-    Top = 350
+    Top = 222
     Width = 1299
     Height = 3
     Cursor = crVSplit
@@ -30,15 +30,15 @@ object NaklForm: TNaklForm
     Left = 0
     Top = 0
     Width = 1299
-    Height = 350
+    Height = 222
     Align = alTop
     BevelOuter = bvNone
     TabOrder = 0
     object Panel2: TPanel
       Left = 0
-      Top = 45
+      Top = 46
       Width = 1299
-      Height = 305
+      Height = 176
       Align = alClient
       BevelInner = bvRaised
       BevelOuter = bvLowered
@@ -47,7 +47,7 @@ object NaklForm: TNaklForm
         Left = 2
         Top = 2
         Width = 1295
-        Height = 301
+        Height = 172
         Align = alClient
         AllowedOperations = [alopInsertEh, alopUpdateEh, alopAppendEh]
         DataSource = DBmod.DCST
@@ -130,7 +130,7 @@ object NaklForm: TNaklForm
       Left = 0
       Top = 0
       Width = 1299
-      Height = 22
+      Height = 23
       Align = alTop
       BevelOuter = bvNone
       TabOrder = 1
@@ -256,7 +256,7 @@ object NaklForm: TNaklForm
     end
     object Panel3: TPanel
       Left = 0
-      Top = 22
+      Top = 23
       Width = 1299
       Height = 23
       Align = alTop
@@ -292,7 +292,7 @@ object NaklForm: TNaklForm
       end
       object resetClientSearchButton: TSpeedButton
         Left = 317
-        Top = 2
+        Top = 1
         Width = 20
         Height = 21
         Hint = #1057#1073#1088#1086#1089#1080#1090#1100' '#1087#1086#1080#1089#1082
@@ -331,18 +331,18 @@ object NaklForm: TNaklForm
   end
   object Panel5: TPanel
     Left = 0
-    Top = 353
+    Top = 225
     Width = 1299
-    Height = 300
+    Height = 428
     Align = alClient
     BevelInner = bvRaised
     BevelOuter = bvLowered
     TabOrder = 1
     object DBGridEh3: TDBGridEh
       Left = 2
-      Top = 77
+      Top = 73
       Width = 1295
-      Height = 221
+      Height = 353
       Align = alClient
       AllowedOperations = [alopUpdateEh]
       DataSource = DBmod.DSLS_DTL
@@ -446,7 +446,7 @@ object NaklForm: TNaklForm
     end
     object Panel6: TPanel
       Left = 2
-      Top = 27
+      Top = 25
       Width = 1295
       Height = 25
       Align = alTop
@@ -683,14 +683,14 @@ object NaklForm: TNaklForm
       Left = 2
       Top = 2
       Width = 1295
-      Height = 25
+      Height = 23
       Align = alTop
       BevelInner = bvRaised
       BevelOuter = bvLowered
       TabOrder = 2
       object newOrderButton: TSpeedButton
         Left = 152
-        Top = 2
+        Top = 1
         Width = 20
         Height = 21
         Hint = #1057#1086#1079#1076#1072#1090#1100' '#1085#1086#1074#1099#1081' '#1079#1072#1082#1072#1079' '#1087#1086' '#1074#1099#1073#1088#1072#1085#1085#1086#1084#1091' '#1082#1083#1080#1077#1085#1090#1091
@@ -720,7 +720,7 @@ object NaklForm: TNaklForm
       end
       object deleteOrderButton: TSpeedButton
         Left = 173
-        Top = 2
+        Top = 1
         Width = 20
         Height = 21
         Hint = #1059#1076#1072#1083#1080#1090#1100' '#1074#1099#1073#1088#1072#1085#1085#1099#1081' '#1079#1072#1082#1072#1079
@@ -791,7 +791,7 @@ object NaklForm: TNaklForm
         Left = 69
         Top = 2
         Width = 81
-        Height = 21
+        Height = 19
         EditButtons = <>
         KeyField = 'ID_SAL_GRP'
         ListField = 'OrderNo'
@@ -804,7 +804,7 @@ object NaklForm: TNaklForm
         Left = 238
         Top = 1
         Width = 121
-        Height = 21
+        Height = 19
         Color = 16245198
         ReadOnly = True
         TabOrder = 1
@@ -813,7 +813,7 @@ object NaklForm: TNaklForm
         Left = 451
         Top = 1
         Width = 121
-        Height = 21
+        Height = 19
         Color = 16245198
         ReadOnly = True
         TabOrder = 2
@@ -821,9 +821,9 @@ object NaklForm: TNaklForm
     end
     object Panel4: TPanel
       Left = 2
-      Top = 52
+      Top = 50
       Width = 1295
-      Height = 25
+      Height = 23
       Align = alTop
       BevelInner = bvRaised
       BevelOuter = bvLowered
@@ -857,7 +857,7 @@ object NaklForm: TNaklForm
       end
       object resetSearchButton: TSpeedButton
         Left = 243
-        Top = 2
+        Top = 1
         Width = 20
         Height = 21
         Hint = #1057#1073#1088#1086#1089#1080#1090#1100' '#1087#1086#1080#1089#1082

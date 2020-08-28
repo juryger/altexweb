@@ -108,7 +108,7 @@ type
     procedure SaveStoreInternal(gds_id: Integer; income: Integer; outcome: Integer);
     procedure RefreshSubgroupsTable();
     procedure RefreshGoodsDetailsTable();
-    procedure ExportImageToFile(fileName: string; blobStream: TBlobStream; canFreeBlob: boolean);
+    procedure ExportImageToFile();
     function ShellExecAndWait(ExeFile: string; Parameters: string = ''; ShowWindow: Word = SW_SHOWNORMAL): DWord;
     function SplitString(const Original: String; Splitter: Char): TStringList;
     procedure SerializeDiscountsUpdate(updatesRoot: IXMLNode);
@@ -444,7 +444,6 @@ end;
 procedure TPriceForm.popupItemClearPictureClick(Sender: TObject);
 begin
     // NOTE: images are stored as files not at database
-    //ClearImageInternal();
     DeleteImageFile();
 end;
 
@@ -456,16 +455,15 @@ begin
    ImageEditorForm := TImageEditorForm.Create(Application);
 
    // NOTE: images are stored as files not at database
+   ImageEditorForm.imgFileName := '..\images\' + DBmod.TGDS_DTLID_GDS_DTL.AsString + '.jpg';
 
    //blobStream :=
    //     DBmod.TGDS_DTL.CreateBlobStream(
    //         DBmod.TGDS_DTL.FieldByName('IMAGE'), bmRead) as TBlobStream;
    try
       //blobStream.Seek(0, soFromBeginning);
-
-      ImageEditorForm.imgImage := TImage.Create(ImageEditorForm);
+      //ImageEditorForm.imgImage := TImage.Create(ImageEditorForm);
       //ImageEditorForm.imgImage.Picture.Bitmap.LoadFromStream(blobStream);
-      ImageEditorForm.imgImage.Picture.Bitmap.LoadFromFile('..\images\' + DBmod.TGDS_DTLID_GDS_DTL.AsString + '.jpg');
    finally
         //if blobStream <> nil then
         //    blobStream.Free;
@@ -516,20 +514,22 @@ end;
 
 procedure TPriceForm.ClearImageInternal();
 var
-   blobStream: TBlobStream;
+    blobStream: TBlobStream;
 begin
-    If (DBmod.TGDS_DTLIMAGE.BlobSize > 0) then
-    begin
+    try
         DBmod.TGDS_DTL.Edit;
 
-        blobStream :=
-            DBmod.TGDS_DTL.CreateBlobStream(
-                DBmod.TGDS_DTL.FieldByName('IMAGE'), bmWrite) as TBlobStream;
+        blobStream := DBmod.TGDS_DTL.CreateBlobStream(
+            DBmod.TGDS_DTL.FieldByName('IMAGE'), bmWrite) as TBlobStream;
+
         blobStream.Seek(0, soFromBeginning);
         blobStream.Truncate;
-        blobStream.Free;
+    finally
+        if blobStream <> nil then
+        begin
+            blobStream.Free;
+        end;
 
-        DBmod.TGDS_DTLIMAGE_SET.Value := 1;
         DBmod.TGDS_DTL.Post;
     end;
 end;
@@ -649,11 +649,15 @@ end;
 
 procedure TPriceForm.DBGridEh1KeyUp(Sender: TObject; var Key: Word;
   Shift: TShiftState);
+var
+    imageFile: string;
 begin
+    imageFile := '..\images\' + DBMod.TGDS_DTLID_GDS_DTL.AsString + '.jpg';
+
     // F3 pressed (просмотр изображения/задание нового)
     If (Key = 114) then
     begin
-        If (DBmod.TGDS_DTLIMAGE.BlobSize > 0) then
+        if FileExists(imageFile) then
             popupItemViewPictureClick(Self)
         else
             popupItemSetPictureClick(Self);
@@ -661,7 +665,7 @@ begin
     end;
 
     // F8 pressed (удаление изображения)
-    If (Key = 119) And (DBmod.TGDS_DTLIMAGE.BlobSize > 0) then
+    If (Key = 119) And FileExists(imageFile) then
     begin
         if MessageDlg('Подтверждаете удаление изображения?',
             mtConfirmation, [mbYes, mbNo], 0) = mrYes then
@@ -1156,43 +1160,18 @@ procedure TPriceForm.deleteBadBlobClick(Sender: TObject);
 var
    i: integer;
    blobStream: TBlobStream;
-   img: TImage;
 begin
-    img := TImage.Create(Self);
-
-    DBmod.TGDS_DTL.First;
-    for i:=1 to DBmod.TGDS_DTL.RecordCount do
+    {DBmod.TGDS_DTL.First;
+    DBmod.TGDS_DTL.Next;
+    for i:=1 + 1 to DBmod.TGDS_DTL.RecordCount do
     begin
         if DBmod.TGDS_DTLIMAGE.BlobSize > 0 then
         begin
-            blobStream :=
-                DBmod.TGDS_DTL.CreateBlobStream(
-                    DBmod.TGDS_DTL.FieldByName('IMAGE'), bmRead) as TBlobStream;
-            //try
-            //    try
-            //        blobStream.Seek(0, soFromBeginning);
-            //        img.Picture.Bitmap.LoadFromStream(blobStream);
-            //    except
-            //        on E: Exception do
-            //        begin
-            //            popupItemClearPictureClick(Self);
-            //            ShowMessage('Удалено изображение для записи: ' + DBmod.TGDS_GRP.FieldByName('ID_GDS_DTL').AsString);
-            //        end;
-            //    end;
-            //finally
-            //    if blobStream <> nil then
-            //        blobStream.Free;
-            //end;
-
-            try
-                ExportImageToFile('..\images\' + DBmod.TGDS_DTLID_GDS_DTL.AsString + '.jpg', blobStream, false);
-            finally
-                if blobStream <> nil then
-                    blobStream.Free;
-            end;
+            ExportImageToFile();
+            ClearImageInternal();
         end;
         DBmod.TGDS_DTL.Next;
-    end;
+    end;}
 end;
 
 function TPriceForm.SplitString(const Original: String; Splitter: Char): TStringList;
@@ -1355,9 +1334,6 @@ begin
                         srcImageFile := '..\images\' + DBmod.QGoodsWebID_GDS_DTL.AsString + '.jpg';
                         dstImageFile := exportDir + '\' + DBmod.QGoodsWebID_GDS_DTL.AsString + '.jpg';
                         CopyFile(PChar(srcImageFile), PChar(dstImageFile), true);
-                        //blobStream :=DBmod.QGoodsWeb.CreateBlobStream(
-                        //    DBmod.QGoodsWeb.FieldByName('IMAGE'), bmRead) as TBlobStream;
-                        //ExportImageToFile(exportDir + '\' + DBmod.QGoodsWebID_GDS_DTL.AsString + '.jpg', blobStream, true);
                     end;
 
                     goodsItem := subGroupItem.AddChild('GoodsItem');
@@ -1465,44 +1441,49 @@ begin
 end;
 
 function TPriceForm.ShellExecAndWait(ExeFile: string; Parameters: string = ''; ShowWindow: Word = SW_SHOWNORMAL): DWord;
-  //----------------------------------------
-  procedure WaitFor(processHandle: THandle);
-  var
-    AMessage : TMsg;
-    Result   : DWord;
-  begin
-    repeat
-      Result := MsgWaitForMultipleObjects(1,
+    //----------------------------------------
+    procedure WaitFor(processHandle: THandle);
+    var
+        AMessage : TMsg;
+        Result   : DWord;
+    begin
+        repeat
+            Result := MsgWaitForMultipleObjects(1,
                                           processHandle,
                                           False,
                                           INFINITE,
                                           QS_PAINT or
                                           QS_SENDMESSAGE);
-      if Result = WAIT_FAILED then
-        Exit;
-      if Result = ( WAIT_OBJECT_0 + 1 ) then
-      begin
-        while PeekMessage(AMessage, 0, WM_PAINT, WM_PAINT, PM_REMOVE) do
-          DispatchMessage(AMessage);
-      end;
-    until result = WAIT_OBJECT_0;
-  end;
-  //----------------------------------------
+            if Result = WAIT_FAILED then
+            begin
+                Exit;
+            end;
+
+            if Result = ( WAIT_OBJECT_0 + 1 ) then
+            begin
+                while PeekMessage(AMessage, 0, WM_PAINT, WM_PAINT, PM_REMOVE) do
+                begin
+                  DispatchMessage(AMessage);
+                end;
+            end;
+        until result = WAIT_OBJECT_0;
+    end;
+    //----------------------------------------
 var
-  ExecuteCommand: array[0 .. 512] of Char;
-  PathToExeFile : string;
-  StartUpInfo   : TStartupInfo;
-  ProcessInfo   : TProcessInformation;
-  ProcessExitCode: DWord;
+    ExecuteCommand: array[0 .. 512] of Char;
+    PathToExeFile : string;
+    StartUpInfo   : TStartupInfo;
+    ProcessInfo   : TProcessInformation;
+    ProcessExitCode: DWord;
 begin
-   Result := 0;
-   StrPCopy(ExecuteCommand , ExeFile + ' ' + Parameters);
-   FillChar(StartUpInfo, SizeOf(StartUpInfo), #0);
-   StartUpInfo.cb  := SizeOf(StartUpInfo);
-   StartUpInfo.dwFlags := STARTF_USESHOWWINDOW;
-   StartUpInfo.wShowWindow := ShowWindow;//SW_SHOWNORMAL; //SW_MINIMIZE;
-   PathToExeFile := ExtractFileDir(ExeFile);
-   if CreateProcess(nil,
+    Result := 0;
+    StrPCopy(ExecuteCommand , ExeFile + ' ' + Parameters);
+    FillChar(StartUpInfo, SizeOf(StartUpInfo), #0);
+    StartUpInfo.cb  := SizeOf(StartUpInfo);
+    StartUpInfo.dwFlags := STARTF_USESHOWWINDOW;
+    StartUpInfo.wShowWindow := ShowWindow;//SW_SHOWNORMAL; //SW_MINIMIZE;
+    PathToExeFile := ExtractFileDir(ExeFile);
+    if CreateProcess(nil,
                    ExecuteCommand,
                    nil,
                    nil,
@@ -1512,44 +1493,60 @@ begin
                    PChar(PathToExeFile),
                    StartUpInfo,
                    ProcessInfo) then
-   begin
-      WaitFor(ProcessInfo.hProcess);
+    begin
+        WaitFor(ProcessInfo.hProcess);
 
-      if Windows.GetExitCodeProcess(ProcessInfo.hProcess, ProcessExitCode) then
-         Result := ProcessExitCode;
-   end
-   else
-      Result := 99;
+        if Windows.GetExitCodeProcess(ProcessInfo.hProcess, ProcessExitCode) then
+            Result := ProcessExitCode;
+    end
+    else
+        Result := 99;
 end;
 
-procedure TPriceForm.ExportImageToFile(fileName: string; blobStream: TBlobStream; canFreeBlob: boolean);
+procedure TPriceForm.ExportImageToFile();
 var
     img: TImage;
     jpg: TJPEGImage;
+    blobStream: TBlobStream;
+    imageFile: string;
 begin
-   try
-      if blobStream.Size <> 0 then
-      begin
-        blobStream.Seek(0, soFromBeginning);
+    {if DBmod.TGDS_DTLIMAGE.BlobSize = 0 then
+    begin
+        exit;
+    end;
 
-        img := TImage.Create(self);
-        img.Picture.Bitmap.LoadFromStream(blobStream);
+    imageFile := '..\images\' + DBMod.TGDS_DTLID_GDS_DTL.AsString + '.jpg';
+    try
+        blobStream := DBmod.TGDS_DTL.CreateBlobStream(
+                    DBmod.TGDS_DTL.FieldByName('IMAGE'), bmRead) as TBlobStream;
 
-        jpg := TJPEGImage.Create;
-        jpg.Assign(img.Picture.Bitmap);
-        jpg.SaveToFile(fileName);
-        //img.Picture.SaveToFile(fileName);
-      end;
-   finally
+        if blobStream.Size <> 0 then
+        begin
+            blobStream.Seek(0, soFromBeginning);
+
+            img := TImage.Create(self);
+            img.Picture.Bitmap.LoadFromStream(blobStream);
+
+            jpg := TJPEGImage.Create;
+            jpg.Assign(img.Picture.Bitmap);
+            jpg.SaveToFile(imageFile);
+        end;
+    finally
+        if blobStream <> nil then
+        begin
+            blobStream.Free;
+        end;
+
         if img <> nil then
+        begin
             img.Free;
+        end;
 
         if jpg <> nil then
-             jpg.Free;
-
-        if (blobStream <> nil) AND (canFreeBlob = true) then
-            blobStream.Free;
-   end;
+        begin
+            jpg.Free;
+        end;
+   end;}
 end;
 
 procedure TPriceForm.popupItemStoreClick(Sender: TObject);
