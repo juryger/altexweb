@@ -96,7 +96,6 @@ type
     QCatalogExcel: TQuery;
     DQCatalogExcel: TDataSource;
     QCatalogExcelID_GDS_DTL: TIntegerField;
-    QCatalogExcelIMAGE: TGraphicField;
     XLSExportNakladnayaDataSource: TXLSExportDataSource;
     DQNakladnayaExcel: TDataSource;
     ExportNakladnayaExcelFile: TXLSExportFile;
@@ -167,7 +166,6 @@ type
     QGoodsWebID_GDS_SGRP: TIntegerField;
     QGoodsWebDESCRIPTION: TStringField;
     QGoodsWebMeasureUnits: TStringField;
-    QGoodsWebIMAGE: TGraphicField;
     QGoodsWebPACK_NUM: TIntegerField;
     QGoodsWebDEL: TIntegerField;
     TGDS_DTLWeb: TIntegerField;
@@ -231,7 +229,6 @@ type
     TSLS_GRPCashlessPayment: TIntegerField;
     TGDS_DTLMIN_PACK: TIntegerField;
     QPriceID_GDS_DTL: TIntegerField;
-    QPriceIMAGE: TGraphicField;
     QPricedtl_description: TStringField;
     QPriceCOST_WHS1: TCurrencyField;
     QPriceCOST_WHS2: TCurrencyField;
@@ -545,18 +542,17 @@ function TDBmod.DefineImageHeight(): integer;
    //ms: TMemoryStream;
    //image: TBitmap;
 begin
+   // возвращается стандратный размер (экономия накладных расходов)
+   Result := 70;
 
+   // при необходимости раскомментируйте
+   {
    if QPriceIMAGE.BlobSize <= 0 then
    begin
       Result := 0;
       exit;
    end;
 
-   // возвращается стандратный размер (экономия накладных расходов)
-   Result := 70;
-
-   // при необходимости раскомментируйте
-   {
    blobStream :=
       QPrice.CreateBlobStream(
          QPrice.FieldByName('IMAGE'), bmRead) as TBlobStream;

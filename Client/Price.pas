@@ -537,26 +537,37 @@ end;
 procedure TPriceForm.SaveImageAsFile(bitMap: TBitmap);
 var
     imageFile: string;
+    jpg: TJPEGImage;
 begin
     if (bitMap = nil) then
         raise Exception.Create('SaveImageInternal, bitMap not defined.');
 
     imageFile := '..\images\' + DBMod.TGDS_DTLID_GDS_DTL.AsString + '.jpg';
     try
-        if FileExists(imageFile) then
-        begin
-            DeleteFile(imageFile);
+        try
+            if FileExists(imageFile) then
+            begin
+                DeleteFile(imageFile);
+            end;
+
+            //bitMap.SaveToFile(imageFile);
+            jpg := TJPEGImage.Create;
+            jpg.Assign(bitMap);
+            jpg.SaveToFile(imageFile);
+
+            DBmod.TGDS_DTL.Edit;
+            DBmod.TGDS_DTLIMAGE_SET.Value := 1;
+            DBmod.TGDS_DTL.Post;
+        except
+            on E: Exception do
+                ShowMessage('При сохранении изображения возникла ошибка = ' +
+                    E.Message + ' Обратитесь к разработчику.');
         end;
-
-        bitMap.SaveToFile(imageFile);
-
-        DBmod.TGDS_DTL.Edit;
-        DBmod.TGDS_DTLIMAGE_SET.Value := 1;
-        DBmod.TGDS_DTL.Post;
-    except
-        on E: Exception do
-            ShowMessage('При сохранении изображения возникла ошибка = ' +
-                E.Message + ' Обратитесь к разработчику.');
+    finally
+        if jpg <> nil then
+        begin
+            jpg.Free;
+        end;
     end;
 end;
 

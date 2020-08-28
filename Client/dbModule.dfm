@@ -207,11 +207,11 @@ object DBmod: TDBmod
     DatabaseName = 'AGCompound'
     SQL.Strings = (
       
-        'SELECT Goods_detail.ID_GDS_DTL, Goods_detail.IMAGE, Goods_detail' +
-        '.DESCRIPTION as dtl_description, Goods_detail.COST_WHS1, Goods_d' +
-        'etail.COST_WHS2, Goods_detail.COST_WHS3, Goods_detail.PACK_NUM, ' +
-        'Goods_detail.MIN_PACK, Goods_group.DESCRIPTION + " > " + Goods_s' +
-        'ubgroup.DESCRIPTION as sgrp_description'
+        'SELECT Goods_detail.ID_GDS_DTL, Goods_detail.DESCRIPTION as dtl_' +
+        'description, Goods_detail.COST_WHS1, Goods_detail.COST_WHS2, Goo' +
+        'ds_detail.COST_WHS3, Goods_detail.PACK_NUM, Goods_detail.MIN_PAC' +
+        'K, Goods_group.DESCRIPTION + " > " + Goods_subgroup.DESCRIPTION ' +
+        'as sgrp_description'
       'FROM "Goods_detail.DB" Goods_detail'
       '   INNER JOIN "Goods_subgroup.db" Goods_subgroup'
       '   ON  (Goods_subgroup.ID_GDS_SGRP = Goods_detail.ID_GDS_SGRP)'
@@ -236,10 +236,6 @@ object DBmod: TDBmod
     object QPricedtl_description: TStringField
       FieldName = 'dtl_description'
       Size = 100
-    end
-    object QPriceIMAGE: TGraphicField
-      FieldName = 'IMAGE'
-      BlobType = ftGraphic
     end
     object QPricePACK_NUM: TIntegerField
       FieldName = 'PACK_NUM'
@@ -746,7 +742,7 @@ object DBmod: TDBmod
   object QCatalogExcel: TQuery
     DatabaseName = 'AGCompound'
     SQL.Strings = (
-      'SELECT Goods_detail.ID_GDS_DTL, Goods_detail.IMAGE'
+      'SELECT Goods_detail.ID_GDS_DTL'
       'FROM "Goods_detail.DB" Goods_detail'
       'WHERE Goods_detail.DEL <> 1'
       'ORDER BY Goods_detail.ID_GDS_DTL'
@@ -756,11 +752,6 @@ object DBmod: TDBmod
     object QCatalogExcelID_GDS_DTL: TIntegerField
       FieldName = 'ID_GDS_DTL'
       Origin = 'AGCOMPOUND."Goods_detail.DB".ID_GDS_DTL'
-    end
-    object QCatalogExcelIMAGE: TGraphicField
-      FieldName = 'IMAGE'
-      Origin = 'AGCOMPOUND."Goods_detail.DB".IMAGE'
-      BlobType = ftGraphic
     end
   end
   object DQCatalogExcel: TDataSource
@@ -1010,8 +1001,8 @@ object DBmod: TDBmod
         'SELECT Goods_detail.ID_GDS_DTL, Goods_detail.ID_GDS_SGRP, Goods_' +
         'detail.DESCRIPTION, OkeyCodes.Name MeasureUnits, Goods_detail.CO' +
         'ST_WHS1, Goods_detail.COST_WHS2, Goods_detail.COST_WHS3, Goods_d' +
-        'etail.IMAGE, Goods_detail.PACK_NUM, Goods_detail.MIN_PACK, Goods' +
-        '_detail.DEL, Goods_detail.IMAGE_SET'
+        'etail.PACK_NUM, Goods_detail.MIN_PACK, Goods_detail.DEL, Goods_d' +
+        'etail.IMAGE_SET'
       'FROM "Goods_detail.DB" Goods_detail'
       '   INNER JOIN "OkeyCodes.db" OkeyCodes'
       '   ON  (Goods_detail.ID_OKEY = OkeyCodes.ID_OKEY)'
@@ -1045,11 +1036,6 @@ object DBmod: TDBmod
       FieldName = 'MeasureUnits'
       Origin = 'AGCOMPOUND."OkeyCodes.DB".NAME'
       Size = 10
-    end
-    object QGoodsWebIMAGE: TGraphicField
-      FieldName = 'IMAGE'
-      Origin = 'AGCOMPOUND."Goods_detail.DB".IMAGE'
-      BlobType = ftGraphic
     end
     object QGoodsWebPACK_NUM: TIntegerField
       FieldName = 'PACK_NUM'
