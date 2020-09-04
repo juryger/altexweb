@@ -365,28 +365,38 @@ begin
          whsp1 := TDiscounts.FieldByName('PROFIT_PERCENTAGE').Value
        else
          whsp1 := 50;
+
        if (TDiscounts.Locate('ID_COST_DCT',2,[])) then
          whsp2 := TDiscounts.FieldByName('PROFIT_PERCENTAGE').Value
        else
          whsp2 := 30;
+
        if (TDiscounts.Locate('ID_COST_DCT',3,[])) then
          whsp3 := TDiscounts.FieldByName('PROFIT_PERCENTAGE').Value
        else
          whsp3 := 20;
 
        // расчет оптовых цен на основе цены закупки и накруток
-       //if (TGDS_DTL.FieldByName('COST_PURCH').Value > 0) then
-       //begin
-         //if (TGDS_DTL.FieldByName('COST_WHS1').Value = 0) then
+       if (TGDS_DTL.FieldByName('COST_PURCH').Value > 0) then
+       begin
+         if ((TGDS_DTL.FieldByName('COST_WHS1').IsNull = True) or (TGDS_DTL.FieldByName('COST_WHS1').Value = 0)) then
+         begin
             TGDS_DTL.FieldByName('COST_WHS1').Value :=
                TGDS_DTL.FieldByName('COST_PURCH').Value + TGDS_DTL.FieldByName('COST_PURCH').Value * whsp1 / 100;
-         //if (TGDS_DTL.FieldByName('COST_WHS2').Value = 0) then
+         end;
+
+         if ((TGDS_DTL.FieldByName('COST_WHS2').IsNull = True) or (TGDS_DTL.FieldByName('COST_WHS2').Value = 0)) then
+         begin
             TGDS_DTL.FieldByName('COST_WHS2').Value :=
                TGDS_DTL.FieldByName('COST_PURCH').Value + TGDS_DTL.FieldByName('COST_PURCH').Value * whsp2 / 100;
-         //if (TGDS_DTL.FieldByName('COST_WHS3').Value = 0) then
+         end;
+
+         if ((TGDS_DTL.FieldByName('COST_WHS3').IsNull = True) or (TGDS_DTL.FieldByName('COST_WHS3').Value = 0)) then
+         begin
             TGDS_DTL.FieldByName('COST_WHS3').Value :=
-               TGDS_DTL.FieldByName('COST_PURCH').Value + TGDS_DTL.FieldByName('COST_PURCH').Value * whsp3 / 100;
-       //end;
+                TGDS_DTL.FieldByName('COST_PURCH').Value + TGDS_DTL.FieldByName('COST_PURCH').Value * whsp3 / 100;
+         end;
+       end;
 
       TGDS_DTLUPLOADED.Value := 0;
 
