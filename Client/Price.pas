@@ -120,9 +120,10 @@ type
 var
     PriceForm: TPriceForm;
     imgIndexes: TStringList;
-    subGroupsMain: String;
     showDeletedRecords: boolean;
-    
+    const groupMain: String = '(все)';
+    const subGroupMain: String = '(прочее)';
+
 implementation
 
 uses BeforePricePrint, fullImageView, ShellAPI, XLSFormat, FILECTRL
@@ -173,7 +174,7 @@ begin
    end;
 
    // представление "Все записи"
-   if DBmod.TGDS_GRP.FieldByName('DESCRIPTION').AsString = '*' then
+   if DBmod.TGDS_GRP.FieldByName('DESCRIPTION').AsString = groupMain then
    begin
       DBmod.TGDS_SGRP.Filtered := false;
       DBmod.TGDS_SGRP.Filter := 'ID_GDS_GRP=-1' + deletedRecordsFilter;
@@ -203,7 +204,7 @@ begin
    if DBmod.TGDS_SGRP.RecordCount = 0 then begin
         DBmod.TGDS_SGRP.Insert();
         DBmod.TGDS_SGRP.FieldByName('ID_GDS_GRP').Value := DBmod.TGDS_GRP.FieldByName('ID_GDS_GRP').Value;
-        DBmod.TGDS_SGRP.FieldByName('DESCRIPTION').Value := subGroupsMain;
+        DBmod.TGDS_SGRP.FieldByName('DESCRIPTION').Value := subGroupMain;
         DBmod.TGDS_SGRP.FieldByName('DEL').Value := '0';
         DBmod.TGDS_SGRP.Post();
    end;
@@ -307,7 +308,7 @@ begin
    }
    if (DBmod.TGDS_GRP.RecordCount=0)
     then exit;
-   if (DBmod.TGDS_GRP.FieldByName('DESCRIPTION').AsString = '*')
+   if (DBmod.TGDS_GRP.FieldByName('DESCRIPTION').AsString = groupMain)
     then exit;
 
    if MessageDlg('Хотите удалить вид товаров <'+ DBmod.TGDS_GRP.FieldByName('DESCRIPTION').AsString+'> ?',
@@ -404,7 +405,8 @@ end;
 procedure TPriceForm.DBGridEh2KeyUp(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 begin
-   RefreshSubgroupsTable();
+    if (Key = 38) OR (Key = 40) OR (Key = 33) OR (Key = 34) then
+       RefreshSubgroupsTable();
 end;
 
 procedure TPriceForm.picturePopupMenuPopup(Sender: TObject);
@@ -973,7 +975,8 @@ end;
 procedure TPriceForm.DBGridEh3KeyUp(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 begin
-    RefreshGoodsDetailsTable();
+    if (Key = 38) OR (Key = 40) OR (Key = 33) OR (Key = 34) then
+        RefreshGoodsDetailsTable();
 end;
 
 procedure TPriceForm.FormCreate(Sender: TObject);
@@ -983,8 +986,6 @@ var
     i,j: Integer;
     settingsValue: String;
 begin
-   subGroupsMain := '(прочее)';
-
    // Определить параметр для показа записей помеченных как удаленные из файла настроек
 	showDeletedRecords := false;
 	settingsValue := GetSettingsParam(Self, 'ShowDeletedRecords');
@@ -994,7 +995,7 @@ begin
     DBmod.TGDS_GRP.First;
     For i:= 1 to DBmod.TGDS_GRP.RecordCount do
     begin
-        if DBmod.TGDS_GRP.FieldByName('DESCRIPTION').AsString <> '*' then
+        if DBmod.TGDS_GRP.FieldByName('DESCRIPTION').AsString <> groupMain then
         begin
             // добавить элементы в контекстное меню Группы
             mi := TMenuItem.Create(Self);
@@ -1104,7 +1105,7 @@ begin
       // колонка Цена доступна для редактирования всегда
       if (i = 7) then
          DBGridEh1.Columns.Items[i].ReadOnly := false
-      // колонки Группа/Подгруппа видны только когда выбрана группа '*'
+      // колонки Группа/Подгруппа видны только когда выбрана группа '(все)'
       else if (i = 11) OR (i = 12) then
          DBGridEh1.Columns.Items[i].Visible := flag
       else
@@ -1288,8 +1289,8 @@ begin
         //---------------------------------------------------
         for i := 1 to DBMod.QGroupsWeb.RecordCount do
         begin
-            // если группа с именем '*', не обрабатывать эту группу
-            if (DBmod.QGroupsWebDESCRIPTION.Value = '*') then
+            // если группа с именем '(все)', не обрабатывать эту группу
+            if (DBmod.QGroupsWebDESCRIPTION.Value = groupMain) then
             begin
                 DBMod.QGroupsWeb.Next;
                 continue;
