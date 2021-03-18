@@ -24,16 +24,12 @@ namespace Altech.DAL.Utilities
             {
                 counter += 1;
 
-                // Note: first discount is just normal price
-                if (counter == 1)
-                    continue;
-
                 var cost = item.StartSumm.ToString("C", CultureInfo.CreateSpecificCulture("ru-RU"));
 
                 // Note: last discount should be represent as Special price, not visible for public.
                 if (counter < sortedDiscounts.Count())
-                    sb.Append(string.Format(" Опт - от {0} |", cost.Substring(0, cost.Length - 1)));
-                else 
+                    sb.Append(string.Format(" Опт {0} - от {1} |", counter, cost.Substring(0, cost.Length - 1)));
+                else
                     sb.Append(string.Format(" Спеццена - от {0}", cost.Substring(0, cost.Length - 1)));
             }
 
